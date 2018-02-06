@@ -10,7 +10,29 @@ import Foundation
 
 public protocol Restrainable {}
 
-extension UIView: Restrainable {}
+extension UIView: Restrainable {
+    public func width(_ value: CGFloat,
+                      relation: NSLayoutRelation = .equal,
+                      priority: UILayoutPriority = .required) -> Width {
+        return Width(self,
+                     value: value,
+                     relation: relation,
+                     priority: priority)
+    }
+}
+
+public struct RestraintValue: Restrainable {
+    public init (_ view: UIView,
+                 value: CGFloat,
+                 relation: NSLayoutRelation = .equal,
+                 priority: UILayoutPriority = .required) {
+        self.view = view
+        self.modifier = RestraintModifier(value, relation: relation, priority: priority)
+    }
+    
+    public let view: UIView
+    public let modifier: RestraintModifier
+}
 
 public struct RestraintModifier: Restrainable, CustomStringConvertible {
     public init(_ value: CGFloat,
@@ -26,7 +48,7 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
     public let priority: UILayoutPriority
     
     public var description: String {
-        return "Space(\(relationString) \(value) @ \(priority.rawValue))"
+        return "Modifier(\(relationString) \(value) @ \(priority.rawValue))"
     }
     
     private var relationString: String {
@@ -41,7 +63,8 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
     }
 }
 
-typealias Space = RestraintModifier
+public typealias Space = RestraintModifier
+public typealias Width = RestraintValue
 
 public class Restraint<T: UIView> {
     public init(_ view: T, subRestraints: [Restraint] = []) {
@@ -62,14 +85,22 @@ public class Restraint<T: UIView> {
             subRestraints.forEach { $0.isActive = isActive }
         }
     }
+}
+
+public extension Restraint {
     
     enum Direction {
-        case vertical
         case horizontal
+        case vertical
+    }
+    
+    enum Size {
+        case width
+        case height
     }
     
     public func horizontal(_ views: [Restrainable]...) -> Restraint {
-        chain(restrainables: views, buildConstraint: { (v0, v1, modifiers) in
+        movingProcess(restrainables: views, buildConstraint: { (v0, v1, modifiers) in
             if modifiers.isEmpty {
                 let aConstraint = v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor)
                 constraints.append(aConstraint)
@@ -85,7 +116,7 @@ public class Restraint<T: UIView> {
     }
     
     public func vertical(_ views: [Restrainable]...) -> Restraint {
-        chain(restrainables: views, buildConstraint: { (v0, v1, modifiers) in
+        movingProcess(restrainables: views, buildConstraint: { (v0, v1, modifiers) in
             if modifiers.isEmpty {
                 let aConstraint = v0.topAnchor.constraint(equalTo: v1.bottomAnchor)
                 constraints.append(aConstraint)
@@ -99,10 +130,29 @@ public class Restraint<T: UIView> {
         
         return self
     }
+    
+    public func widths(_ values: [Width]...) -> Restraint {
+        process(restraintValues: values) { (view, modifier) in
+            let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
+            constraints.append(aConstraint)
+        }
+        
+        return self
+    }
 }
 
 fileprivate extension Restraint {
-    func chain(restrainables: [[Restrainable]],
+    func process(restraintValues: [[RestraintValue]],
+                 buildConstraint: (UIView, RestraintModifier) -> Void) {
+        
+        for values in restraintValues {
+            for value in values {
+                buildConstraint(value.view, value.modifier)
+            }
+        }
+    }
+    
+    func movingProcess(restrainables: [[Restrainable]],
                buildConstraint: (UIView, UIView, [RestraintModifier]) -> Void) {
         
         var restraintModifiers: [RestraintModifier] = []
@@ -111,7 +161,6 @@ fileprivate extension Restraint {
             var (view0, view1): (UIView?, UIView?) = (nil, nil)
             for restrainable in restrainableChain {
                 let view = restrainable as? UIView
-                
                 view0 = view
                 
                 if let modifier = restrainable as? RestraintModifier {
@@ -151,6 +200,34 @@ fileprivate extension Restraint {
                     return v0.leadingAnchor.constraint(lessThanOrEqualTo: v1.trailingAnchor, constant: modifier.value)
                 case .greaterThanOrEqual:
                     return v0.leadingAnchor.constraint(greaterThanOrEqualTo: v1.trailingAnchor, constant: modifier.value)
+                }
+            }
+        }()
+        aConstraint.priority = modifier.priority
+        
+        return aConstraint
+    }
+    
+    private func modifiedSizeConstraint(for size: Size, v0: UIView, modifier: RestraintModifier) -> NSLayoutConstraint {
+        let aConstraint: NSLayoutConstraint = {
+            switch size {
+            case .width:
+                switch modifier.relation {
+                case .equal:
+                    return v0.widthAnchor.constraint(equalToConstant: modifier.value)
+                case .lessThanOrEqual:
+                    return v0.widthAnchor.constraint(lessThanOrEqualToConstant: modifier.value)
+                case .greaterThanOrEqual:
+                    return v0.widthAnchor.constraint(greaterThanOrEqualToConstant: modifier.value)
+                }
+            case .height:
+                switch modifier.relation {
+                case .equal:
+                    return v0.heightAnchor.constraint(equalToConstant: modifier.value)
+                case .lessThanOrEqual:
+                    return v0.heightAnchor.constraint(lessThanOrEqualToConstant: modifier.value)
+                case .greaterThanOrEqual:
+                    return v0.heightAnchor.constraint(greaterThanOrEqualToConstant: modifier.value)
                 }
             }
         }()

@@ -39,6 +39,8 @@ class RestraintTests: XCTestCase {
         XCTAssert(viewRestraint.isActive == true)
     }
     
+    // MARK: - Vertical
+    
     func testVerticalChain() {
         let label1 = UILabel(), label2 = UILabel(), label3 = UILabel()
         let view = UIView()
@@ -133,6 +135,8 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint2.secondAttribute == .bottom)
     }
     
+    // MARK: - Horizontal
+    
     func testHorizontalChain() {
         let label1 = UILabel(), label2 = UILabel(), label3 = UILabel()
         let view = UIView()
@@ -225,5 +229,23 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint2.relation == .equal)
         XCTAssert(constraint2.firstAttribute == .leading)
         XCTAssert(constraint2.secondAttribute == .trailing)
+    }
+    
+    // MARK: - Sizing
+    
+    func testSetWidths() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        let expectedWidth1 = CGFloat(100), expectedWidth2 = CGFloat(50)
+        
+        let viewRestraint = Restraint(view)
+            .widths([view1.width(expectedWidth1), Width(view2, value: expectedWidth2)])
+        
+        viewRestraint.isActive = true
+        
+        let constraint1 = view1.constraints[0]
+        let constraint2 = view2.constraints[0]
+        XCTAssert(constraint1.constant == expectedWidth1)
+        XCTAssert(constraint2.constant == expectedWidth2)
     }
 }
