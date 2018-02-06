@@ -254,18 +254,18 @@ class RestraintTests: XCTestCase {
         let view = UIView()
         view.addSubviews(view1, view2)
         
-        let expectedWidthFactor1 = CGFloat(1.0/4.0), expectedWidthFactor2 = CGFloat(3.0/4.0)
+        let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
         let viewRestraint = Restraint(view)
-            .relativeWidths([view1.relativeWidth(expectedWidthFactor1, of: view),
-                             RelativeWidth(view2, multiple: expectedWidthFactor2, of: view)
+            .relativeWidths([view1.relativeWidth(expectedFactor1, of: view),
+                             RelativeWidth(view2, multiple: expectedFactor2, of: view)
                 ])
         
         viewRestraint.isActive = true
         
         let constraint1 = view.constraints[0]
         let constraint2 = view.constraints[1]
-        XCTAssert(constraint1.multiplier == expectedWidthFactor1)
-        XCTAssert(constraint2.multiplier == expectedWidthFactor2)
+        XCTAssert(constraint1.multiplier == expectedFactor1)
+        XCTAssert(constraint2.multiplier == expectedFactor2)
     }
     
     func testSetHeight() {
@@ -282,5 +282,24 @@ class RestraintTests: XCTestCase {
         let constraint2 = view2.constraints[0]
         XCTAssert(constraint1.constant == expectedHeight1)
         XCTAssert(constraint2.constant == expectedHeight2)
+    }
+    
+    func testSetRelativeHeights() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        view.addSubviews(view1, view2)
+        
+        let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
+        let viewRestraint = Restraint(view)
+            .relativeHeights([view1.relativeHeight(expectedFactor1, of: view),
+                             RelativeHeight(view2, multiple: expectedFactor2, of: view)
+                ])
+        
+        viewRestraint.isActive = true
+        
+        let constraint1 = view.constraints[0]
+        let constraint2 = view.constraints[1]
+        XCTAssert(constraint1.multiplier == expectedFactor1)
+        XCTAssert(constraint2.multiplier == expectedFactor2)
     }
 }

@@ -36,6 +36,13 @@ extension UIView: Restrainable {
         return factor(multiple, of: view, relation: relation, priority: priority)
     }
     
+    public func relativeHeight(_ multiple: CGFloat,
+                              of view: UIView,
+                              relation: NSLayoutRelation = .equal,
+                              priority: UILayoutPriority = .required) -> RelativeWidth {
+        return factor(multiple, of: view, relation: relation, priority: priority)
+    }
+    
     public func factor(_ multiple: CGFloat,
                        of view: UIView,
                        relation: NSLayoutRelation,
@@ -116,12 +123,6 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
         }
     }
 }
-
-// MARK: - Type Aliases
-public typealias Space = RestraintModifier
-public typealias Width = RestraintValue
-public typealias Height = RestraintValue
-public typealias RelativeWidth = RestraintRelation
 
 public class Restraint<T: UIView> {
     public init(_ view: T, subRestraints: [Restraint] = []) {
@@ -211,6 +212,15 @@ public extension Restraint {
     public func relativeWidths(_ relations: [RelativeWidth]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .width, v0: v0, v1: v1, modifier: modifier)
+            constraints.append(aConstraint)
+        }
+        
+        return self
+    }
+    
+    public func relativeHeights(_ relations: [RelativeHeight]...) -> Restraint {
+        process(restraintRelations: relations) { (v0, v1, modifier) in
+            let aConstraint = modifiedRelativeSizeConstraint(for: .height, v0: v0, v1: v1, modifier: modifier)
             constraints.append(aConstraint)
         }
         
@@ -309,11 +319,11 @@ fileprivate extension Restraint {
             case .height:
                 switch modifier.relation {
                 case .equal:
-                    return v0.heightAnchor.constraint(equalToConstant: modifier.value)
+                    return v0.heightAnchor.constraint(equalTo: v1.heightAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 case .lessThanOrEqual:
-                    return v0.heightAnchor.constraint(lessThanOrEqualToConstant: modifier.value)
+                    return v0.heightAnchor.constraint(lessThanOrEqualTo: v1.heightAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 case .greaterThanOrEqual:
-                    return v0.heightAnchor.constraint(greaterThanOrEqualToConstant: modifier.value)
+                    return v0.heightAnchor.constraint(greaterThanOrEqualTo: v1.heightAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 }
             }
         }()

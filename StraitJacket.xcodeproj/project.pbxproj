@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2CDA15202943010034B763 /* RestraintTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */; };
 		CE53D414201FBB9400B99FDE /* StraitJacket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE53D40A201FBB9400B99FDE /* StraitJacket.framework */; };
 		CE53D41B201FBB9400B99FDE /* StraitJacket.h in Headers */ = {isa = PBXBuildFile; fileRef = CE53D40D201FBB9400B99FDE /* StraitJacket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE53D427201FBBF100B99FDE /* Restraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53D426201FBBF100B99FDE /* Restraint.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTypeAliases.swift; sourceTree = "<group>"; };
 		CE53D40A201FBB9400B99FDE /* StraitJacket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StraitJacket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE53D40D201FBB9400B99FDE /* StraitJacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StraitJacket.h; sourceTree = "<group>"; };
 		CE53D40E201FBB9400B99FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				CE53D40D201FBB9400B99FDE /* StraitJacket.h */,
 				CE53D426201FBBF100B99FDE /* Restraint.swift */,
+				CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */,
 				CE53D42A201FBC1000B99FDE /* Extensions */,
 				CE53D40E201FBB9400B99FDE /* Info.plist */,
 			);
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE53D427201FBBF100B99FDE /* Restraint.swift in Sources */,
+				CE2CDA15202943010034B763 /* RestraintTypeAliases.swift in Sources */,
 				CE53D429201FBBF800B99FDE /* UIView+StraitJacket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
