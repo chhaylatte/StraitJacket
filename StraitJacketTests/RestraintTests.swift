@@ -264,7 +264,13 @@ class RestraintTests: XCTestCase {
         
         let constraint1 = view.constraints[0]
         let constraint2 = view.constraints[1]
+        
+        XCTAssert(constraint1.firstItem === view1)
+        XCTAssert(constraint1.secondItem === view)
         XCTAssert(constraint1.multiplier == expectedFactor1)
+        
+        XCTAssert(constraint2.firstItem === view2)
+        XCTAssert(constraint2.secondItem === view)
         XCTAssert(constraint2.multiplier == expectedFactor2)
     }
     
@@ -299,7 +305,41 @@ class RestraintTests: XCTestCase {
         
         let constraint1 = view.constraints[0]
         let constraint2 = view.constraints[1]
+        
+        XCTAssert(constraint1.firstItem === view1)
+        XCTAssert(constraint1.secondItem === view)
         XCTAssert(constraint1.multiplier == expectedFactor1)
+        
+        XCTAssert(constraint2.firstItem === view2)
+        XCTAssert(constraint2.secondItem === view)
         XCTAssert(constraint2.multiplier == expectedFactor2)
+    }
+    
+    func testSiblingRelativeSizes() {
+        let view1 = UIView(), view2 = UIView(), view3 = UIView()
+        let view = UIView()
+        view.addSubviews(view1, view2, view3)
+        
+        let expectedFactor2 = CGFloat(3.0/4.0), expectedFactor3 = CGFloat(1.0/2.0)
+        let viewRestraint = Restraint(view).relativeHeights([
+            view2.relativeHeight(expectedFactor2, of: view1),
+            view3.relativeHeight(expectedFactor3, of: view1)
+            ])
+        
+        viewRestraint.isActive = true
+        
+        let constraint21 = view.constraints[0]
+        let constraint31 = view.constraints[1]
+        
+        
+        XCTAssert(constraint21.firstItem === view2)
+        XCTAssert(constraint21.secondItem === view1)
+        XCTAssert(constraint21.constant == 0)
+        XCTAssert(constraint21.multiplier == expectedFactor2)
+        
+        XCTAssert(constraint31.firstItem === view3)
+        XCTAssert(constraint31.secondItem === view1)
+        XCTAssert(constraint31.constant == 0)
+        XCTAssert(constraint31.multiplier == expectedFactor3)
     }
 }
