@@ -13,3 +13,50 @@ public extension UIView {
         views.forEach { addSubview($0) }
     }
 }
+
+extension UIView: Restrainable {
+    public func width(_ value: CGFloat,
+                      relation: NSLayoutRelation = .equal,
+                      priority: UILayoutPriority = .required) -> Width {
+        return Width(self,
+                     value: value,
+                     relation: relation,
+                     priority: priority)
+    }
+    
+    public func height(_ value: CGFloat,
+                       relation: NSLayoutRelation = .equal,
+                       priority: UILayoutPriority = .required) -> Width {
+        return Height(self,
+                      value: value,
+                      relation: relation,
+                      priority: priority)
+    }
+    
+    public func relativeWidth(_ multiple: CGFloat,
+                              of view: UIView,
+                              relation: NSLayoutRelation = .equal,
+                              priority: UILayoutPriority = .required) -> RelativeWidth {
+        return factor(multiple, of: view, relation: relation, priority: priority)
+    }
+    
+    public func relativeHeight(_ multiple: CGFloat,
+                               of view: UIView,
+                               relation: NSLayoutRelation = .equal,
+                               priority: UILayoutPriority = .required) -> RelativeWidth {
+        return factor(multiple, of: view, relation: relation, priority: priority)
+    }
+    
+    public func factor(_ multiple: CGFloat,
+                       of view: UIView,
+                       relation: NSLayoutRelation,
+                       priority: UILayoutPriority) -> RestraintRelation {
+        return RestraintRelation(self,
+                                 constant: 0,
+                                 multiple: multiple,
+                                 of: view,
+                                 relation: relation,
+                                 priority: priority
+        )
+    }
+}
