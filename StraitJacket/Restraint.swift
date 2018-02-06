@@ -19,6 +19,15 @@ extension UIView: Restrainable {
                      relation: relation,
                      priority: priority)
     }
+    
+    public func height(_ value: CGFloat,
+                      relation: NSLayoutRelation = .equal,
+                      priority: UILayoutPriority = .required) -> Width {
+        return Height(self,
+                     value: value,
+                     relation: relation,
+                     priority: priority)
+    }
 }
 
 public struct RestraintValue: Restrainable {
@@ -65,6 +74,7 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
 
 public typealias Space = RestraintModifier
 public typealias Width = RestraintValue
+public typealias Height = RestraintValue
 
 public class Restraint<T: UIView> {
     public init(_ view: T, subRestraints: [Restraint] = []) {
@@ -132,6 +142,15 @@ public extension Restraint {
     }
     
     public func widths(_ values: [Width]...) -> Restraint {
+        process(restraintValues: values) { (view, modifier) in
+            let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
+            constraints.append(aConstraint)
+        }
+        
+        return self
+    }
+    
+    public func heights(_ values: [Height]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
             constraints.append(aConstraint)

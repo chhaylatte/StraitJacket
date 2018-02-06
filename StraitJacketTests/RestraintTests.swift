@@ -248,4 +248,20 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint1.constant == expectedWidth1)
         XCTAssert(constraint2.constant == expectedWidth2)
     }
+    
+    func testSetHeight() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        let expectedHeight1 = CGFloat(100), expectedHeight2 = CGFloat(50)
+        
+        let viewRestraint = Restraint(view)
+            .heights([view1.height(expectedHeight1), Height(view2, value: expectedHeight2)])
+        
+        viewRestraint.isActive = true
+        
+        let constraint1 = view1.constraints[0]
+        let constraint2 = view2.constraints[0]
+        XCTAssert(constraint1.constant == expectedHeight1)
+        XCTAssert(constraint2.constant == expectedHeight2)
+    }
 }
