@@ -28,31 +28,76 @@ extension UIView: Restrainable {
                      relation: relation,
                      priority: priority)
     }
+    
+    public func relativeWidth(_ multiple: CGFloat,
+                            of view: UIView,
+                            relation: NSLayoutRelation = .equal,
+                            priority: UILayoutPriority = .required) -> RelativeWidth {
+        return factor(multiple, of: view, relation: relation, priority: priority)
+    }
+    
+    public func factor(_ multiple: CGFloat,
+                       of view: UIView,
+                       relation: NSLayoutRelation,
+                       priority: UILayoutPriority) -> RestraintRelation {
+        return RestraintRelation(self,
+                                 constant: 0,
+                                 multiple: multiple,
+                                 of: view,
+                                 relation: relation,
+                                 priority: priority
+                                 )
+    }
+}
+
+public struct RestraintRelation: Restrainable {
+    
+    public let view0: UIView
+    public let view1: UIView
+    public let modifier: RestraintModifier
+    
+    public init (_ sourceView: UIView,
+                 constant: CGFloat = 0,
+                 multiple: CGFloat,
+                 of targetView: UIView,
+                 relation: NSLayoutRelation = .equal,
+                 priority: UILayoutPriority = .required) {
+        view0 = sourceView
+        view1 = targetView
+        modifier = RestraintModifier(constant,
+                                     multiple: multiple,
+                                     relation: relation,
+                                     priority: priority)
+    }
 }
 
 public struct RestraintValue: Restrainable {
+    
+    public let view: UIView
+    public let modifier: RestraintModifier
+    
     public init (_ view: UIView,
                  value: CGFloat,
                  relation: NSLayoutRelation = .equal,
                  priority: UILayoutPriority = .required) {
         self.view = view
-        self.modifier = RestraintModifier(value, relation: relation, priority: priority)
+        modifier = RestraintModifier(value, relation: relation, priority: priority)
     }
-    
-    public let view: UIView
-    public let modifier: RestraintModifier
 }
 
 public struct RestraintModifier: Restrainable, CustomStringConvertible {
-    public init(_ value: CGFloat,
+    public init(_ constant: CGFloat,
+                multiple: CGFloat = 1,
                 relation: NSLayoutRelation = .equal,
                 priority: UILayoutPriority = .required) {
-        self.value = value
+        self.value = constant
+        self.multiple = multiple
         self.relation = relation
         self.priority = priority
     }
     
     public let value: CGFloat
+    public let multiple: CGFloat
     public let relation: NSLayoutRelation
     public let priority: UILayoutPriority
     
@@ -72,9 +117,11 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
     }
 }
 
+// MARK: - Type Aliases
 public typealias Space = RestraintModifier
 public typealias Width = RestraintValue
 public typealias Height = RestraintValue
+public typealias RelativeWidth = RestraintRelation
 
 public class Restraint<T: UIView> {
     public init(_ view: T, subRestraints: [Restraint] = []) {
@@ -98,15 +145,9 @@ public class Restraint<T: UIView> {
 }
 
 public extension Restraint {
-    
     enum Direction {
         case horizontal
         case vertical
-    }
-    
-    enum Size {
-        case width
-        case height
     }
     
     public func horizontal(_ views: [Restrainable]...) -> Restraint {
@@ -140,6 +181,14 @@ public extension Restraint {
         
         return self
     }
+}
+
+public extension Restraint {
+    
+    enum Size {
+        case width
+        case height
+    }
     
     public func widths(_ values: [Width]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
@@ -158,9 +207,27 @@ public extension Restraint {
         
         return self
     }
+    
+    public func relativeWidths(_ relations: [RelativeWidth]...) -> Restraint {
+        process(restraintRelations: relations) { (v0, v1, modifier) in
+            let aConstraint = modifiedRelativeSizeConstraint(for: .width, v0: v0, v1: v1, modifier: modifier)
+            constraints.append(aConstraint)
+        }
+        
+        return self
+    }
 }
 
 fileprivate extension Restraint {
+    func process(restraintRelations: [[RestraintRelation]],
+                 buildConstraint: (UIView, UIView, RestraintModifier) -> Void) {
+        for relations in restraintRelations {
+            for relation in relations {
+                buildConstraint(relation.view0, relation.view1, relation.modifier)
+            }
+        }
+    }
+    
     func process(restraintValues: [[RestraintValue]],
                  buildConstraint: (UIView, RestraintModifier) -> Void) {
         
@@ -219,6 +286,34 @@ fileprivate extension Restraint {
                     return v0.leadingAnchor.constraint(lessThanOrEqualTo: v1.trailingAnchor, constant: modifier.value)
                 case .greaterThanOrEqual:
                     return v0.leadingAnchor.constraint(greaterThanOrEqualTo: v1.trailingAnchor, constant: modifier.value)
+                }
+            }
+        }()
+        aConstraint.priority = modifier.priority
+        
+        return aConstraint
+    }
+    
+    private func modifiedRelativeSizeConstraint(for size: Size, v0: UIView, v1: UIView, modifier: RestraintModifier) -> NSLayoutConstraint {
+        let aConstraint: NSLayoutConstraint = {
+            switch size {
+            case .width:
+                switch modifier.relation {
+                case .equal:
+                    return v0.widthAnchor.constraint(equalTo: v1.widthAnchor, multiplier: modifier.multiple, constant: modifier.value)
+                case .lessThanOrEqual:
+                    return v0.widthAnchor.constraint(lessThanOrEqualTo: v1.widthAnchor, multiplier: modifier.multiple, constant: modifier.value)
+                case .greaterThanOrEqual:
+                    return v0.widthAnchor.constraint(greaterThanOrEqualTo: v1.widthAnchor, multiplier: modifier.multiple, constant: modifier.value)
+                }
+            case .height:
+                switch modifier.relation {
+                case .equal:
+                    return v0.heightAnchor.constraint(equalToConstant: modifier.value)
+                case .lessThanOrEqual:
+                    return v0.heightAnchor.constraint(lessThanOrEqualToConstant: modifier.value)
+                case .greaterThanOrEqual:
+                    return v0.heightAnchor.constraint(greaterThanOrEqualToConstant: modifier.value)
                 }
             }
         }()

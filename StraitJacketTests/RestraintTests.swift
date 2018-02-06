@@ -249,6 +249,25 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint2.constant == expectedWidth2)
     }
     
+    func testSetRelativeWidths() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        view.addSubviews(view1, view2)
+        
+        let expectedWidthFactor1 = CGFloat(1.0/4.0), expectedWidthFactor2 = CGFloat(3.0/4.0)
+        let viewRestraint = Restraint(view)
+            .relativeWidths([view1.relativeWidth(expectedWidthFactor1, of: view),
+                             RelativeWidth(view2, multiple: expectedWidthFactor2, of: view)
+                ])
+        
+        viewRestraint.isActive = true
+        
+        let constraint1 = view.constraints[0]
+        let constraint2 = view.constraints[1]
+        XCTAssert(constraint1.multiplier == expectedWidthFactor1)
+        XCTAssert(constraint2.multiplier == expectedWidthFactor2)
+    }
+    
     func testSetHeight() {
         let view1 = UIView(), view2 = UIView()
         let view = UIView()
