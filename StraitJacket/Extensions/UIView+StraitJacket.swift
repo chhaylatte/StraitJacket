@@ -9,6 +9,13 @@
 import Foundation
 
 public extension UIView {
+    
+    public convenience init(_ subviews: [UIView]) {
+        self.init()
+        
+        subviews.forEach { addSubview($0) }
+    }
+    
     public func addSubviews(_ views: UIView...) {
         views.forEach { addSubview($0) }
     }
