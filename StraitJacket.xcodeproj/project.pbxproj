@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		316A840A202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */; };
 		CE2CDA15202943010034B763 /* RestraintTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */; };
 		CE53D414201FBB9400B99FDE /* StraitJacket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE53D40A201FBB9400B99FDE /* StraitJacket.framework */; };
 		CE53D41B201FBB9400B99FDE /* StraitJacket.h in Headers */ = {isa = PBXBuildFile; fileRef = CE53D40D201FBB9400B99FDE /* StraitJacket.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDebugStringConvertible+StraitJacket.swift"; sourceTree = "<group>"; };
 		CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTypeAliases.swift; sourceTree = "<group>"; };
 		CE53D40A201FBB9400B99FDE /* StraitJacket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StraitJacket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE53D40D201FBB9400B99FDE /* StraitJacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StraitJacket.h; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		316A840B202BBB4300030398 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		CE53D400201FBB9400B99FDE = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				CE53D42B201FBC3A00B99FDE /* RestraintTests.swift */,
+				316A840B202BBB4300030398 /* Extensions */,
 				CE53D41A201FBB9400B99FDE /* Info.plist */,
 			);
 			path = StraitJacketTests;
@@ -224,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				316A840A202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift in Sources */,
 				CE53D42C201FBC3A00B99FDE /* RestraintTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,7 +10,7 @@ import Foundation
 
 public protocol Restrainable {}
 
-public struct RestraintRelation: Restrainable {
+public struct RestraintRelation {
     
     public let view0: UIView
     public let view1: UIView
@@ -31,7 +31,7 @@ public struct RestraintRelation: Restrainable {
     }
 }
 
-public struct RestraintValue: Restrainable {
+public struct RestraintValue {
     
     public let view: UIView
     public let modifier: RestraintModifier
@@ -95,6 +95,29 @@ public class Restraint<T: UIView> {
                 : NSLayoutConstraint.deactivate(constraints)
             subRestraints.forEach { $0.isActive = isActive }
         }
+    }
+}
+
+public struct Sides: OptionSet {
+    public let rawValue: Int
+    
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+    
+    static let top = Sides(rawValue: 1 << 0)
+    static let bottom = Sides(rawValue: 1 << 1)
+    static let left = Sides(rawValue: 1 << 2)
+    static let right = Sides(rawValue: 1 << 3)
+    
+    static let all: Sides = [.top, .bottom, .left, .right]
+    static let verticalSides: Sides = [.top, .bottom]
+    static let horizontalSides: Sides = [.left, .right]
+}
+
+extension Sides: Hashable {
+    public var hashValue: Int {
+        return rawValue
     }
 }
 
@@ -176,6 +199,16 @@ public extension Restraint {
             let aConstraint = modifiedRelativeSizeConstraint(for: .height, v0: v0, v1: v1, modifier: modifier)
             constraints.append(aConstraint)
         }
+        
+        return self
+    }
+    
+    public func aligns(_ views: [UIView], sides: Sides) -> Restraint {
+        let restraintValues = views.map { RestraintValue($0, value: 0) }
+        process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
+            let someConstraints = modifiedAlignmentConstraint(for: view , sides: sides, v1: self.view, modifier: modifier)
+            constraints.append(contentsOf: someConstraints)
+        })
         
         return self
     }
@@ -311,5 +344,49 @@ fileprivate extension Restraint {
         aConstraint.priority = modifier.priority
         
         return aConstraint
+    }
+    
+    private func modifiedAlignmentConstraint(for v0: UIView, sides: Sides, v1: UIView, modifier: RestraintModifier) -> [NSLayoutConstraint] {
+        let aConstraint: [NSLayoutConstraint] = {
+            var constraints: [NSLayoutConstraint] = []
+            
+            if sides.contains(.top) {
+                let constraintFunc = constraintFunction(v0.topAnchor, relation: modifier.relation)
+                constraints.append(constraintFunc(v1.topAnchor, modifier.value))
+            }
+            
+            if sides.contains(.bottom) {
+                let constraintFunc = constraintFunction(v0.bottomAnchor, relation: modifier.relation)
+                constraints.append(constraintFunc(v1.bottomAnchor, modifier.value))
+            }
+            
+            if sides.contains(.left) {
+                let constraintFunc = constraintFunction(v0.leftAnchor, relation: modifier.relation)
+                constraints.append(constraintFunc(v1.leftAnchor, modifier.value))
+            }
+            
+            if sides.contains(.right) {
+                let constraintFunc = constraintFunction(v0.rightAnchor, relation: modifier.relation)
+                constraints.append(constraintFunc(v1.rightAnchor, modifier.value))
+            }
+            
+            return constraints
+        }()
+        
+        constraints.forEach { $0.priority = modifier.priority }
+        
+        return aConstraint
+    }
+    
+    private func constraintFunction<AnchorType>(_ anchor: NSLayoutAnchor<AnchorType>,
+                                                relation: NSLayoutRelation) -> (NSLayoutAnchor<AnchorType>, CGFloat) -> NSLayoutConstraint {
+        switch relation {
+        case .equal:
+            return anchor.constraint(equalTo:constant:)
+        case .lessThanOrEqual:
+            return anchor.constraint(lessThanOrEqualTo:constant:)
+        case .greaterThanOrEqual:
+            return anchor.constraint(greaterThanOrEqualTo:constant:)
+        }
     }
 }

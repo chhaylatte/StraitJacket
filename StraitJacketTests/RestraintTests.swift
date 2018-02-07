@@ -342,4 +342,33 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint31.constant == 0)
         XCTAssert(constraint31.multiplier == expectedFactor3)
     }
+    
+    // MARK: - Aligning
+    
+    func testAlignSidesToSuperview() {
+        let checkSides: [Sides] = [.top, .bottom, .left, .right]
+        let sideToLayoutAtribute: [Sides: NSLayoutAttribute] = [
+            .top: .top,
+            .bottom: .bottom,
+            .left: .left,
+            .right:.right
+        ]
+        
+        for side in checkSides {
+            let view1 = UIView(), view2 = UIView()
+            let view = UIView([view1, view2])
+            let restraint = Restraint(view).aligns([view1, view2], sides: side)
+            restraint.isActive = true
+            
+            let constraint1 = view.constraints[0]
+            
+            let expectedAttribute = sideToLayoutAtribute[side]!
+            
+            XCTAssert(constraint1.constant == 0)
+            XCTAssert(constraint1.firstItem === view1)
+            XCTAssert(constraint1.secondItem === view)
+            XCTAssert(constraint1.firstAttribute == constraint1.secondAttribute)
+            XCTAssert(constraint1.firstAttribute == expectedAttribute, "Expected \(side) to connect \(expectedAttribute) anchor")
+        }
+    }
 }
