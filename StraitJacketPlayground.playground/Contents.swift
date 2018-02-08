@@ -35,17 +35,19 @@ let viewRestraint = Restraint(view)
     .aligns([label], sides: [.left, .top])
     .aligns([horizontalLine], sides: .horizontal)
     .aligns([yellowView], sides: [.left, .right, .bottom])
-    .vertical([label, horizontalLine, blueView, Space(8), redView, Space(16), greenView, yellowView])
+    .vertical([label, horizontalLine, blueView, Space(8), redView, Space(16), greenView, Space(32), yellowView])
     .horizontal([blueView, redView, greenView, Space(20)])
     .widths([blueView.width(200), redView.width(100), greenView.width(50)])
     .heights([blueView.height(200), redView.height(100), greenView.height(50), horizontalLine.height(1)])
 
 viewRestraint.isActive = true
-view.layoutIfNeeded()
 
 let visibleView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 visibleView.backgroundColor = .purple
 visibleView.addSubview(view)
-visibleView.layoutIfNeeded()
+
+Restraint(visibleView).aligns([view], sides: .all).isActive = true
 
 PlaygroundPage.current.liveView = visibleView
+
+let preview = visibleView
