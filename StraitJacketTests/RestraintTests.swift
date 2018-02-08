@@ -246,7 +246,9 @@ class RestraintTests: XCTestCase {
         let constraint1 = view1.constraints[0]
         let constraint2 = view2.constraints[0]
         XCTAssert(constraint1.constant == expectedWidth1)
+        XCTAssert(constraint1.firstAttribute == .width)
         XCTAssert(constraint2.constant == expectedWidth2)
+        XCTAssert(constraint2.firstAttribute == .width)
     }
     
     func testSetRelativeWidths() {
@@ -287,7 +289,9 @@ class RestraintTests: XCTestCase {
         let constraint1 = view1.constraints[0]
         let constraint2 = view2.constraints[0]
         XCTAssert(constraint1.constant == expectedHeight1)
+        XCTAssert(constraint1.firstAttribute == .height)
         XCTAssert(constraint2.constant == expectedHeight2)
+        XCTAssert(constraint2.firstAttribute == .height)
     }
     
     func testSetRelativeHeights() {
@@ -356,7 +360,9 @@ class RestraintTests: XCTestCase {
         
         for side in checkSides {
             let view1 = UIView(), view2 = UIView()
-            let view = UIView([view1, view2])
+            let view = UIView()
+            view.addSubviews(view1, view2)
+            
             let restraint = Restraint(view).aligns([view1, view2], sides: side)
             restraint.isActive = true
             

@@ -10,14 +10,20 @@ import Foundation
 
 public extension UIView {
     
-    public convenience init(_ subviews: [UIView]) {
-        self.init()
-        
-        subviews.forEach { addSubview($0) }
+    func addSubviews(_ viewCollections: [UIView]...) {
+        for views in viewCollections {
+            for view in views {
+                view.translatesAutoresizingMaskIntoConstraints = false
+                addSubview(view)
+            }
+        }
     }
     
-    public func addSubviews(_ views: UIView...) {
-        views.forEach { addSubview($0) }
+    func addSubviews(_ subviews: UIView...) {
+        for view in subviews {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(view)
+        }
     }
 }
 

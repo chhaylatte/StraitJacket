@@ -105,14 +105,14 @@ public struct Sides: OptionSet {
         self.rawValue = rawValue
     }
     
-    static let top = Sides(rawValue: 1 << 0)
-    static let bottom = Sides(rawValue: 1 << 1)
-    static let left = Sides(rawValue: 1 << 2)
-    static let right = Sides(rawValue: 1 << 3)
+    public static let top = Sides(rawValue: 1 << 0)
+    public static let bottom = Sides(rawValue: 1 << 1)
+    public static let left = Sides(rawValue: 1 << 2)
+    public static let right = Sides(rawValue: 1 << 3)
     
-    static let all: Sides = [.top, .bottom, .left, .right]
-    static let verticalSides: Sides = [.top, .bottom]
-    static let horizontalSides: Sides = [.left, .right]
+    public static let all: Sides = [.top, .bottom, .left, .right]
+    public static let vertical: Sides = [.top, .bottom]
+    public static let horizontal: Sides = [.left, .right]
 }
 
 extension Sides: Hashable {
@@ -178,7 +178,7 @@ public extension Restraint {
     
     public func heights(_ values: [Height]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
-            let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
+            let aConstraint = modifiedSizeConstraint(for: .height, v0: view, modifier: modifier)
             constraints.append(aConstraint)
         }
         
