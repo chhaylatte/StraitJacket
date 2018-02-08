@@ -94,6 +94,7 @@ public class Restraint<T: UIView> {
                 ? NSLayoutConstraint.activate(constraints)
                 : NSLayoutConstraint.deactivate(constraints)
             subRestraints.forEach { $0.isActive = isActive }
+            view.setNeedsLayout()
         }
     }
 }
