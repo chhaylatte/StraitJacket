@@ -8,25 +8,6 @@
 
 import Foundation
 
-public extension UIView {
-    
-    func addSubviews(_ viewCollections: [UIView]...) {
-        for views in viewCollections {
-            for view in views {
-                view.translatesAutoresizingMaskIntoConstraints = false
-                addSubview(view)
-            }
-        }
-    }
-    
-    func addSubviews(_ subviews: UIView...) {
-        for view in subviews {
-            view.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(view)
-        }
-    }
-}
-
 extension UIView: Restrainable {
     public func width(_ value: CGFloat,
                       relation: NSLayoutRelation = .equal,

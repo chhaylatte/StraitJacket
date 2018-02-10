@@ -97,6 +97,19 @@ public class Restraint<T: UIView> {
             view.setNeedsLayout()
         }
     }
+    
+    public func addSubviews(_ subviews: UIView...) -> Restraint {
+        return addSubviews(subviews)
+    }
+    
+    public func addSubviews(_ subviews: [UIView]) -> Restraint {
+        subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
+        
+        return self
+    }
 }
 
 public struct Edges: OptionSet {

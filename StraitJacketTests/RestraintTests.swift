@@ -26,9 +26,10 @@ class RestraintTests: XCTestCase {
     func testActiveConstraints() {
         let label1 = UILabel(), label2 = UILabel()
         let view = UIView()
-        view.addSubviews(label1, label2)
         
-        let viewRestraint = Restraint(view).vertical([label1, label2])
+        let viewRestraint = Restraint(view)
+            .addSubviews([label1, label2])
+            .vertical([label1, label2])
         
         XCTAssert(view.constraints.isEmpty)
         XCTAssert(!viewRestraint.isActive)
@@ -44,10 +45,11 @@ class RestraintTests: XCTestCase {
     func testVerticalChain() {
         let label1 = UILabel(), label2 = UILabel(), label3 = UILabel()
         let view = UIView()
-        view.addSubviews(label1, label2, label3)
         
         // label1 - label2 - label3
-        let viewRestraint = Restraint(view).vertical([label1, label2, label3])
+        let viewRestraint = Restraint(view)
+            .addSubviews([label1, label2, label3])
+            .vertical([label1, label2, label3])
         viewRestraint.isActive = true
         
         // Test label1 - label2
@@ -79,10 +81,11 @@ class RestraintTests: XCTestCase {
         let expectedSpace: CGFloat = 11
         let label1 = UILabel(), label2 = UILabel()
         let view = UIView()
-        view.addSubviews(label1, label2)
         
         // label1 -(8)- label2
-        let viewRestraint = Restraint(view).vertical([label1, Space(expectedSpace), label2])
+        let viewRestraint = Restraint(view)
+            .addSubviews(label1, label2)
+            .vertical([label1, Space(expectedSpace), label2])
         viewRestraint.isActive = true
         
         // Test label1 - label2
@@ -102,12 +105,13 @@ class RestraintTests: XCTestCase {
     func testMultipleVerticalChain() {
         let label1 = UILabel(), label2 = UILabel(), label3 = UILabel(), label4 = UILabel()
         let view = UIView()
-        view.addSubviews(label1, label2, label3, label4)
         
         // Column 1: label1 - label2
         // Column 2: label3 - label4
-        let viewRestraint = Restraint(view).vertical([label1, label2],
-                                                     [label3, label4])
+        let viewRestraint = Restraint(view)
+            .addSubviews([label1, label2, label3, label4])
+            .vertical([label1, label2],
+                      [label3, label4])
         viewRestraint.isActive = true
         
         // Test Column 1
@@ -140,10 +144,11 @@ class RestraintTests: XCTestCase {
     func testHorizontalChain() {
         let label1 = UILabel(), label2 = UILabel(), label3 = UILabel()
         let view = UIView()
-        view.addSubviews(label1, label2, label3)
         
         // label1 - label2 - label3
-        let viewRestraint = Restraint(view).horizontal([label1, label2, label3])
+        let viewRestraint = Restraint(view)
+            .addSubviews(label1, label2, label3)
+            .horizontal([label1, label2, label3])
         viewRestraint.isActive = true
         
         // Test label1 - label2
@@ -175,10 +180,11 @@ class RestraintTests: XCTestCase {
         let expectedSpace: CGFloat = 11
         let label1 = UILabel(), label2 = UILabel()
         let view = UIView()
-        view.addSubviews(label1, label2)
         
         // label1 -(11)- label2
-        let viewRestraint = Restraint(view).horizontal([label1, Space(expectedSpace), label2])
+        let viewRestraint = Restraint(view)
+            .addSubviews([label1, label2])
+            .horizontal([label1, Space(expectedSpace), label2])
         viewRestraint.isActive = true
         
         // Test label1 - label2
@@ -198,12 +204,13 @@ class RestraintTests: XCTestCase {
     func testMultipleHorizontalChain() {
         let label1 = UILabel(), label2 = UILabel(), label3 = UILabel(), label4 = UILabel()
         let view = UIView()
-        view.addSubviews(label1, label2, label3, label4)
         
         // Row 1: label1 - label2
         // Row 2: label3 - label4
-        let viewRestraint = Restraint(view).horizontal([label1, label2],
-                                                       [label3, label4])
+        let viewRestraint = Restraint(view)
+            .addSubviews(label1, label2, label3, label4)
+            .horizontal([label1, label2],
+                        [label3, label4])
         viewRestraint.isActive = true
         
         // Test Row 1
@@ -254,10 +261,10 @@ class RestraintTests: XCTestCase {
     func testSetRelativeWidths() {
         let view1 = UIView(), view2 = UIView()
         let view = UIView()
-        view.addSubviews(view1, view2)
         
         let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
         let viewRestraint = Restraint(view)
+            .addSubviews(view1, view2)
             .relativeWidths([view1.relativeWidth(expectedFactor1, of: view),
                              RelativeWidth(view2, multiple: expectedFactor2, of: view)
                 ])
@@ -297,10 +304,10 @@ class RestraintTests: XCTestCase {
     func testSetRelativeHeights() {
         let view1 = UIView(), view2 = UIView()
         let view = UIView()
-        view.addSubviews(view1, view2)
         
         let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
         let viewRestraint = Restraint(view)
+            .addSubviews(view1, view2)
             .relativeHeights([view1.relativeHeight(expectedFactor1, of: view),
                              RelativeHeight(view2, multiple: expectedFactor2, of: view)
                 ])
@@ -322,12 +329,13 @@ class RestraintTests: XCTestCase {
     func testSiblingRelativeSizes() {
         let view1 = UIView(), view2 = UIView(), view3 = UIView()
         let view = UIView()
-        view.addSubviews(view1, view2, view3)
         
         let expectedFactor2 = CGFloat(3.0/4.0), expectedFactor3 = CGFloat(1.0/2.0)
-        let viewRestraint = Restraint(view).relativeHeights([
-            view2.relativeHeight(expectedFactor2, of: view1),
-            view3.relativeHeight(expectedFactor3, of: view1)
+        let viewRestraint = Restraint(view)
+            .addSubviews(view1, view2, view3)
+            .relativeHeights([
+                view2.relativeHeight(expectedFactor2, of: view1),
+                view3.relativeHeight(expectedFactor3, of: view1)
             ])
         
         viewRestraint.isActive = true
@@ -361,9 +369,10 @@ class RestraintTests: XCTestCase {
         for side in checkSides {
             let view1 = UIView(), view2 = UIView()
             let view = UIView()
-            view.addSubviews(view1, view2)
             
-            let restraint = Restraint(view).aligns([view1, view2], sides: side)
+            let restraint = Restraint(view)
+                .addSubviews(view1, view2)
+                .aligns([view1, view2], sides: side)
             restraint.isActive = true
             
             let constraint1 = view.constraints[0]
