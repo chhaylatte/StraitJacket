@@ -99,24 +99,24 @@ public class Restraint<T: UIView> {
     }
 }
 
-public struct Sides: OptionSet {
+public struct Edges: OptionSet {
     public let rawValue: Int
     
     public init(rawValue: Int) {
         self.rawValue = rawValue
     }
     
-    public static let top = Sides(rawValue: 1 << 0)
-    public static let bottom = Sides(rawValue: 1 << 1)
-    public static let left = Sides(rawValue: 1 << 2)
-    public static let right = Sides(rawValue: 1 << 3)
+    public static let top = Edges(rawValue: 1 << 0)
+    public static let bottom = Edges(rawValue: 1 << 1)
+    public static let left = Edges(rawValue: 1 << 2)
+    public static let right = Edges(rawValue: 1 << 3)
     
-    public static let all: Sides = [.top, .bottom, .left, .right]
-    public static let vertical: Sides = [.top, .bottom]
-    public static let horizontal: Sides = [.left, .right]
+    public static let all: Edges = [.top, .bottom, .left, .right]
+    public static let vertical: Edges = [.top, .bottom]
+    public static let horizontal: Edges = [.left, .right]
 }
 
-extension Sides: Hashable {
+extension Edges: Hashable {
     public var hashValue: Int {
         return rawValue
     }
@@ -204,7 +204,7 @@ public extension Restraint {
         return self
     }
     
-    public func aligns(_ views: [UIView], sides: Sides) -> Restraint {
+    public func aligns(_ views: [UIView], sides: Edges) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
             let someConstraints = modifiedAlignmentConstraint(for: view , sides: sides, v1: self.view, modifier: modifier)
@@ -347,7 +347,7 @@ fileprivate extension Restraint {
         return aConstraint
     }
     
-    private func modifiedAlignmentConstraint(for v0: UIView, sides: Sides, v1: UIView, modifier: RestraintModifier) -> [NSLayoutConstraint] {
+    private func modifiedAlignmentConstraint(for v0: UIView, sides: Edges, v1: UIView, modifier: RestraintModifier) -> [NSLayoutConstraint] {
         let aConstraint: [NSLayoutConstraint] = {
             var constraints: [NSLayoutConstraint] = []
             

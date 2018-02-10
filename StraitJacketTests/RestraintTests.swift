@@ -350,8 +350,8 @@ class RestraintTests: XCTestCase {
     // MARK: - Aligning
     
     func testAlignSidesToSuperview() {
-        let checkSides: [Sides] = [.top, .bottom, .left, .right]
-        let sideToLayoutAtribute: [Sides: NSLayoutAttribute] = [
+        let checkSides: [Edges] = [.top, .bottom, .left, .right]
+        let sideToLayoutAtribute: [Edges: NSLayoutAttribute] = [
             .top: .top,
             .bottom: .bottom,
             .left: .left,
