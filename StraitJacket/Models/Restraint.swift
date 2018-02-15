@@ -10,73 +10,6 @@ import Foundation
 
 public protocol Restrainable {}
 
-public struct RestraintRelation {
-    
-    public let view0: UIView
-    public let view1: UIView
-    public let modifier: RestraintModifier
-    
-    public init (_ sourceView: UIView,
-                 constant: CGFloat = 0,
-                 multiple: CGFloat,
-                 of targetView: UIView,
-                 relation: NSLayoutRelation = .equal,
-                 priority: UILayoutPriority = .required) {
-        view0 = sourceView
-        view1 = targetView
-        modifier = RestraintModifier(constant,
-                                     multiple: multiple,
-                                     relation: relation,
-                                     priority: priority)
-    }
-}
-
-public struct RestraintValue {
-    
-    public let view: UIView
-    public let modifier: RestraintModifier
-    
-    public init (_ view: UIView,
-                 value: CGFloat,
-                 relation: NSLayoutRelation = .equal,
-                 priority: UILayoutPriority = .required) {
-        self.view = view
-        modifier = RestraintModifier(value, relation: relation, priority: priority)
-    }
-}
-
-public struct RestraintModifier: Restrainable, CustomStringConvertible {
-    public init(_ constant: CGFloat,
-                multiple: CGFloat = 1,
-                relation: NSLayoutRelation = .equal,
-                priority: UILayoutPriority = .required) {
-        self.value = constant
-        self.multiple = multiple
-        self.relation = relation
-        self.priority = priority
-    }
-    
-    public let value: CGFloat
-    public let multiple: CGFloat
-    public let relation: NSLayoutRelation
-    public let priority: UILayoutPriority
-    
-    public var description: String {
-        return "Modifier(\(relationString) \(value) @ \(priority.rawValue))"
-    }
-    
-    private var relationString: String {
-        switch relation {
-        case .equal:
-            return "=="
-        case .greaterThanOrEqual:
-            return ">="
-        case .lessThanOrEqual:
-            return "<="
-        }
-    }
-}
-
 public class Restraint<T: UIView> {
     public init(_ view: T, subRestraints: [Restraint] = []) {
         self.view = view
@@ -136,6 +69,9 @@ extension Edges: Hashable {
 }
 
 public extension Restraint {
+    
+    // MARK: - Chaining
+    
     enum Direction {
         case horizontal
         case vertical
@@ -175,6 +111,8 @@ public extension Restraint {
 }
 
 public extension Restraint {
+    
+    // MARK: - Sizing
     
     enum Size {
         case width
@@ -229,6 +167,9 @@ public extension Restraint {
 }
 
 fileprivate extension Restraint {
+    
+    // MARK: - Processing
+    
     func process(restraintRelations: [[RestraintRelation]],
                  buildConstraint: (UIView, UIView, RestraintModifier) -> Void) {
         for relations in restraintRelations {
@@ -275,6 +216,8 @@ fileprivate extension Restraint {
             }
         }
     }
+    
+    // MARK: - Constraint Building
     
     private func modifiedChainConstraint(for direction: Direction, v0: UIView, v1: UIView, modifier: RestraintModifier) -> NSLayoutConstraint {
         let aConstraint: NSLayoutConstraint = {

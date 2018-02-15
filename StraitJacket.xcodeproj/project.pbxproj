@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3134C92A203642C70077F5BE /* RestraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C929203642C70077F5BE /* RestraintRelation.swift */; };
+		3134C92C203642DF0077F5BE /* RestraintValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C92B203642DF0077F5BE /* RestraintValue.swift */; };
+		3134C92E203642F20077F5BE /* RestraintModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C92D203642F20077F5BE /* RestraintModifier.swift */; };
 		316A840A202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */; };
 		CE2CDA15202943010034B763 /* RestraintTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */; };
 		CE53D414201FBB9400B99FDE /* StraitJacket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE53D40A201FBB9400B99FDE /* StraitJacket.framework */; };
@@ -27,6 +30,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3134C929203642C70077F5BE /* RestraintRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintRelation.swift; sourceTree = "<group>"; };
+		3134C92B203642DF0077F5BE /* RestraintValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintValue.swift; sourceTree = "<group>"; };
+		3134C92D203642F20077F5BE /* RestraintModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintModifier.swift; sourceTree = "<group>"; };
 		316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDebugStringConvertible+StraitJacket.swift"; sourceTree = "<group>"; };
 		CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTypeAliases.swift; sourceTree = "<group>"; };
 		CE53D40A201FBB9400B99FDE /* StraitJacket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StraitJacket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +64,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3134C928203642AB0077F5BE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE53D426201FBBF100B99FDE /* Restraint.swift */,
+				3134C92D203642F20077F5BE /* RestraintModifier.swift */,
+				3134C929203642C70077F5BE /* RestraintRelation.swift */,
+				3134C92B203642DF0077F5BE /* RestraintValue.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		316A840B202BBB4300030398 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,9 +105,9 @@
 			isa = PBXGroup;
 			children = (
 				CE53D40D201FBB9400B99FDE /* StraitJacket.h */,
-				CE53D426201FBBF100B99FDE /* Restraint.swift */,
 				CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */,
 				CE53D42A201FBC1000B99FDE /* Extensions */,
+				3134C928203642AB0077F5BE /* Models */,
 				CE53D40E201FBB9400B99FDE /* Info.plist */,
 			);
 			path = StraitJacket;
@@ -225,8 +242,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3134C92A203642C70077F5BE /* RestraintRelation.swift in Sources */,
 				CE53D427201FBBF100B99FDE /* Restraint.swift in Sources */,
 				CE2CDA15202943010034B763 /* RestraintTypeAliases.swift in Sources */,
+				3134C92E203642F20077F5BE /* RestraintModifier.swift in Sources */,
+				3134C92C203642DF0077F5BE /* RestraintValue.swift in Sources */,
 				CE53D429201FBBF800B99FDE /* UIView+StraitJacket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
