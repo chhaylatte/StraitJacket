@@ -78,33 +78,37 @@ public extension Restraint {
     }
     
     public func horizontal(_ views: [Restrainable]...) -> Restraint {
-        movingProcess(restrainables: views, buildConstraint: { (v0, v1, modifiers) in
-            if modifiers.isEmpty {
-                let aConstraint = v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor)
-                constraints.append(aConstraint)
-            } else {
-                for modifier in modifiers {
-                    let aConstraint = modifiedChainConstraint(for: .horizontal, v0: v0, v1: v1, modifier: modifier)
+        for restrainableChain in views {
+            movingProcess(restrainables: restrainableChain, buildConstraint: { (v0, v1, modifiers) in
+                if modifiers.isEmpty {
+                    let aConstraint = v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor)
                     constraints.append(aConstraint)
+                } else {
+                    for modifier in modifiers {
+                        let aConstraint = modifiedChainConstraint(for: .horizontal, v0: v0, v1: v1, modifier: modifier)
+                        constraints.append(aConstraint)
+                    }
                 }
-            }
-        })
+            })
+        }
         
         return self
     }
     
     public func vertical(_ views: [Restrainable]...) -> Restraint {
-        movingProcess(restrainables: views, buildConstraint: { (v0, v1, modifiers) in
-            if modifiers.isEmpty {
-                let aConstraint = v0.topAnchor.constraint(equalTo: v1.bottomAnchor)
-                constraints.append(aConstraint)
-            } else {
-                for modifier in modifiers {
-                    let aConstraint = modifiedChainConstraint(for: .vertical, v0: v0, v1: v1, modifier: modifier)
+        for restrainableChain in views {
+            movingProcess(restrainables: restrainableChain, buildConstraint: { (v0, v1, modifiers) in
+                if modifiers.isEmpty {
+                    let aConstraint = v0.topAnchor.constraint(equalTo: v1.bottomAnchor)
                     constraints.append(aConstraint)
+                } else {
+                    for modifier in modifiers {
+                        let aConstraint = modifiedChainConstraint(for: .vertical, v0: v0, v1: v1, modifier: modifier)
+                        constraints.append(aConstraint)
+                    }
                 }
-            }
-        })
+            })
+        }
         
         return self
     }
@@ -189,30 +193,27 @@ fileprivate extension Restraint {
         }
     }
     
-    func movingProcess(restrainables: [[Restrainable]],
-               buildConstraint: (UIView, UIView, [RestraintModifier]) -> Void) {
+    func movingProcess(restrainables: [Restrainable],
+                       buildConstraint: (UIView, UIView, [RestraintModifier]) -> Void) {
         
         var restraintModifiers: [RestraintModifier] = []
-        
-        for restrainableChain in restrainables {
-            var (view0, view1): (UIView?, UIView?) = (nil, nil)
-            for restrainable in restrainableChain {
-                let view = restrainable as? UIView
-                view0 = view
-                
-                if let modifier = restrainable as? RestraintModifier {
-                    assert(view1 != nil, "Malformed restrainable chain: \(restrainableChain)")
-                    restraintModifiers.append(modifier)
-                }
-                
-                if let view0 = view0, let view1 = view1 {
-                    buildConstraint(view0, view1, restraintModifiers)
-                    restraintModifiers.removeAll()
-                }
-                
-                if view != nil {
-                    view1 = view0
-                }
+        var (view0, view1): (UIView?, UIView?) = (nil, nil)
+        for restrainable in restrainables {
+            let view = restrainable as? UIView
+            view0 = view
+            
+            if let modifier = restrainable as? RestraintModifier {
+                assert(view1 != nil, "Malformed restrainable chain: \(restrainables)")
+                restraintModifiers.append(modifier)
+            }
+            
+            if let view0 = view0, let view1 = view1 {
+                buildConstraint(view0, view1, restraintModifiers)
+                restraintModifiers.removeAll()
+            }
+            
+            if view != nil {
+                view1 = view0
             }
         }
     }
