@@ -54,3 +54,14 @@ extension UIView: Restrainable {
         )
     }
 }
+
+public extension UIView {
+    
+    public func sWidth(_ multiple: CGFloat) -> CGFloat {
+        return frame.size.width * multiple
+    }
+    
+    public func sHeight(_ multiple: CGFloat) -> CGFloat {
+        return frame.size.height * multiple
+    }
+}
