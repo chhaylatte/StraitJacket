@@ -45,12 +45,6 @@ public class Restraint<T: UIView> {
     }
 }
 
-extension Edges: Hashable {
-    public var hashValue: Int {
-        return rawValue
-    }
-}
-
 public extension Restraint {
     
     // MARK: - Chaining

@@ -40,6 +40,7 @@ let viewRestraint = Restraint(view)
     .widths([blueView.width(200), redView.width(100), greenView.width(50)])
     .heights([blueView.height(200), redView.height(100), greenView.height(50), horizontalLine.height(1)])
 
+
 viewRestraint.isActive = true
 
 let visibleView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
