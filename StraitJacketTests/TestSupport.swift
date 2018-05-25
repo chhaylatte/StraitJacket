@@ -14,3 +14,9 @@ extension Edges: Hashable {
         return rawValue
     }
 }
+
+extension Alignment: Hashable {
+    public var hashValue: Int {
+        return rawValue
+    }
+}

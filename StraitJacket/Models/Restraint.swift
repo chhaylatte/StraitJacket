@@ -8,7 +8,18 @@
 
 import Foundation
 
-public protocol Restrainable {}
+extension UILayoutGuide: RestraintTargetable {
+    public func addToRootView(_ view: UIView) {
+        view.addLayoutGuide(self)
+    }
+}
+
+extension UIView: RestraintTargetable {
+    public func addToRootView(_ view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self)
+    }
+}
 
 public class Restraint<T: UIView> {
     public init(_ view: T, subRestraints: [Restraint] = []) {
@@ -39,6 +50,14 @@ public class Restraint<T: UIView> {
         subviews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
+        }
+        
+        return self
+    }
+    
+    public func addItems(_ items: [RestraintTargetable]) -> Restraint {
+        items.forEach {
+            $0.addToRootView(view)
         }
         
         return self
@@ -137,9 +156,23 @@ public extension Restraint {
     }
     
     public func aligns(_ views: [UIView], sides: Edges) -> Restraint {
+        return aligns(views, sides: sides, to: self.view)
+    }
+    
+    internal func aligns(_ views: [UIView], sides: Edges, to target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
-            let someConstraints = modifiedAlignmentConstraint(for: view , sides: sides, v1: self.view, modifier: modifier)
+            let someConstraints = modifiedAlignmentConstraint(for: view , sides: sides, v1: target, modifier: modifier)
+            constraints.append(contentsOf: someConstraints)
+        })
+        
+        return self
+    }
+    
+    internal func aligns(_ views: [UIView], with alignment: Alignment, to target: RestraintTargetable) -> Restraint {
+        let restraintValues = views.map { RestraintValue($0, value: 0) }
+        process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
+            let someConstraints = alignment.modifiedAlignmentConstraints(forSource: view, target: target, modifier: modifier)
             constraints.append(contentsOf: someConstraints)
         })
         
@@ -147,7 +180,7 @@ public extension Restraint {
     }
 }
 
-fileprivate extension Restraint {
+internal extension Restraint {
     
     // MARK: - Processing
     
@@ -281,27 +314,27 @@ fileprivate extension Restraint {
         return aConstraint
     }
     
-    private func modifiedAlignmentConstraint(for v0: UIView, sides: Edges, v1: UIView, modifier: RestraintModifier) -> [NSLayoutConstraint] {
+    private func modifiedAlignmentConstraint(for v0: UIView, sides: Edges, v1: RestraintTargetable, modifier: RestraintModifier) -> [NSLayoutConstraint] {
         let aConstraint: [NSLayoutConstraint] = {
             var constraints: [NSLayoutConstraint] = []
             
             if sides.contains(.top) {
-                let constraintFunc = constraintFunction(v0.topAnchor, relation: modifier.relation)
+                let constraintFunc = Restraint.constraintFunction(v0.topAnchor, relation: modifier.relation)
                 constraints.append(constraintFunc(v1.topAnchor, modifier.value))
             }
             
             if sides.contains(.bottom) {
-                let constraintFunc = constraintFunction(v0.bottomAnchor, relation: modifier.relation)
+                let constraintFunc = Restraint.constraintFunction(v0.bottomAnchor, relation: modifier.relation)
                 constraints.append(constraintFunc(v1.bottomAnchor, modifier.value))
             }
             
             if sides.contains(.left) {
-                let constraintFunc = constraintFunction(v0.leftAnchor, relation: modifier.relation)
+                let constraintFunc = Restraint.constraintFunction(v0.leftAnchor, relation: modifier.relation)
                 constraints.append(constraintFunc(v1.leftAnchor, modifier.value))
             }
             
             if sides.contains(.right) {
-                let constraintFunc = constraintFunction(v0.rightAnchor, relation: modifier.relation)
+                let constraintFunc = Restraint.constraintFunction(v0.rightAnchor, relation: modifier.relation)
                 constraints.append(constraintFunc(v1.rightAnchor, modifier.value))
             }
             
@@ -313,7 +346,7 @@ fileprivate extension Restraint {
         return aConstraint
     }
     
-    private func constraintFunction<AnchorType>(_ anchor: NSLayoutAnchor<AnchorType>,
+    static func constraintFunction<AnchorType>(_ anchor: NSLayoutAnchor<AnchorType>,
                                                 relation: NSLayoutRelation) -> (NSLayoutAnchor<AnchorType>, CGFloat) -> NSLayoutConstraint {
         switch relation {
         case .equal:
