@@ -156,7 +156,7 @@ public extension Restraint {
         return self
     }
     
-    internal func aligns(_ views: [RestraintTargetable], with alignment: Alignment, to target: RestraintTargetable) -> Restraint {
+    public func aligns(_ views: [RestraintTargetable], with alignment: Alignment, to target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
             let someConstraints = alignment.modifiedAlignmentConstraints(forSource: view, target: target, modifier: modifier)
@@ -164,6 +164,10 @@ public extension Restraint {
         })
         
         return self
+    }
+    
+    public func aligns(_ views: [RestraintTargetable], with alignment: Alignment) -> Restraint {
+        return aligns(views, with: alignment, to: self.view)
     }
 }
 
