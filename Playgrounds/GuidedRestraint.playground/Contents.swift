@@ -21,7 +21,6 @@ class MyViewController : UIViewController {
         
         let subtitleLabel = UILabel(frame: .zero)
         subtitleLabel.numberOfLines = 0
-        subtitleLabel.text = "Subtitle\nSubtitle\nSubtitle"
         subtitleLabel.textColor = .gray
         subtitleLabel.sizeToFit()
         
@@ -34,8 +33,8 @@ class MyViewController : UIViewController {
         let restraint = Restraint(view)
             .addItems([guide, blueView, titleLabel, subtitleLabel,
                        horizontalLine])
-            .widths([blueView.width(50)])
-            .heights([blueView.height(50)], [horizontalLine.height(1)])
+            .widths([blueView.width(60)])
+            .heights([blueView.height(60)], [horizontalLine.height(1)])
             .vertical([titleLabel, subtitleLabel],
                       [guide, horizontalLine])
             .horizontal([blueView, Space(8), titleLabel],
@@ -52,9 +51,16 @@ class MyViewController : UIViewController {
         }
         restraint.isActive = true
         
+        subtitleLabel.text = "Subtitle"
         self.view
-        print(blueView, guide)
         
+        subtitleLabel.text = "Subtitle\nSubtitle"
+        restraint.isActive = true // for some reason constraint may get deactivated
+        self.view
+        
+        subtitleLabel.text = "Subtitle\nSubtitle\nSubtitle"
+        restraint.isActive = true // for some reason constraint may get deactivated
+        self.view
     }
 }
 

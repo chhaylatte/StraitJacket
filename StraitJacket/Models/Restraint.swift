@@ -42,19 +42,6 @@ public class Restraint<T: UIView> {
         }
     }
     
-    public func addSubviews(_ subviews: UIView...) -> Restraint {
-        return addSubviews(subviews)
-    }
-    
-    public func addSubviews(_ subviews: [UIView]) -> Restraint {
-        subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview($0)
-        }
-        
-        return self
-    }
-    
     public func addItems(_ items: [RestraintTargetable]) -> Restraint {
         items.forEach {
             $0.addToRootView(view)
@@ -169,7 +156,7 @@ public extension Restraint {
         return self
     }
     
-    internal func aligns(_ views: [UIView], with alignment: Alignment, to target: RestraintTargetable) -> Restraint {
+    internal func aligns(_ views: [RestraintTargetable], with alignment: Alignment, to target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
             let someConstraints = alignment.modifiedAlignmentConstraints(forSource: view, target: target, modifier: modifier)
@@ -185,7 +172,7 @@ internal extension Restraint {
     // MARK: - Processing
     
     func process(restraintRelations: [[RestraintRelation]],
-                 buildConstraint: (UIView, UIView, RestraintModifier) -> Void) {
+                 buildConstraint: (RestraintTargetable, RestraintTargetable, RestraintModifier) -> Void) {
         for relations in restraintRelations {
             for relation in relations {
                 buildConstraint(relation.view0, relation.view1, relation.modifier)
@@ -258,7 +245,7 @@ internal extension Restraint {
         return aConstraint
     }
     
-    private func modifiedRelativeSizeConstraint(for size: Size, v0: UIView, v1: UIView, modifier: RestraintModifier) -> NSLayoutConstraint {
+    private func modifiedRelativeSizeConstraint(for size: Size, v0: RestraintTargetable, v1: RestraintTargetable, modifier: RestraintModifier) -> NSLayoutConstraint {
         let aConstraint: NSLayoutConstraint = {
             switch size {
             case .width:

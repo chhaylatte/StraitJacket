@@ -29,9 +29,9 @@ let view = UIView(frame: CGRect(x: 0, y: 0, width: 1000, height: 1000))
 view.backgroundColor = .white
 
 let viewRestraint = Restraint(view)
-    .addSubviews(label,
-                 blueView, redView, greenView,
-                 horizontalLine, yellowView)
+    .addItems([label,
+               blueView, redView, greenView,
+               horizontalLine, yellowView])
     .aligns([label], sides: [.left, .top])
     .aligns([horizontalLine], sides: .horizontal)
     .aligns([yellowView], sides: [.left, .right, .bottom])
@@ -47,7 +47,7 @@ let visibleView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 visibleView.backgroundColor = .purple
 
 Restraint(visibleView)
-    .addSubviews(view)
+    .addItems([view])
     .aligns([view], sides: .all).isActive = true
 
 PlaygroundPage.current.liveView = visibleView

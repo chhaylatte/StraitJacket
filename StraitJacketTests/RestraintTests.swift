@@ -28,7 +28,7 @@ class RestraintTests: XCTestCase {
         let view = UIView()
         
         let viewRestraint = Restraint(view)
-            .addSubviews([label1, label2])
+            .addItems([label1, label2])
             .vertical([label1, label2])
         
         XCTAssert(view.constraints.isEmpty)
@@ -48,7 +48,7 @@ class RestraintTests: XCTestCase {
         
         // label1 - label2 - label3
         let viewRestraint = Restraint(view)
-            .addSubviews([label1, label2, label3])
+            .addItems([label1, label2, label3])
             .vertical([label1, label2, label3])
         viewRestraint.isActive = true
         
@@ -84,7 +84,7 @@ class RestraintTests: XCTestCase {
         
         // label1 -(8)- label2
         let viewRestraint = Restraint(view)
-            .addSubviews(label1, label2)
+            .addItems([label1, label2])
             .vertical([label1, Space(expectedSpace), label2])
         viewRestraint.isActive = true
         
@@ -109,7 +109,7 @@ class RestraintTests: XCTestCase {
         // Column 1: label1 - label2
         // Column 2: label3 - label4
         let viewRestraint = Restraint(view)
-            .addSubviews([label1, label2, label3, label4])
+            .addItems([label1, label2, label3, label4])
             .vertical([label1, label2],
                       [label3, label4])
         viewRestraint.isActive = true
@@ -147,7 +147,7 @@ class RestraintTests: XCTestCase {
         
         // label1 - label2 - label3
         let viewRestraint = Restraint(view)
-            .addSubviews(label1, label2, label3)
+            .addItems([label1, label2, label3])
             .horizontal([label1, label2, label3])
         viewRestraint.isActive = true
         
@@ -183,7 +183,7 @@ class RestraintTests: XCTestCase {
         
         // label1 -(11)- label2
         let viewRestraint = Restraint(view)
-            .addSubviews([label1, label2])
+            .addItems([label1, label2])
             .horizontal([label1, Space(expectedSpace), label2])
         viewRestraint.isActive = true
         
@@ -208,7 +208,7 @@ class RestraintTests: XCTestCase {
         // Row 1: label1 - label2
         // Row 2: label3 - label4
         let viewRestraint = Restraint(view)
-            .addSubviews(label1, label2, label3, label4)
+            .addItems([label1, label2, label3, label4])
             .horizontal([label1, label2],
                         [label3, label4])
         viewRestraint.isActive = true
@@ -264,7 +264,7 @@ class RestraintTests: XCTestCase {
         
         let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
         let viewRestraint = Restraint(view)
-            .addSubviews(view1, view2)
+            .addItems([view1, view2])
             .relativeWidths([view1.relativeWidth(expectedFactor1, of: view),
                              RelativeWidth(view2, multiple: expectedFactor2, of: view)
                 ])
@@ -307,7 +307,7 @@ class RestraintTests: XCTestCase {
         
         let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
         let viewRestraint = Restraint(view)
-            .addSubviews(view1, view2)
+            .addItems([view1, view2])
             .relativeHeights([view1.relativeHeight(expectedFactor1, of: view),
                              RelativeHeight(view2, multiple: expectedFactor2, of: view)
                 ])
@@ -332,7 +332,7 @@ class RestraintTests: XCTestCase {
         
         let expectedFactor2 = CGFloat(3.0/4.0), expectedFactor3 = CGFloat(1.0/2.0)
         let viewRestraint = Restraint(view)
-            .addSubviews(view1, view2, view3)
+            .addItems([view1, view2, view3])
             .relativeHeights([
                 view2.relativeHeight(expectedFactor2, of: view1),
                 view3.relativeHeight(expectedFactor3, of: view1)
@@ -371,7 +371,7 @@ class RestraintTests: XCTestCase {
             let view = UIView()
             
             let restraint = Restraint(view)
-                .addSubviews(view1, view2)
+                .addItems([view1, view2])
                 .aligns([view1, view2], sides: side)
             restraint.isActive = true
             
