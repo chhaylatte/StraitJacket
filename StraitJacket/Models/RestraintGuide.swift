@@ -101,7 +101,7 @@ public struct Alignment: OptionSet {
     }
 }
 
-extension Restraint {
+public extension Restraint {
     func guide(_ guide: UILayoutGuide) -> GuidedRestraint<T> {
         return GuidedRestraint(layoutGuide: guide, restraint: self)
     }
@@ -117,12 +117,12 @@ public class GuidedRestraint<T: UIView> {
     private let layoutGuide: UILayoutGuide
     private let restraint: Restraint<T>
     
-    init(layoutGuide: UILayoutGuide, restraint: Restraint<T>) {
+    public init(layoutGuide: UILayoutGuide, restraint: Restraint<T>) {
         self.layoutGuide = layoutGuide
         self.restraint = restraint
     }
     
-    func aligns(_ views: [UIView], with alignment: Alignment) -> Restraint<T> {
+    public func aligns(_ views: [UIView], with alignment: Alignment) -> Restraint<T> {
         return restraint.aligns(views, with: alignment, to: layoutGuide)
     }
     

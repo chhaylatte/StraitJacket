@@ -155,11 +155,11 @@ public extension Restraint {
         return self
     }
     
-    public func aligns(_ views: [UIView], sides: Edges) -> Restraint {
+    public func aligns(_ views: [RestraintTargetable], sides: Edges) -> Restraint {
         return aligns(views, sides: sides, to: self.view)
     }
     
-    internal func aligns(_ views: [UIView], sides: Edges, to target: RestraintTargetable) -> Restraint {
+    internal func aligns(_ views: [RestraintTargetable], sides: Edges, to target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
             let someConstraints = modifiedAlignmentConstraint(for: view , sides: sides, v1: target, modifier: modifier)
@@ -194,7 +194,7 @@ internal extension Restraint {
     }
     
     func process(restraintValues: [[RestraintValue]],
-                 buildConstraint: (UIView, RestraintModifier) -> Void) {
+                 buildConstraint: (RestraintTargetable, RestraintModifier) -> Void) {
         
         for values in restraintValues {
             for value in values {
@@ -204,12 +204,12 @@ internal extension Restraint {
     }
     
     func movingProcess(restrainables: [Restrainable],
-                       buildConstraint: (UIView, UIView, [RestraintModifier]) -> Void) {
+                       buildConstraint: (RestraintTargetable, RestraintTargetable, [RestraintModifier]) -> Void) {
         
         var restraintModifiers: [RestraintModifier] = []
-        var (view0, view1): (UIView?, UIView?) = (nil, nil)
+        var (view0, view1): (RestraintTargetable?, RestraintTargetable?) = (nil, nil)
         for restrainable in restrainables {
-            let view = restrainable as? UIView
+            let view = restrainable as? RestraintTargetable
             view0 = view
             
             if let modifier = restrainable as? RestraintModifier {
@@ -230,7 +230,7 @@ internal extension Restraint {
     
     // MARK: - Constraint Building
     
-    private func modifiedChainConstraint(for direction: Direction, v0: UIView, v1: UIView, modifier: RestraintModifier) -> NSLayoutConstraint {
+    private func modifiedChainConstraint(for direction: Direction, v0: RestraintTargetable, v1: RestraintTargetable, modifier: RestraintModifier) -> NSLayoutConstraint {
         let aConstraint: NSLayoutConstraint = {
             switch direction {
             case .vertical:
@@ -286,7 +286,7 @@ internal extension Restraint {
         return aConstraint
     }
     
-    private func modifiedSizeConstraint(for size: Size, v0: UIView, modifier: RestraintModifier) -> NSLayoutConstraint {
+    private func modifiedSizeConstraint(for size: Size, v0: RestraintTargetable, modifier: RestraintModifier) -> NSLayoutConstraint {
         let aConstraint: NSLayoutConstraint = {
             switch size {
             case .width:
@@ -314,7 +314,7 @@ internal extension Restraint {
         return aConstraint
     }
     
-    private func modifiedAlignmentConstraint(for v0: UIView, sides: Edges, v1: RestraintTargetable, modifier: RestraintModifier) -> [NSLayoutConstraint] {
+    private func modifiedAlignmentConstraint(for v0: RestraintTargetable, sides: Edges, v1: RestraintTargetable, modifier: RestraintModifier) -> [NSLayoutConstraint] {
         let aConstraint: [NSLayoutConstraint] = {
             var constraints: [NSLayoutConstraint] = []
             

@@ -10,7 +10,7 @@ import Foundation
 
 public protocol Restrainable {}
 
-public protocol RestraintTargetable: class {
+public protocol RestraintTargetable: class, Restrainable {
     var bottomAnchor: NSLayoutYAxisAnchor { get }
     var centerXAnchor: NSLayoutXAxisAnchor { get }
     var centerYAnchor: NSLayoutYAxisAnchor { get }

@@ -10,10 +10,10 @@ import Foundation
 
 public struct RestraintValue {
     
-    public let view: UIView
+    public let view: RestraintTargetable
     public let modifier: RestraintModifier
     
-    public init (_ view: UIView,
+    public init (_ view: RestraintTargetable,
                  value: CGFloat,
                  relation: NSLayoutRelation = .equal,
                  priority: UILayoutPriority = .required) {

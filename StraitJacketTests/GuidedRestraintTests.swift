@@ -73,4 +73,21 @@ class GuidedRestraintTests: XCTestCase {
             XCTAssert(constraints[0].relation == expectedRelation)
         }
     }
+    
+    func testVerticalToGuide() {
+        let containerView = UIView()
+        let guide: UILayoutGuide = UILayoutGuide()
+        let view1 = UIView()
+        
+        let restraint = Restraint(containerView)
+            .addItems([guide, view1])
+            .vertical([guide, view1])
+        restraint.isActive = true
+        
+        let constraints = containerView.constraints
+        XCTAssert(constraints[0].firstItem === view1)
+        XCTAssert(constraints[0].secondItem === guide)
+        XCTAssert(constraints[0].firstAttribute == .top)
+        XCTAssert(constraints[0].secondAttribute == .bottom)
+    }
 }
