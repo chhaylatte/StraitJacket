@@ -9,12 +9,6 @@
 import Foundation
 @testable import StraitJacket
 
-extension Edges: Hashable {
-    public var hashValue: Int {
-        return rawValue
-    }
-}
-
 extension Alignment: Hashable {
     public var hashValue: Int {
         return rawValue

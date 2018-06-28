@@ -12,7 +12,6 @@
 		3134C92E203642F20077F5BE /* RestraintModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C92D203642F20077F5BE /* RestraintModifier.swift */; };
 		3140C35220B79E1D00CA772B /* RestraintSupportProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */; };
 		3140C35420B7AFDE00CA772B /* GuidedRestraintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3140C35320B7AFDE00CA772B /* GuidedRestraintTests.swift */; };
-		3154FA6B20B77AD60004B8AF /* Edges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3154FA6A20B77AD60004B8AF /* Edges.swift */; };
 		3154FA6D20B77D380004B8AF /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3154FA6C20B77D380004B8AF /* TestSupport.swift */; };
 		3154FA6F20B77E8C0004B8AF /* RestraintGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3154FA6E20B77E8C0004B8AF /* RestraintGuide.swift */; };
 		316549D5205A044B00ABAB81 /* CGFloat+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316549D4205A044B00ABAB81 /* CGFloat+StraitJacket.swift */; };
@@ -43,7 +42,6 @@
 		3134C92D203642F20077F5BE /* RestraintModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintModifier.swift; sourceTree = "<group>"; };
 		3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintSupportProtocols.swift; sourceTree = "<group>"; };
 		3140C35320B7AFDE00CA772B /* GuidedRestraintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedRestraintTests.swift; sourceTree = "<group>"; };
-		3154FA6A20B77AD60004B8AF /* Edges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edges.swift; sourceTree = "<group>"; };
 		3154FA6C20B77D380004B8AF /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
 		3154FA6E20B77E8C0004B8AF /* RestraintGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintGuide.swift; sourceTree = "<group>"; };
 		316549D4205A044B00ABAB81 /* CGFloat+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+StraitJacket.swift"; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 		3134C928203642AB0077F5BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3154FA6A20B77AD60004B8AF /* Edges.swift */,
 				3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */,
 				CE53D426201FBBF100B99FDE /* Restraint.swift */,
 				3154FA6E20B77E8C0004B8AF /* RestraintGuide.swift */,
@@ -273,7 +270,6 @@
 				3134C92E203642F20077F5BE /* RestraintModifier.swift in Sources */,
 				316549D5205A044B00ABAB81 /* CGFloat+StraitJacket.swift in Sources */,
 				3134C92C203642DF0077F5BE /* RestraintValue.swift in Sources */,
-				3154FA6B20B77AD60004B8AF /* Edges.swift in Sources */,
 				3140C35220B79E1D00CA772B /* RestraintSupportProtocols.swift in Sources */,
 				CE53D429201FBBF800B99FDE /* UIView+StraitJacket.swift in Sources */,
 			);
