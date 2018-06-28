@@ -32,13 +32,13 @@ let viewRestraint = Restraint(view)
     .addItems([label,
                blueView, redView, greenView,
                horizontalLine, yellowView])
-    .aligns([label], sides: [.left, .top])
-    .aligns([horizontalLine], sides: .horizontal)
-    .aligns([yellowView], sides: [.left, .right, .bottom])
-    .vertical([label, horizontalLine, blueView, Space(8), redView, Space(16), greenView, Space(32), yellowView])
-    .horizontal([blueView, redView, greenView, Space(20)])
-    .widths([blueView.width(200), redView.width(100), greenView.width(50)])
-    .heights([blueView.height(200), redView.height(100), greenView.height(50), horizontalLine.height(1)])
+    .alignItems([label], with: [.left, .top])
+    .alignItems([horizontalLine], with: .horizontal)
+    .alignItems([yellowView], with: [.left, .right, .bottom])
+    .chainVertically([label, horizontalLine, blueView, Space(8), redView, Space(16), greenView, Space(32), yellowView])
+    .chainHorizontally([blueView, redView, greenView, Space(20)])
+    .setWidths([blueView.width(200), redView.width(100), greenView.width(50)])
+    .setHeights([blueView.height(200), redView.height(100), greenView.height(50), horizontalLine.height(1)])
 
 
 viewRestraint.isActive = true
@@ -48,7 +48,7 @@ visibleView.backgroundColor = .purple
 
 Restraint(visibleView)
     .addItems([view])
-    .aligns([view], sides: .all).isActive = true
+    .alignItems([view], with: [.top, .bottom, .right, .left]).isActive = true
 
 PlaygroundPage.current.liveView = visibleView
 
