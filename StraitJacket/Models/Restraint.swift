@@ -60,7 +60,7 @@ public extension Restraint {
         case vertical
     }
     
-    public func horizontal(_ views: [Restrainable]...) -> Restraint {
+    public func chainHorizontally(_ views: [Restrainable]...) -> Restraint {
         for restrainableChain in views {
             movingProcess(restrainables: restrainableChain, buildConstraint: { (v0, v1, modifiers) in
                 if modifiers.isEmpty {
@@ -78,7 +78,7 @@ public extension Restraint {
         return self
     }
     
-    public func vertical(_ views: [Restrainable]...) -> Restraint {
+    public func chainVertically(_ views: [Restrainable]...) -> Restraint {
         for restrainableChain in views {
             movingProcess(restrainables: restrainableChain, buildConstraint: { (v0, v1, modifiers) in
                 if modifiers.isEmpty {
@@ -106,7 +106,7 @@ public extension Restraint {
         case height
     }
     
-    public func widths(_ values: [Width]...) -> Restraint {
+    public func setWidths(_ values: [Width]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
             constraints.append(aConstraint)
@@ -115,7 +115,7 @@ public extension Restraint {
         return self
     }
     
-    public func heights(_ values: [Height]...) -> Restraint {
+    public func setHeights(_ values: [Height]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .height, v0: view, modifier: modifier)
             constraints.append(aConstraint)
@@ -124,7 +124,7 @@ public extension Restraint {
         return self
     }
     
-    public func relativeWidths(_ relations: [RelativeWidth]...) -> Restraint {
+    public func setRelativeWidths(_ relations: [RelativeWidth]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .width, v0: v0, v1: v1, modifier: modifier)
             constraints.append(aConstraint)
@@ -133,7 +133,7 @@ public extension Restraint {
         return self
     }
     
-    public func relativeHeights(_ relations: [RelativeHeight]...) -> Restraint {
+    public func setRelativeHeights(_ relations: [RelativeHeight]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .height, v0: v0, v1: v1, modifier: modifier)
             constraints.append(aConstraint)
@@ -142,21 +142,7 @@ public extension Restraint {
         return self
     }
     
-    public func aligns(_ views: [RestraintTargetable], sides: Edges) -> Restraint {
-        return aligns(views, sides: sides, to: self.view)
-    }
-    
-    internal func aligns(_ views: [RestraintTargetable], sides: Edges, to target: RestraintTargetable) -> Restraint {
-        let restraintValues = views.map { RestraintValue($0, value: 0) }
-        process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
-            let someConstraints = modifiedAlignmentConstraint(for: view , sides: sides, v1: target, modifier: modifier)
-            constraints.append(contentsOf: someConstraints)
-        })
-        
-        return self
-    }
-    
-    public func aligns(_ views: [RestraintTargetable], with alignment: Alignment, to target: RestraintTargetable) -> Restraint {
+    public func alignItems(_ views: [RestraintTargetable], with alignment: Alignment, to target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
             let someConstraints = alignment.modifiedAlignmentConstraints(forSource: view, target: target, modifier: modifier)
@@ -166,8 +152,8 @@ public extension Restraint {
         return self
     }
     
-    public func aligns(_ views: [RestraintTargetable], with alignment: Alignment) -> Restraint {
-        return aligns(views, with: alignment, to: self.view)
+    public func alignItems(_ views: [RestraintTargetable], with alignment: Alignment) -> Restraint {
+        return alignItems(views, with: alignment, to: self.view)
     }
 }
 
@@ -304,39 +290,7 @@ internal extension Restraint {
         
         return aConstraint
     }
-    
-    private func modifiedAlignmentConstraint(for v0: RestraintTargetable, sides: Edges, v1: RestraintTargetable, modifier: RestraintModifier) -> [NSLayoutConstraint] {
-        let aConstraint: [NSLayoutConstraint] = {
-            var constraints: [NSLayoutConstraint] = []
-            
-            if sides.contains(.top) {
-                let constraintFunc = Restraint.constraintFunction(v0.topAnchor, relation: modifier.relation)
-                constraints.append(constraintFunc(v1.topAnchor, modifier.value))
-            }
-            
-            if sides.contains(.bottom) {
-                let constraintFunc = Restraint.constraintFunction(v0.bottomAnchor, relation: modifier.relation)
-                constraints.append(constraintFunc(v1.bottomAnchor, modifier.value))
-            }
-            
-            if sides.contains(.left) {
-                let constraintFunc = Restraint.constraintFunction(v0.leftAnchor, relation: modifier.relation)
-                constraints.append(constraintFunc(v1.leftAnchor, modifier.value))
-            }
-            
-            if sides.contains(.right) {
-                let constraintFunc = Restraint.constraintFunction(v0.rightAnchor, relation: modifier.relation)
-                constraints.append(constraintFunc(v1.rightAnchor, modifier.value))
-            }
-            
-            return constraints
-        }()
         
-        constraints.forEach { $0.priority = modifier.priority }
-        
-        return aConstraint
-    }
-    
     static func constraintFunction<AnchorType>(_ anchor: NSLayoutAnchor<AnchorType>,
                                                 relation: NSLayoutRelation) -> (NSLayoutAnchor<AnchorType>, CGFloat) -> NSLayoutConstraint {
         switch relation {

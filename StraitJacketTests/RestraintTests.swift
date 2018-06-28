@@ -29,7 +29,7 @@ class RestraintTests: XCTestCase {
         
         let viewRestraint = Restraint(view)
             .addItems([label1, label2])
-            .vertical([label1, label2])
+            .chainVertically([label1, label2])
         
         XCTAssert(view.constraints.isEmpty)
         XCTAssert(!viewRestraint.isActive)
@@ -49,7 +49,7 @@ class RestraintTests: XCTestCase {
         // label1 - label2 - label3
         let viewRestraint = Restraint(view)
             .addItems([label1, label2, label3])
-            .vertical([label1, label2, label3])
+            .chainVertically([label1, label2, label3])
         viewRestraint.isActive = true
         
         // Test label1 - label2
@@ -85,7 +85,7 @@ class RestraintTests: XCTestCase {
         // label1 -(8)- label2
         let viewRestraint = Restraint(view)
             .addItems([label1, label2])
-            .vertical([label1, Space(expectedSpace), label2])
+            .chainVertically([label1, Space(expectedSpace), label2])
         viewRestraint.isActive = true
         
         // Test label1 - label2
@@ -110,7 +110,7 @@ class RestraintTests: XCTestCase {
         // Column 2: label3 - label4
         let viewRestraint = Restraint(view)
             .addItems([label1, label2, label3, label4])
-            .vertical([label1, label2],
+            .chainVertically([label1, label2],
                       [label3, label4])
         viewRestraint.isActive = true
         
@@ -148,7 +148,7 @@ class RestraintTests: XCTestCase {
         // label1 - label2 - label3
         let viewRestraint = Restraint(view)
             .addItems([label1, label2, label3])
-            .horizontal([label1, label2, label3])
+            .chainHorizontally([label1, label2, label3])
         viewRestraint.isActive = true
         
         // Test label1 - label2
@@ -184,7 +184,7 @@ class RestraintTests: XCTestCase {
         // label1 -(11)- label2
         let viewRestraint = Restraint(view)
             .addItems([label1, label2])
-            .horizontal([label1, Space(expectedSpace), label2])
+            .chainHorizontally([label1, Space(expectedSpace), label2])
         viewRestraint.isActive = true
         
         // Test label1 - label2
@@ -209,7 +209,7 @@ class RestraintTests: XCTestCase {
         // Row 2: label3 - label4
         let viewRestraint = Restraint(view)
             .addItems([label1, label2, label3, label4])
-            .horizontal([label1, label2],
+            .chainHorizontally([label1, label2],
                         [label3, label4])
         viewRestraint.isActive = true
         
@@ -246,7 +246,7 @@ class RestraintTests: XCTestCase {
         let expectedWidth1 = CGFloat(100), expectedWidth2 = CGFloat(50)
         
         let viewRestraint = Restraint(view)
-            .widths([view1.width(expectedWidth1), Width(view2, value: expectedWidth2)])
+            .setWidths([view1.width(expectedWidth1), Width(view2, value: expectedWidth2)])
         
         viewRestraint.isActive = true
         
@@ -265,7 +265,7 @@ class RestraintTests: XCTestCase {
         let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
         let viewRestraint = Restraint(view)
             .addItems([view1, view2])
-            .relativeWidths([view1.relativeWidth(expectedFactor1, of: view),
+            .setRelativeWidths([view1.relativeWidth(expectedFactor1, of: view),
                              RelativeWidth(view2, multiple: expectedFactor2, of: view)
                 ])
         
@@ -289,7 +289,7 @@ class RestraintTests: XCTestCase {
         let expectedHeight1 = CGFloat(100), expectedHeight2 = CGFloat(50)
         
         let viewRestraint = Restraint(view)
-            .heights([view1.height(expectedHeight1), Height(view2, value: expectedHeight2)])
+            .setHeights([view1.height(expectedHeight1), Height(view2, value: expectedHeight2)])
         
         viewRestraint.isActive = true
         
@@ -308,7 +308,7 @@ class RestraintTests: XCTestCase {
         let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
         let viewRestraint = Restraint(view)
             .addItems([view1, view2])
-            .relativeHeights([view1.relativeHeight(expectedFactor1, of: view),
+            .setRelativeHeights([view1.relativeHeight(expectedFactor1, of: view),
                              RelativeHeight(view2, multiple: expectedFactor2, of: view)
                 ])
         
@@ -333,7 +333,7 @@ class RestraintTests: XCTestCase {
         let expectedFactor2 = CGFloat(3.0/4.0), expectedFactor3 = CGFloat(1.0/2.0)
         let viewRestraint = Restraint(view)
             .addItems([view1, view2, view3])
-            .relativeHeights([
+            .setRelativeHeights([
                 view2.relativeHeight(expectedFactor2, of: view1),
                 view3.relativeHeight(expectedFactor3, of: view1)
             ])
@@ -358,8 +358,8 @@ class RestraintTests: XCTestCase {
     // MARK: - Aligning
     
     func testAlignSidesToSuperview() {
-        let checkSides: [Edges] = [.top, .bottom, .left, .right]
-        let sideToLayoutAtribute: [Edges: NSLayoutAttribute] = [
+        let checkSides: [Alignment] = [.top, .bottom, .left, .right]
+        let sideToLayoutAtribute: [Alignment: NSLayoutAttribute] = [
             .top: .top,
             .bottom: .bottom,
             .left: .left,
@@ -372,7 +372,7 @@ class RestraintTests: XCTestCase {
             
             let restraint = Restraint(view)
                 .addItems([view1, view2])
-                .aligns([view1, view2], sides: side)
+                .alignItems([view1, view2], with: side)
             restraint.isActive = true
             
             let constraint1 = view.constraints[0]

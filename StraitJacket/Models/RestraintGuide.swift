@@ -123,7 +123,7 @@ public class GuidedRestraint<T: UIView> {
     }
     
     public func aligns(_ views: [UIView], with alignment: Alignment) -> Restraint<T> {
-        return restraint.aligns(views, with: alignment, to: layoutGuide)
+        return restraint.alignItems(views, with: alignment, to: layoutGuide)
     }
     
 }
