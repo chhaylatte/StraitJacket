@@ -60,11 +60,16 @@ public extension Restraint {
         case vertical
     }
     
-    public func chainHorizontally(_ views: [Restrainable]...) -> Restraint {
+    /// Creates constraints to define spacing between each element in every views array argument.
+    ///
+    /// - Parameters:
+    ///     - views: The `Restrainable` items to chain
+    ///     - spacing: The default spacing between each view
+    public func chainHorizontally(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
         for restrainableChain in views {
             movingProcess(restrainables: restrainableChain, buildConstraint: { (v0, v1, modifiers) in
                 if modifiers.isEmpty {
-                    let aConstraint = v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor)
+                    let aConstraint = v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor, constant: spacing)
                     constraints.append(aConstraint)
                 } else {
                     for modifier in modifiers {
@@ -78,11 +83,16 @@ public extension Restraint {
         return self
     }
     
-    public func chainVertically(_ views: [Restrainable]...) -> Restraint {
+    /// Creates constraints to define spacing between each element in every views array argument.
+    ///
+    /// - Parameters:
+    ///     - views: The `Restrainable` items to chain
+    ///     - spacing: The default spacing between each view
+    public func chainVertically(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
         for restrainableChain in views {
             movingProcess(restrainables: restrainableChain, buildConstraint: { (v0, v1, modifiers) in
                 if modifiers.isEmpty {
-                    let aConstraint = v0.topAnchor.constraint(equalTo: v1.bottomAnchor)
+                    let aConstraint = v0.topAnchor.constraint(equalTo: v1.bottomAnchor, constant: spacing)
                     constraints.append(aConstraint)
                 } else {
                     for modifier in modifiers {

@@ -102,6 +102,31 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint.constant == expectedSpace)
     }
     
+    func testVerticalChainWithDefaultSpace() {
+        let expectedSpace: CGFloat = 8
+        let label1 = UILabel(), label2 = UILabel()
+        let view = UIView()
+        
+        // label1 - label2
+        let viewRestraint = Restraint(view)
+            .addItems([label1, label2])
+            .chainVertically([label1, label2])
+        viewRestraint.isActive = true
+        
+        // Test label1 - label2
+        let constraint = view.constraints[0]
+        
+        guard let firstItem = constraint.firstItem as? UILabel,
+            let secondItem = constraint.secondItem as? UILabel else { return XCTFail() }
+        
+        XCTAssert(firstItem === label2)
+        XCTAssert(secondItem === label1)
+        XCTAssert(constraint.relation == .equal)
+        XCTAssert(constraint.firstAttribute == .top)
+        XCTAssert(constraint.secondAttribute == .bottom)
+        XCTAssert(constraint.constant == expectedSpace)
+    }
+    
     func testMultipleVerticalChain() {
         let label1 = UILabel(), label2 = UILabel(), label3 = UILabel(), label4 = UILabel()
         let view = UIView()
@@ -185,6 +210,31 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .addItems([label1, label2])
             .chainHorizontally([label1, Space(expectedSpace), label2])
+        viewRestraint.isActive = true
+        
+        // Test label1 - label2
+        let constraint = view.constraints[0]
+        
+        guard let firstItem = constraint.firstItem as? UILabel,
+            let secondItem = constraint.secondItem as? UILabel else { return XCTFail() }
+        
+        XCTAssert(firstItem === label2)
+        XCTAssert(secondItem === label1)
+        XCTAssert(constraint.relation == .equal)
+        XCTAssert(constraint.constant == expectedSpace)
+        XCTAssert(constraint.firstAttribute == .leading)
+        XCTAssert(constraint.secondAttribute == .trailing)
+    }
+    
+    func testHorizontalChainWithDefaultSpace() {
+        let expectedSpace: CGFloat = 8
+        let label1 = UILabel(), label2 = UILabel()
+        let view = UIView()
+        
+        // label1 - label2
+        let viewRestraint = Restraint(view)
+            .addItems([label1, label2])
+            .chainHorizontally([label1, label2])
         viewRestraint.isActive = true
         
         // Test label1 - label2
