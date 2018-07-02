@@ -31,6 +31,7 @@ public class Restraint<T: UIView> {
     
     private(set) var constraints: [NSLayoutConstraint] = []
     private(set) var subRestraints: [Restraint] = []
+    private var identifierToCostraint: [String: NSLayoutConstraint] = [:]
     
     public var isActive: Bool = false {
         didSet {
@@ -67,16 +68,21 @@ public extension Restraint {
     ///     - spacing: The default spacing between each view
     public func chainHorizontally(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
         for restrainableChain in views {
-            movingProcess(restrainables: restrainableChain, buildConstraint: { (v0, v1, modifiers) in
+            movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
+                var builtConstraints: [NSLayoutConstraint] = []
+                
                 if modifiers.isEmpty {
                     let aConstraint = v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor, constant: spacing)
-                    constraints.append(aConstraint)
+                    builtConstraints.append(aConstraint)
                 } else {
+                    
                     for modifier in modifiers {
                         let aConstraint = modifiedChainConstraint(for: .horizontal, v0: v0, v1: v1, modifier: modifier)
-                        constraints.append(aConstraint)
+                        builtConstraints.append(aConstraint)
                     }
                 }
+                
+                return builtConstraints
             })
         }
         
@@ -90,16 +96,20 @@ public extension Restraint {
     ///     - spacing: The default spacing between each view
     public func chainVertically(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
         for restrainableChain in views {
-            movingProcess(restrainables: restrainableChain, buildConstraint: { (v0, v1, modifiers) in
+            movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
+                var builtConstraints: [NSLayoutConstraint] = []
+                
                 if modifiers.isEmpty {
                     let aConstraint = v0.topAnchor.constraint(equalTo: v1.bottomAnchor, constant: spacing)
-                    constraints.append(aConstraint)
+                    builtConstraints.append(aConstraint)
                 } else {
                     for modifier in modifiers {
                         let aConstraint = modifiedChainConstraint(for: .vertical, v0: v0, v1: v1, modifier: modifier)
-                        constraints.append(aConstraint)
+                        builtConstraints.append(aConstraint)
                     }
                 }
+                
+                return builtConstraints
             })
         }
         
@@ -119,7 +129,9 @@ public extension Restraint {
     public func setWidths(_ values: [Width]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
-            constraints.append(aConstraint)
+//            constraints.append(aConstraint)
+            
+            return [aConstraint]
         }
         
         return self
@@ -128,7 +140,8 @@ public extension Restraint {
     public func setHeights(_ values: [Height]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .height, v0: view, modifier: modifier)
-            constraints.append(aConstraint)
+//            constraints.append(aConstraint)
+            return [aConstraint]
         }
         
         return self
@@ -137,7 +150,8 @@ public extension Restraint {
     public func setRelativeWidths(_ relations: [RelativeWidth]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .width, v0: v0, v1: v1, modifier: modifier)
-            constraints.append(aConstraint)
+//            constraints.append(aConstraint)
+            return [aConstraint]
         }
         
         return self
@@ -146,7 +160,8 @@ public extension Restraint {
     public func setRelativeHeights(_ relations: [RelativeHeight]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .height, v0: v0, v1: v1, modifier: modifier)
-            constraints.append(aConstraint)
+//            constraints.append(aConstraint)
+            return [aConstraint]
         }
         
         return self
@@ -154,9 +169,8 @@ public extension Restraint {
     
     public func alignItems(_ views: [RestraintTargetable], to alignment: Alignment, of target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
-        process(restraintValues: [restraintValues], buildConstraint: { (view, modifier) in
-            let someConstraints = alignment.modifiedAlignmentConstraints(forSource: view, target: target, modifier: modifier)
-            constraints.append(contentsOf: someConstraints)
+        process(restraintValues: [restraintValues], buildConstraints: { (view, modifier) in
+            return alignment.modifiedAlignmentConstraints(forSource: view, target: target, modifier: modifier)
         })
         
         return self
@@ -172,26 +186,28 @@ internal extension Restraint {
     // MARK: - Processing
     
     func process(restraintRelations: [[RestraintRelation]],
-                 buildConstraint: (RestraintTargetable, RestraintTargetable, RestraintModifier) -> Void) {
+                 buildConstraints: (RestraintTargetable, RestraintTargetable, RestraintModifier) -> [NSLayoutConstraint]) {
         for relations in restraintRelations {
             for relation in relations {
-                buildConstraint(relation.view0, relation.view1, relation.modifier)
+                let builtConstraints = buildConstraints(relation.view0, relation.view1, relation.modifier)
+                builtConstraints.forEach { didBuildConstraint($0) }
             }
         }
     }
     
     func process(restraintValues: [[RestraintValue]],
-                 buildConstraint: (RestraintTargetable, RestraintModifier) -> Void) {
+                 buildConstraints: (RestraintTargetable, RestraintModifier) -> [NSLayoutConstraint]) {
         
         for values in restraintValues {
             for value in values {
-                buildConstraint(value.view, value.modifier)
+                let builtConstraints = buildConstraints(value.view, value.modifier)
+                builtConstraints.forEach { didBuildConstraint($0) }
             }
         }
     }
     
     func movingProcess(restrainables: [Restrainable],
-                       buildConstraint: (RestraintTargetable, RestraintTargetable, [RestraintModifier]) -> Void) {
+                       buildConstraints: (RestraintTargetable, RestraintTargetable, [RestraintModifier]) -> [NSLayoutConstraint]) {
         
         var restraintModifiers: [RestraintModifier] = []
         var (view0, view1): (RestraintTargetable?, RestraintTargetable?) = (nil, nil)
@@ -205,7 +221,8 @@ internal extension Restraint {
             }
             
             if let view0 = view0, let view1 = view1 {
-                buildConstraint(view0, view1, restraintModifiers)
+                let builtConstraints = buildConstraints(view0, view1, restraintModifiers)
+                builtConstraints.forEach { didBuildConstraint($0) }
                 restraintModifiers.removeAll()
             }
             
@@ -241,6 +258,7 @@ internal extension Restraint {
             }
         }()
         aConstraint.priority = modifier.priority
+        aConstraint.identifier = modifier.identifier
         
         return aConstraint
     }
@@ -269,6 +287,7 @@ internal extension Restraint {
             }
         }()
         aConstraint.priority = modifier.priority
+        aConstraint.identifier = modifier.identifier
         
         return aConstraint
     }
@@ -297,6 +316,7 @@ internal extension Restraint {
             }
         }()
         aConstraint.priority = modifier.priority
+        aConstraint.identifier = modifier.identifier
         
         return aConstraint
     }
@@ -311,5 +331,14 @@ internal extension Restraint {
         case .greaterThanOrEqual:
             return anchor.constraint(greaterThanOrEqualTo:constant:)
         }
+    }
+    
+    func didBuildConstraint(_ constraint: NSLayoutConstraint) {
+        constraints.append(constraint)
+        
+        guard let identifier = constraint.identifier else { return }
+        
+        assert(!identifierToCostraint.keys.contains(identifier), "Identifier must be unique: \(identifier)")
+        identifierToCostraint[identifier] = constraint
     }
 }

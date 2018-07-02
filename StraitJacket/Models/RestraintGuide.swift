@@ -44,52 +44,72 @@ public struct Alignment: OptionSet {
             
             if contains(.top) {
                 let constraintFunc = Restraint.constraintFunction(v0.topAnchor, relation: .equal)
-                constraints.append(constraintFunc(v1.topAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.topAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.bottom) {
                 let constraintFunc = Restraint.constraintFunction(v0.bottomAnchor, relation: .equal)
-                constraints.append(constraintFunc(v1.bottomAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.bottomAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.left) {
                 let constraintFunc = Restraint.constraintFunction(v0.leftAnchor, relation: .equal)
-                constraints.append(constraintFunc(v1.leftAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.leftAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.right) {
                 let constraintFunc = Restraint.constraintFunction(v0.rightAnchor, relation: .equal)
-                constraints.append(constraintFunc(v1.rightAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.rightAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.centerX) {
                 let constraintFunc = Restraint.constraintFunction(v0.centerXAnchor, relation: .equal)
-                constraints.append(constraintFunc(v1.centerXAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.centerXAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.centerY) {
                 let constraintFunc = Restraint.constraintFunction(v0.centerYAnchor, relation: .equal)
-                constraints.append(constraintFunc(v1.centerYAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.centerYAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.softTop) {
                 let constraintFunc = Restraint.constraintFunction(v0.topAnchor, relation: .greaterThanOrEqual)
-                constraints.append(constraintFunc(v1.topAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.topAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.softBottom) {
                 let constraintFunc = Restraint.constraintFunction(v0.bottomAnchor, relation: .lessThanOrEqual)
-                constraints.append(constraintFunc(v1.bottomAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.bottomAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.softLeft) {
                 let constraintFunc = Restraint.constraintFunction(v0.leftAnchor, relation: .greaterThanOrEqual)
-                constraints.append(constraintFunc(v1.leftAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.leftAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             if contains(.softRight) {
                 let constraintFunc = Restraint.constraintFunction(v0.rightAnchor, relation: .lessThanOrEqual)
-                constraints.append(constraintFunc(v1.rightAnchor, modifier.value))
+                let aConstraint = constraintFunc(v1.rightAnchor, modifier.value)
+                aConstraint.identifier = modifier.identifier
+                constraints.append(aConstraint)
             }
             
             return constraints

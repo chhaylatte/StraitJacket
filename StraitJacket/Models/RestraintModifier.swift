@@ -10,20 +10,25 @@ import Foundation
 
 /// Model for constraint properties.
 public struct RestraintModifier: Restrainable, CustomStringConvertible {
-    public init(_ constant: CGFloat,
-                multiple: CGFloat = 1,
-                relation: NSLayoutRelation = .equal,
-                priority: UILayoutPriority = .required) {
-        self.value = constant
-        self.multiple = multiple
-        self.relation = relation
-        self.priority = priority
-    }
-    
     public let value: CGFloat
     public let multiple: CGFloat
     public let relation: NSLayoutRelation
     public let priority: UILayoutPriority
+    
+    /// An optional user identifier.  `Restraint` associates this identifier with its generated constraint.
+    public let identifier: String?
+    
+    public init(_ constant: CGFloat,
+                multiple: CGFloat = 1,
+                relation: NSLayoutRelation = .equal,
+                priority: UILayoutPriority = .required,
+                identifier: String? = nil) {
+        self.value = constant
+        self.multiple = multiple
+        self.relation = relation
+        self.priority = priority
+        self.identifier = identifier
+    }
     
     public var description: String {
         return "Modifier(\(relationString) \(value) @ \(priority.rawValue))"
@@ -38,5 +43,9 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
         case .lessThanOrEqual:
             return "<="
         }
+    }
+    
+    func withId(_ identifier: String) -> RestraintModifier {
+        return RestraintModifier(value, multiple: multiple, relation: relation, priority: priority, identifier: identifier)
     }
 }
