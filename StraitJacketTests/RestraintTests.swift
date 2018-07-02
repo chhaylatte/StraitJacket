@@ -435,4 +435,52 @@ class RestraintTests: XCTestCase {
             XCTAssert(constraint1.firstAttribute == expectedAttribute, "Expected \(side) to connect \(expectedAttribute) anchor")
         }
     }
+    
+    // MARK: - Identifier
+    
+    func testHorizontalChainConstraintIdentifiers() {
+        let expectedSpace: CGFloat = 11
+        let expectedIdentifier: String = "spaceIdentifier"
+        let expectedIdentifier2: String = "spaceIdentifier2"
+        let label1 = UILabel(), label2 = UILabel(), label3 = UILabel()
+        let view = UIView()
+        
+        // label1 -(11)- label2
+        let viewRestraint = Restraint(view)
+            .addItems([label1, label2, label3])
+            .chainHorizontally([label1, Space(expectedSpace).withId(expectedIdentifier),
+                                label2, Space(expectedSpace).withId(expectedIdentifier2),
+                                label3])
+        viewRestraint.isActive = true
+        
+        // Test label1 - label2 - label3
+        let constraint = view.constraints[0]
+        XCTAssert(constraint.identifier == expectedIdentifier)
+        
+        let constraint2 = view.constraints[1]
+        XCTAssert(constraint2.identifier == expectedIdentifier2)
+    }
+    
+    func testVerticalChainConstraintIdentifiers() {
+        let expectedSpace: CGFloat = 11
+        let expectedIdentifier: String = "spaceIdentifier"
+        let expectedIdentifier2: String = "spaceIdentifier2"
+        let label1 = UILabel(), label2 = UILabel(), label3 = UILabel()
+        let view = UIView()
+        
+        // label1 -(11)- label2 -(11)- label3
+        let viewRestraint = Restraint(view)
+            .addItems([label1, label2, label3])
+            .chainVertically([label1, Space(expectedSpace).withId(expectedIdentifier),
+                                label2, Space(expectedSpace).withId(expectedIdentifier2),
+                                label3])
+        viewRestraint.isActive = true
+        
+        // Test label1 - label2 - label3
+        let constraint = view.constraints[0]
+        XCTAssert(constraint.identifier == expectedIdentifier)
+        
+        let constraint2 = view.constraints[1]
+        XCTAssert(constraint2.identifier == expectedIdentifier2)
+    }
 }
