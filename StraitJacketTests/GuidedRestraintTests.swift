@@ -60,7 +60,7 @@ class GuidedRestraintTests: XCTestCase {
             
             let restraint = Restraint(containerView)
                 .addItems([view1, guide])
-                .guide(guide).alignItems([view1], with: $0)
+                .guide(guide).alignItems([view1], to: $0)
             restraint.isActive = true
             
             let constraints = containerView.constraints

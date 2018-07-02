@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Model for a relational modifier between two `UIView`.
 public struct RestraintRelation {
     
     public let view0: UIView

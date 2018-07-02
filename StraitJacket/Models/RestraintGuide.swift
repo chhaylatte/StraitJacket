@@ -122,8 +122,8 @@ public class GuidedRestraint<T: UIView> {
         self.restraint = restraint
     }
     
-    public func alignItems(_ views: [UIView], with alignment: Alignment) -> Restraint<T> {
-        return restraint.alignItems(views, with: alignment, to: layoutGuide)
+    public func alignItems(_ views: [UIView], to alignment: Alignment) -> Restraint<T> {
+        return restraint.alignItems(views, to: alignment, of: layoutGuide)
     }
     
 }

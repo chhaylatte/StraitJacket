@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Model for constraint properties.
 public struct RestraintModifier: Restrainable, CustomStringConvertible {
     public init(_ constant: CGFloat,
                 multiple: CGFloat = 1,

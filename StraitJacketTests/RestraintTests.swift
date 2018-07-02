@@ -265,8 +265,7 @@ class RestraintTests: XCTestCase {
         let expectedFactor1 = CGFloat(1.0/4.0), expectedFactor2 = CGFloat(3.0/4.0)
         let viewRestraint = Restraint(view)
             .addItems([view1, view2])
-            .setRelativeWidths([view1.relativeWidth(expectedFactor1, of: view),
-                             RelativeWidth(view2, multiple: expectedFactor2, of: view)
+            .setRelativeWidths([view1.relativeWidth(expectedFactor1, of: view), RelativeWidth(view2, multiple: expectedFactor2, of: view)
                 ])
         
         viewRestraint.isActive = true
@@ -372,7 +371,7 @@ class RestraintTests: XCTestCase {
             
             let restraint = Restraint(view)
                 .addItems([view1, view2])
-                .alignItems([view1, view2], with: side)
+                .alignItems([view1, view2], to: side)
             restraint.isActive = true
             
             let constraint1 = view.constraints[0]

@@ -126,19 +126,21 @@ class MyViewController : UIViewController {
                        centeredLabel])
             .setWidths([blueView.width(60)])
             .setHeights([blueView.height(60)], [horizontalLine.height(10), horizontalYellowLine.height(4)])
-            .chainVertically([titleLabel, Space(10, relation: .greaterThanOrEqual), subtitleLabel],
-                      [guide, horizontalLine, centeredLabel])
-            .chainHorizontally([blueView, Space(8), titleLabel],
-                        [blueView, Space(8), subtitleLabel])
-            .alignItems([guide], with: [.top, .left])
-            .alignItems([horizontalLine], with: [.left, .right])
+            .chainVertically(
+                [titleLabel, Space(10, relation: .greaterThanOrEqual), subtitleLabel],
+                [guide, horizontalLine, centeredLabel])
+            .chainHorizontally(
+                [blueView, Space(8), titleLabel],
+                [blueView, Space(8), subtitleLabel])
+            .alignItems([guide], to: [.top, .left])
+            .alignItems([horizontalLine], to: [.left, .right])
             .guide(guide) { restraintGuide in
-                restraintGuide.alignItems([blueView], with: [.top, .left, .softBottom])
-                restraintGuide.alignItems([titleLabel], with: [.top])
-                restraintGuide.alignItems([titleLabel, subtitleLabel], with: [.softRight])
-                restraintGuide.alignItems([subtitleLabel], with: [.bottom])
-                restraintGuide.alignItems([centeredLabel], with: [.centerX])
-                restraintGuide.alignItems([horizontalYellowLine], with: [.bottom, .horizontal])
+                restraintGuide.alignItems([blueView], to: [.top, .left, .softBottom])
+                restraintGuide.alignItems([titleLabel], to: [.top])
+                restraintGuide.alignItems([titleLabel, subtitleLabel], to: [.softRight])
+                restraintGuide.alignItems([subtitleLabel], to: [.bottom])
+                restraintGuide.alignItems([centeredLabel], to: [.centerX])
+                restraintGuide.alignItems([horizontalYellowLine], to: [.bottom, .horizontal])
             
         }
         restraint.isActive = true
@@ -150,7 +152,6 @@ class MyViewController : UIViewController {
         restraint.isActive = true // for some reason constraint may get deactivated
         self.view
         
-        
         let restraint2 = Restraint(view)
             .addItems([guide2, blueView2, titleLabel2, subtitleLabel2])
             .setWidths([blueView2.width(60)])
@@ -159,12 +160,15 @@ class MyViewController : UIViewController {
             .chainHorizontally([guide, Space(8), guide2],
                         [blueView2, Space(8), titleLabel2],
                         [blueView2, Space(8), subtitleLabel2])
-            .alignItems([guide2], with: [.top])
+            .alignItems([guide2], to: [.top])
+            .alignItems([blueView2], to: [.top, .left, .softBottom],
+                        of: guide2)
+            .alignItems([titleLabel2], to: [.top], of: guide2)
             .guide(guide2) { restraintGuide in
-                restraintGuide.alignItems([blueView2], with: [.top, .left, .softBottom])
-                restraintGuide.alignItems([titleLabel2], with: [.top])
-                restraintGuide.alignItems([titleLabel2, subtitleLabel2], with: [.right])
-                restraintGuide.alignItems([subtitleLabel2], with: [.bottom])
+                restraintGuide.alignItems([blueView2], to: [.top, .left, .softBottom])
+                restraintGuide.alignItems([titleLabel2], to: [.top])
+                restraintGuide.alignItems([titleLabel2, subtitleLabel2], to: [.right])
+                restraintGuide.alignItems([subtitleLabel2], to: [.bottom])
         }
         restraint2.isActive = true
         
@@ -177,12 +181,12 @@ class MyViewController : UIViewController {
             .chainVertically([titleLabel3, Space(10, relation: .greaterThanOrEqual), subtitleLabel3])
             .chainHorizontally([blueView3, Space(8), titleLabel3],
                         [blueView3, Space(8), subtitleLabel3])
-            .alignItems([guide3], with: [.centerX, .centerY])
+            .alignItems([guide3], to: [.centerX, .centerY])
             .guide(guide3) { restraintGuide in
-                restraintGuide.alignItems([blueView3], with: [.top, .left, .softBottom])
-                restraintGuide.alignItems([titleLabel3], with: [.top])
-                restraintGuide.alignItems([titleLabel3, subtitleLabel3], with: [.right])
-                restraintGuide.alignItems([subtitleLabel3], with: [.bottom])
+                restraintGuide.alignItems([blueView3], to: [.top, .left, .softBottom])
+                restraintGuide.alignItems([titleLabel3], to: [.top])
+                restraintGuide.alignItems([titleLabel3, subtitleLabel3], to: [.right])
+                restraintGuide.alignItems([subtitleLabel3], to: [.bottom])
         }
         restraint3.isActive = true
         
