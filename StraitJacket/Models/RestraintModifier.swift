@@ -16,7 +16,7 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
     public let priority: UILayoutPriority
     
     /// An optional user identifier.  `Restraint` associates this identifier with its generated constraint.
-    public let identifier: String?
+    public var identifier: String?
     
     public init(_ constant: CGFloat,
                 multiple: CGFloat = 1,

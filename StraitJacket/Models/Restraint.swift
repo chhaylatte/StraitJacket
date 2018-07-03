@@ -50,6 +50,10 @@ public class Restraint<T: UIView> {
         
         return self
     }
+    
+    public func constraintWithId(_ id: String) -> NSLayoutConstraint? {
+        return identifierToCostraint[id]
+    }
 }
 
 public extension Restraint {

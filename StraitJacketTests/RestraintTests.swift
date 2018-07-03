@@ -456,9 +456,11 @@ class RestraintTests: XCTestCase {
         // Test label1 - label2 - label3
         let constraint = view.constraints[0]
         XCTAssert(constraint.identifier == expectedIdentifier)
+        XCTAssert(constraint === viewRestraint.constraintWithId(expectedIdentifier))
         
         let constraint2 = view.constraints[1]
         XCTAssert(constraint2.identifier == expectedIdentifier2)
+        XCTAssert(constraint2 === viewRestraint.constraintWithId(expectedIdentifier2))
     }
     
     func testVerticalChainConstraintIdentifiers() {
@@ -479,8 +481,74 @@ class RestraintTests: XCTestCase {
         // Test label1 - label2 - label3
         let constraint = view.constraints[0]
         XCTAssert(constraint.identifier == expectedIdentifier)
+        XCTAssert(constraint === viewRestraint.constraintWithId(expectedIdentifier))
         
         let constraint2 = view.constraints[1]
         XCTAssert(constraint2.identifier == expectedIdentifier2)
+        XCTAssert(constraint2 === viewRestraint.constraintWithId(expectedIdentifier2))
+    }
+    
+    func testWidthIdentifiers() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        
+        let expectedId1 = "id1", expectedId2 = "id2"
+        
+        let viewRestraint = Restraint(view)
+            .setWidths([view1.width(1).withId(expectedId1),
+                        Width(view2, value: 1).withId(expectedId2)])
+        
+        viewRestraint.isActive = true
+        
+        let constraint1 = view1.constraints[0]
+        let constraint2 = view2.constraints[0]
+        
+        XCTAssert(constraint1.identifier == expectedId1, "\(constraint1.identifier!) != \(expectedId1)")
+        XCTAssert(constraint1 === viewRestraint.constraintWithId(expectedId1))
+        XCTAssert(constraint2.identifier == expectedId2, "\(constraint2.identifier!) != \(expectedId2)")
+        XCTAssert(constraint2 === viewRestraint.constraintWithId(expectedId2))
+    }
+    
+    func testHeightIdentifiers() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        
+        let expectedId1 = "id1", expectedId2 = "id2"
+        
+        let viewRestraint = Restraint(view)
+            .setHeights([view1.height(1).withId(expectedId1),
+                        Height(view2, value: 1).withId(expectedId2)])
+        
+        viewRestraint.isActive = true
+        
+        let constraint1 = view1.constraints[0]
+        let constraint2 = view2.constraints[0]
+        
+        XCTAssert(constraint1.identifier == expectedId1, "\(constraint1.identifier!) != \(expectedId1)")
+        XCTAssert(constraint1 === viewRestraint.constraintWithId(expectedId1))
+        XCTAssert(constraint2.identifier == expectedId2, "\(constraint2.identifier!) != \(expectedId2)")
+        XCTAssert(constraint2 === viewRestraint.constraintWithId(expectedId2))
+    }
+    
+    func testScaledWidthIdentifiers() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        
+        let expectedId1 = "id1", expectedId2 = "id2"
+        
+        let viewRestraint = Restraint(view)
+            .addItems([view1, view2])
+            .setRelativeWidths([view1.relativeWidth(1.0, of: view).withId(expectedId1),
+                                view2.relativeWidth(1.0, of: view).withId(expectedId2)])
+        
+        viewRestraint.isActive = true
+        
+        let constraint1 = view.constraints[0]
+        let constraint2 = view.constraints[1]
+        
+        XCTAssert(constraint1.identifier == expectedId1, "\(constraint1.identifier!) != \(expectedId1)")
+        XCTAssert(constraint1 === viewRestraint.constraintWithId(expectedId1))
+        XCTAssert(constraint2.identifier == expectedId2, "\(constraint2.identifier!) != \(expectedId2)")
+        XCTAssert(constraint2 === viewRestraint.constraintWithId(expectedId2))
     }
 }

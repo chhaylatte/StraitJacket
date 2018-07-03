@@ -21,4 +21,16 @@ public struct RestraintValue {
         self.view = view
         modifier = RestraintModifier(value, relation: relation, priority: priority)
     }
+    
+    private init(view: RestraintTargetable, modifier: RestraintModifier) {
+        self.view = view
+        self.modifier = modifier
+    }
+    
+    func withId(_ identifier: String) -> RestraintValue {
+        var newModifier = self.modifier
+        newModifier.identifier = identifier
+        
+        return RestraintValue(view: view, modifier: newModifier)
+    }
 }

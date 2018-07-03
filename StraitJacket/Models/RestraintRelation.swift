@@ -20,12 +20,29 @@ public struct RestraintRelation {
                  multiple: CGFloat,
                  of targetView: UIView,
                  relation: NSLayoutRelation = .equal,
-                 priority: UILayoutPriority = .required) {
+                 priority: UILayoutPriority = .required,
+                 identifier: String? = nil) {
         view0 = sourceView
         view1 = targetView
         modifier = RestraintModifier(constant,
                                      multiple: multiple,
                                      relation: relation,
-                                     priority: priority)
+                                     priority: priority,
+                                     identifier: identifier)
+    }
+    
+    init (_ sourceView: UIView,
+          targetView: UIView,
+          modifier: RestraintModifier) {
+        view0 = sourceView
+        view1 = targetView
+        self.modifier = modifier
+    }
+    
+    func withId(_ identifier: String) -> RestraintRelation {
+        var newModifier = modifier
+        newModifier.identifier = identifier
+        
+        return RestraintRelation(view0, targetView: view1, modifier: newModifier)
     }
 }
