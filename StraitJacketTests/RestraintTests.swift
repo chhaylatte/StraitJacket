@@ -551,4 +551,26 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint2.identifier == expectedId2, "\(constraint2.identifier!) != \(expectedId2)")
         XCTAssert(constraint2 === viewRestraint.constraintWithId(expectedId2))
     }
+    
+    func testScaledHeightIdentifiers() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        
+        let expectedId1 = "id1", expectedId2 = "id2"
+        
+        let viewRestraint = Restraint(view)
+            .addItems([view1, view2])
+            .setRelativeHeights([view1.relativeHeight(1.0, of: view).withId(expectedId1),
+                                 view2.relativeHeight(1.0, of: view).withId(expectedId2)])
+        
+        viewRestraint.isActive = true
+        
+        let constraint1 = view.constraints[0]
+        let constraint2 = view.constraints[1]
+        
+        XCTAssert(constraint1.identifier == expectedId1, "\(constraint1.identifier!) != \(expectedId1)")
+        XCTAssert(constraint1 === viewRestraint.constraintWithId(expectedId1))
+        XCTAssert(constraint2.identifier == expectedId2, "\(constraint2.identifier!) != \(expectedId2)")
+        XCTAssert(constraint2 === viewRestraint.constraintWithId(expectedId2))
+    }
 }
