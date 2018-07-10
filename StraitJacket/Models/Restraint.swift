@@ -133,7 +133,6 @@ public extension Restraint {
     public func setWidths(_ values: [Width]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
-//            constraints.append(aConstraint)
             
             return [aConstraint]
         }
@@ -144,7 +143,7 @@ public extension Restraint {
     public func setHeights(_ values: [Height]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .height, v0: view, modifier: modifier)
-//            constraints.append(aConstraint)
+            
             return [aConstraint]
         }
         
@@ -154,7 +153,7 @@ public extension Restraint {
     public func setRelativeWidths(_ relations: [RelativeWidth]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .width, v0: v0, v1: v1, modifier: modifier)
-//            constraints.append(aConstraint)
+            
             return [aConstraint]
         }
         
@@ -164,7 +163,7 @@ public extension Restraint {
     public func setRelativeHeights(_ relations: [RelativeHeight]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .height, v0: v0, v1: v1, modifier: modifier)
-//            constraints.append(aConstraint)
+            
             return [aConstraint]
         }
         
@@ -319,6 +318,7 @@ internal extension Restraint {
                 }
             }
         }()
+        
         aConstraint.priority = modifier.priority
         aConstraint.identifier = modifier.identifier
         
