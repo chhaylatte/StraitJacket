@@ -33,7 +33,7 @@ let viewRestraint = Restraint(view)
                blueView, redView, greenView,
                horizontalLine, yellowView])
     .alignItems([label], to: [.left, .top])
-    .alignItems([horizontalLine], to: .horizontal)
+    .alignItems([horizontalLine], to: [.left, .right])
     .alignItems([yellowView], to: [.left, .right, .bottom])
     .chainVertically([label, horizontalLine, blueView, Space(8), redView, Space(16), greenView, Space(32), yellowView])
     .chainHorizontally([blueView, redView, greenView, Space(20)])
