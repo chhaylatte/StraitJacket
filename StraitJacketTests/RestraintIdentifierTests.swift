@@ -158,4 +158,53 @@ class RestraintIdentifierTests: XCTestCase {
         XCTAssert(constraint2.identifier == expectedId2, "\(constraint2.identifier!) != \(expectedId2)")
         XCTAssert(constraint2 === viewRestraint.constraintWithId(expectedId2))
     }
+    
+    func testAlignmentIdentifiers() {
+        let expectedTopId = "topId"
+        let expectedBottomId = "bottomId"
+        let expectedLeftId = "leftId"
+        let expectedRightId = "rightId"
+        
+        let topAlignment = Alignment.top.withId(expectedTopId)
+        let bottomAlignment = Alignment.bottom.withId(expectedBottomId)
+        let leftAlignment = Alignment.left.withId(expectedLeftId)
+        let rightAlignment = Alignment.right.withId(expectedRightId)
+        
+        let checkSides: [Alignment] = [topAlignment, bottomAlignment, leftAlignment, rightAlignment]
+        let sideToLayoutAtribute: [Alignment: NSLayoutAttribute] = [
+            topAlignment: .top,
+            bottomAlignment: .bottom,
+            leftAlignment: .left,
+            rightAlignment: .right
+        ]
+        
+        let sideToIdentifier: [Alignment: String] = [
+            topAlignment: expectedTopId,
+            bottomAlignment: expectedBottomId,
+            leftAlignment: expectedLeftId,
+            rightAlignment: expectedRightId
+        ]
+        
+        for side in checkSides {
+            let view1 = UIView()
+            let view = UIView()
+            
+            let restraint = Restraint(view)
+                .addItems([view1])
+                .alignItems([view1], to: [side])
+            restraint.isActive = true
+            
+            let constraint1 = view.constraints[0]
+            
+            let expectedAttribute = sideToLayoutAtribute[side]!
+            let expectedId = sideToIdentifier[side]!
+            
+            XCTAssert(constraint1.constant == 0)
+            XCTAssert(constraint1.firstItem === view1)
+            XCTAssert(constraint1.secondItem === view)
+            XCTAssert(constraint1.firstAttribute == constraint1.secondAttribute)
+            XCTAssert(constraint1.firstAttribute == expectedAttribute, "Expected \(side) to connect \(expectedAttribute) anchor")
+            XCTAssert(constraint1.identifier == expectedId, "ActualId: \(String(describing: constraint1.identifier)) !=  expectedId: \(expectedId)")
+        }
+    }
 }

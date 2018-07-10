@@ -61,6 +61,7 @@ public enum Alignment: Hashable {
                                      forSource v0: RestraintTargetable,
                                      target v1: RestraintTargetable,
                                      modifier: RestraintModifier) -> NSLayoutConstraint {
+        var newModifier: RestraintModifier = modifier
         let constraint: NSLayoutConstraint = {
             
             switch alignment {
@@ -128,20 +129,18 @@ public enum Alignment: Hashable {
                 return aConstraint
                 
             case .alignementWithId(let alignment, let identifier):
-                var newModifier: RestraintModifier = modifier
                 newModifier.identifier = identifier
                 
                 return modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
             case .alignementWithPriority(let alignment, let priority):
-                var newModifier: RestraintModifier = modifier
                 newModifier.priority = priority
                 
                 return modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
             }
         }()
         
-        constraint.identifier = modifier.identifier
-        constraint.priority = modifier.priority
+        constraint.identifier = newModifier.identifier
+        constraint.priority = newModifier.priority
         
         return constraint
     }
