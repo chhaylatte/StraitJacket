@@ -60,7 +60,7 @@ class GuidedRestraintTests: XCTestCase {
             
             let restraint = Restraint(containerView)
                 .addItems([view1, guide])
-                .guide(guide).alignItems([view1], to: $0)
+                .guide(guide).alignItems([view1], to: [$0])
             restraint.isActive = true
             
             let constraints = containerView.constraints
@@ -89,5 +89,9 @@ class GuidedRestraintTests: XCTestCase {
         XCTAssert(constraints[0].secondItem === guide)
         XCTAssert(constraints[0].firstAttribute == .top)
         XCTAssert(constraints[0].secondAttribute == .bottom)
+    }
+    
+    func testAlignemntIdentifiers() {
+        
     }
 }

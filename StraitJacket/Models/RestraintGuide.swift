@@ -8,117 +8,144 @@
 
 import Foundation
 
-public struct Alignment: OptionSet {
-    public let rawValue: Int
+public enum Alignment: Hashable {
     
-    public init(rawValue: Int) {
-        self.rawValue = rawValue
+    case top
+    case bottom
+    case left
+    case right
+    
+    case softTop
+    case softBottom
+    case softLeft
+    case softRight
+    
+    case centerY
+    case centerX
+    
+    indirect case alignementWithId(Alignment, String)
+    indirect case alignementWithPriority(Alignment, UILayoutPriority)
+    
+    func withId(_ identifier: String) -> Alignment {
+        switch self {
+        case .alignementWithId(_, _):
+            return self
+        default:
+            return .alignementWithId(self, identifier)
+        }
     }
     
-    public static let top = Alignment(rawValue: 1 << 0)
-    public static let bottom = Alignment(rawValue: 1 << 1)
-    public static let left = Alignment(rawValue: 1 << 2)
-    public static let right = Alignment(rawValue: 1 << 3)
+    func withPriority(_ priority: UILayoutPriority) -> Alignment {
+        switch self {
+        case .alignementWithId(_, _):
+            return self
+        default:
+            return .alignementWithPriority(self, priority)
+        }
+    }
     
-    public static let softTop = Alignment(rawValue: 1 << 4)
-    public static let softBottom = Alignment(rawValue: 1 << 5)
-    public static let softLeft = Alignment(rawValue: 1 << 6)
-    public static let softRight = Alignment(rawValue: 1 << 7)
-    
-    public static let centerY = Alignment(rawValue: 1 << 8)
-    public static let centerX = Alignment(rawValue: 1 << 9)
-    
-    public static let vertical: Alignment = [.top, .bottom]
-    public static let horizontal: Alignment = [.left, .right]
+    func modifiedAlignmentConstraint(forSource v0: RestraintTargetable,
+                                     target v1: RestraintTargetable,
+                                     modifier: RestraintModifier) -> NSLayoutConstraint {
+        return Alignment.modifiedAlignmentConstraint(alignment: self,
+                                                     forSource: v0,
+                                                     target: v1,
+                                                     modifier: modifier)
+    }
     
     /// Generates array of constraints for Alignment set
     ///
     /// - Parameters:
     ///     - modifier: Only the modifier.value and modifier.priority is used.
-    func modifiedAlignmentConstraints(forSource v0: RestraintTargetable,
+    static func modifiedAlignmentConstraint(alignment: Alignment,
+                                     forSource v0: RestraintTargetable,
                                      target v1: RestraintTargetable,
-                                     modifier: RestraintModifier) -> [NSLayoutConstraint] {
-        
-        let constraints: [NSLayoutConstraint] = {
-            var constraints: [NSLayoutConstraint] = []
+                                     modifier: RestraintModifier) -> NSLayoutConstraint {
+        let constraint: NSLayoutConstraint = {
             
-            if contains(.top) {
+            switch alignment {
+            case .top:
                 let constraintFunc = Restraint.constraintFunction(v0.topAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.topAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.bottom) {
+                
+                return aConstraint
+                
+            case .bottom:
                 let constraintFunc = Restraint.constraintFunction(v0.bottomAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.bottomAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.left) {
+                
+                return aConstraint
+                
+            case .left:
                 let constraintFunc = Restraint.constraintFunction(v0.leftAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.leftAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.right) {
+                
+                return aConstraint
+                
+            case .right:
                 let constraintFunc = Restraint.constraintFunction(v0.rightAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.rightAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.centerX) {
+                
+                return aConstraint
+                
+                
+            case .centerX:
                 let constraintFunc = Restraint.constraintFunction(v0.centerXAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.centerXAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.centerY) {
+                
+                return aConstraint
+                
+                
+            case .centerY:
                 let constraintFunc = Restraint.constraintFunction(v0.centerYAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.centerYAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.softTop) {
+                
+                return aConstraint
+                
+                
+            case .softTop:
                 let constraintFunc = Restraint.constraintFunction(v0.topAnchor, relation: .greaterThanOrEqual)
                 let aConstraint = constraintFunc(v1.topAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.softBottom) {
+                
+                return aConstraint
+                
+            case .softBottom:
                 let constraintFunc = Restraint.constraintFunction(v0.bottomAnchor, relation: .lessThanOrEqual)
                 let aConstraint = constraintFunc(v1.bottomAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.softLeft) {
+                
+                return aConstraint
+                
+            case .softLeft:
                 let constraintFunc = Restraint.constraintFunction(v0.leftAnchor, relation: .greaterThanOrEqual)
                 let aConstraint = constraintFunc(v1.leftAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
-            }
-            
-            if contains(.softRight) {
+                
+                return aConstraint
+                
+            case .softRight:
                 let constraintFunc = Restraint.constraintFunction(v0.rightAnchor, relation: .lessThanOrEqual)
                 let aConstraint = constraintFunc(v1.rightAnchor, modifier.value)
-                aConstraint.identifier = modifier.identifier
-                constraints.append(aConstraint)
+                
+                return aConstraint
+                
+            case .alignementWithId(let alignment, let identifier):
+                var newModifier: RestraintModifier = modifier
+                newModifier.identifier = identifier
+                
+                return modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
+            case .alignementWithPriority(let alignment, let priority):
+                var newModifier: RestraintModifier = modifier
+                newModifier.priority = priority
+                
+                return modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
             }
-            
-            return constraints
         }()
         
-        constraints.forEach { $0.priority = modifier.priority }
+        constraint.identifier = modifier.identifier
+        constraint.priority = modifier.priority
         
-        return constraints
+        return constraint
     }
+    
 }
 
 public extension Restraint {
@@ -142,7 +169,7 @@ public class GuidedRestraint<T: UIView> {
         self.restraint = restraint
     }
     
-    public func alignItems(_ views: [UIView], to alignment: Alignment) -> Restraint<T> {
+    public func alignItems(_ views: [UIView], to alignment: Set<Alignment>) -> Restraint<T> {
         return restraint.alignItems(views, to: alignment, of: layoutGuide)
     }
     

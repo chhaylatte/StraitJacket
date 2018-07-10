@@ -10,10 +10,10 @@ import Foundation
 
 /// Model for constraint properties.
 public struct RestraintModifier: Restrainable, CustomStringConvertible {
-    public let value: CGFloat
-    public let multiple: CGFloat
-    public let relation: NSLayoutRelation
-    public let priority: UILayoutPriority
+    public var value: CGFloat
+    public var multiple: CGFloat
+    public var relation: NSLayoutRelation
+    public var priority: UILayoutPriority
     
     /// An optional user identifier.  `Restraint` associates this identifier with its generated constraint.
     public var identifier: String?

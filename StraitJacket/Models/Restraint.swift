@@ -171,16 +171,16 @@ public extension Restraint {
         return self
     }
     
-    public func alignItems(_ views: [RestraintTargetable], to alignment: Alignment, of target: RestraintTargetable) -> Restraint {
+    public func alignItems(_ views: [RestraintTargetable], to alignment: Set<Alignment>, of target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraints: { (view, modifier) in
-            return alignment.modifiedAlignmentConstraints(forSource: view, target: target, modifier: modifier)
+            return Array(alignment).map { $0.modifiedAlignmentConstraint(forSource: view, target: target, modifier: modifier) }
         })
         
         return self
     }
     
-    public func alignItems(_ views: [RestraintTargetable], to alignment: Alignment) -> Restraint {
+    public func alignItems(_ views: [RestraintTargetable], to alignment: Set<Alignment>) -> Restraint {
         return alignItems(views, to: alignment, of: self.view)
     }
 }
