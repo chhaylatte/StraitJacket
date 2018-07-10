@@ -140,7 +140,7 @@ class MyViewController : UIViewController {
                 restraintGuide.alignItems([titleLabel, subtitleLabel], to: [.softRight])
                 restraintGuide.alignItems([subtitleLabel], to: [.bottom])
                 restraintGuide.alignItems([centeredLabel], to: [.centerX])
-                restraintGuide.alignItems([horizontalYellowLine], to: [.bottom, .horizontal])
+                restraintGuide.alignItems([horizontalYellowLine], to: [.bottom, .left, .right])
             
         }
         restraint.isActive = true
