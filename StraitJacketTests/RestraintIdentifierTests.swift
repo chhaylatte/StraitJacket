@@ -205,6 +205,7 @@ class RestraintIdentifierTests: XCTestCase {
             XCTAssert(constraint1.firstAttribute == constraint1.secondAttribute)
             XCTAssert(constraint1.firstAttribute == expectedAttribute, "Expected \(side) to connect \(expectedAttribute) anchor")
             XCTAssert(constraint1.identifier == expectedId, "ActualId: \(String(describing: constraint1.identifier)) !=  expectedId: \(expectedId)")
+            XCTAssert(constraint1 === restraint.constraintWithId(expectedId))
         }
     }
 }
