@@ -92,6 +92,23 @@ class GuidedRestraintTests: XCTestCase {
     }
     
     func testAlignemntIdentifiers() {
+        let alignment: [Alignment] = [.top, .bottom, .left, .right]
+        let centerAlignment: [Alignment] = [.centerX, .centerY]
+        let softAlignment: [Alignment] = [.softTop, .softBottom, .softLeft, .softRight]
+        let allAlignment: [Alignment] = alignment + centerAlignment + softAlignment
         
+        allAlignment.forEach {
+            let view = UIView(frame: .zero)
+            let subview = UIView(frame: .zero)
+            let expectedId = String(describing: $0) + "Id"
+            
+            let restraint = Restraint(view)
+                .addItems([subview])
+                .alignItems([subview], to: [$0.withId(expectedId)])
+            restraint.isActive = true
+            
+            let actualId: String = restraint.constraints[0].identifier ?? "no value"
+            XCTAssert(actualId == expectedId)
+        }
     }
 }
