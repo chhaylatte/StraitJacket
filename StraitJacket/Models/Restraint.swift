@@ -58,36 +58,152 @@ public class Restraint<T: UIView> {
 
 public extension Restraint {
     
-    // MARK: - Chaining
-    
     enum Direction {
         case horizontal
         case vertical
     }
     
+    public enum GuidePinning {
+        case normal
+        case soft
+    }
+    
+    public enum GuideYCentering {
+        case top
+        case bottom
+        case centerY
+    }
+    
+    public enum GuideXCentering {
+        case left
+        case right
+        case centerX
+    }
+    
+    // MARK: -
+    
+    func alignment(with centering: GuideYCentering) -> Alignment {
+        switch centering {
+        case .top:
+            return Alignment.top
+        case .bottom:
+            return Alignment.bottom
+        case .centerY:
+            return Alignment.centerY
+        }
+    }
+    
+    func alignment(with centering: GuideXCentering) -> Alignment {
+        switch centering {
+        case .left:
+            return Alignment.left
+        case .right:
+            return Alignment.right
+        case .centerX:
+            return Alignment.centerX
+        }
+    }
+    
+    internal func horizontalEndingAlignment(for pinning: GuidePinning) -> (Alignment, Alignment) {
+        switch pinning {
+        case .normal:
+            return (Alignment.left, Alignment.right)
+        case .soft:
+            return (Alignment.softLeft, Alignment.softRight)
+        }
+    }
+    
+    internal func alignment(for direction: Direction, with pinning: GuidePinning) -> Set<Alignment> {
+        switch direction {
+        case .horizontal:
+            switch pinning {
+            case .normal:
+                return [Alignment.top, .bottom]
+            case .soft:
+                return [Alignment.softTop, .softBottom]
+            }
+        case .vertical:
+            switch pinning {
+            case .normal:
+                return [Alignment.left, .right]
+            case .soft:
+                return [Alignment.softLeft, .softRight]
+            }
+        }
+    }
+    
+    // MARK: -
+    
+    private func horizontalAxisAlignment(for direction: Direction,
+                                     pinning: GuidePinning,
+                                     centering: GuideYCentering) -> Set<Alignment> {
+        var alignmentSet = alignment(for: direction, with: pinning)
+        let centerAlignment = alignment(with: centering)
+        alignmentSet.insert(centerAlignment)
+        
+        return alignmentSet
+    }
+    
+    private func chainHorizontally(_ views: [[Restrainable]], spacing: CGFloat = 8) -> Restraint {
+        views.forEach { _ = chainHorizontally($0, spacing: spacing) }
+        
+        return self
+    }
+    
+    private func chainHorizontally(_ restrainableChain: [Restrainable], spacing: CGFloat = 8) -> Restraint {
+        movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
+            var builtConstraints: [NSLayoutConstraint] = []
+            
+            if modifiers.isEmpty {
+                let aConstraint = v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor, constant: spacing)
+                builtConstraints.append(aConstraint)
+            } else {
+                
+                for modifier in modifiers {
+                    let aConstraint = modifiedChainConstraint(for: .horizontal, v0: v0, v1: v1, modifier: modifier)
+                    builtConstraints.append(aConstraint)
+                }
+            }
+            
+            return builtConstraints
+        })
+        
+        return self
+    }
+}
+
+public extension Restraint {
+    
+    // MARK: - Chaining
+
     /// Creates constraints to define spacing between each element in every views array argument.
     ///
     /// - Parameters:
     ///     - views: The `Restrainable` items to chain
     ///     - spacing: The default spacing between each view
     public func chainHorizontally(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
-        for restrainableChain in views {
-            movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
-                var builtConstraints: [NSLayoutConstraint] = []
-                
-                if modifiers.isEmpty {
-                    let aConstraint = v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor, constant: spacing)
-                    builtConstraints.append(aConstraint)
-                } else {
-                    
-                    for modifier in modifiers {
-                        let aConstraint = modifiedChainConstraint(for: .horizontal, v0: v0, v1: v1, modifier: modifier)
-                        builtConstraints.append(aConstraint)
-                    }
-                }
-                
-                return builtConstraints
-            })
+        return chainHorizontally(views, spacing: spacing)
+    }
+    
+    public func chainHorizontally(_ views: [Restrainable],
+                                  in guide: UILayoutGuide,
+                                  spacing: CGFloat = 8,
+                                  pinningOnAxis: GuidePinning = .soft,
+                                  pinningOnEnds: GuidePinning = .normal,
+                                  centering: GuideYCentering = .centerY) -> Restraint {
+        let targetable = views.compactMap { $0 as? RestraintTargetable }
+        let axisAlignment = horizontalAxisAlignment(for: .horizontal, pinning: pinningOnAxis, centering: centering)
+        let (firstAlignment, lastAlignment) = horizontalEndingAlignment(for: pinningOnEnds)
+        
+        _ = chainHorizontally(views, spacing: spacing)
+        _ = alignItems(targetable, to: axisAlignment, of: guide)
+        
+        if let first = targetable.first {
+            _ = alignItems([first], to: [firstAlignment], of: guide)
+        }
+        
+        if let last = targetable.last {
+            _ = alignItems([last], to: [lastAlignment], of: guide)
         }
         
         return self
@@ -98,7 +214,7 @@ public extension Restraint {
     /// - Parameters:
     ///     - views: The `Restrainable` items to chain
     ///     - spacing: The default spacing between each view
-    public func chainVertically(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
+    private func chainVertically(_ views: [[Restrainable]], spacing: CGFloat = 8) -> Restraint {
         for restrainableChain in views {
             movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
                 var builtConstraints: [NSLayoutConstraint] = []
@@ -115,6 +231,20 @@ public extension Restraint {
                 
                 return builtConstraints
             })
+        }
+        
+        return self
+    }
+    
+    public func chainVertically(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
+        return chainVertically(views, spacing: spacing)
+    }
+    
+    public func chainVertically(_ views: [Restrainable]..., in guide: UILayoutGuide, spacing: CGFloat = 8) -> Restraint {
+        _ = chainVertically(views, spacing: spacing)
+        views.forEach {
+            let targetable = $0.compactMap { $0 as? RestraintTargetable }
+            _ = alignItems(targetable, to: [.left, .right], of: guide)
         }
         
         return self

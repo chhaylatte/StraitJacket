@@ -111,4 +111,71 @@ class GuidedRestraintTests: XCTestCase {
             XCTAssert(actualId == expectedId)
         }
     }
+    
+    func testChainHorizontallyInGuide() {
+        let view = UIView()
+        let subview1 = UIView(), subview2 = UIView()
+        let guide = UILayoutGuide()
+        
+        let restraint = Restraint(view)
+            .addItems([subview1, subview2, guide])
+            .chainHorizontally([subview1, subview2], in: guide)
+        restraint.isActive = true
+        
+        let alignmentConstraints = view.constraints.filter { $0.secondItem === guide }
+        
+        let subview1AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview1 }
+        let subview1Attributes = subview1AlignmentConstraints.map { String(describing: $0.firstAttribute) }
+        let subview1AttributeSet = Set(subview1Attributes)
+        let expectedSubview1AttributeSet = Set([NSLayoutAttribute.top, .bottom, .left, .centerY].map { String(describing: $0) })
+        
+        XCTAssert(expectedSubview1AttributeSet == subview1AttributeSet)
+    }
+    
+    func testGuideAxisCenterAlignment() {
+        let view = UIView()
+        let restraint = Restraint(view)
+        
+        let alignmentFromGuideXCentering =  [Restraint.GuideXCentering.centerX, .left, .right]
+            .map { restraint.alignment(with: $0) }
+        
+        XCTAssert(alignmentFromGuideXCentering == [Alignment.centerX, .left, .right])
+        
+        let alignmentFromGuideYCentering =  [Restraint.GuideYCentering.centerY, .top, .bottom]
+            .map { restraint.alignment(with: $0) }
+        
+        XCTAssert(alignmentFromGuideYCentering == [Alignment.centerY, .top, .bottom])
+    }
+    
+    func testGuideEndsAlignment() {
+        let view = UIView()
+        let restraint = Restraint(view)
+        
+        let (first, last) = restraint.horizontalEndingAlignment(for: .normal)
+        XCTAssert(first == .left && last == .right)
+        
+        let (first2, last2) = restraint.horizontalEndingAlignment(for: .soft)
+        XCTAssert(first2 == .softLeft && last2 == .softRight)
+    }
+    
+    func testGuideAxisAlignment() {
+        let view = UIView()
+        let restraint = Restraint(view)
+        
+        let actualVerticalNormalAlignment = restraint.alignment(for: .vertical, with: .normal)
+        let expectedVerticalNormalAlignmentSet: Set<Alignment> = [.left, .right]
+        XCTAssert(actualVerticalNormalAlignment == expectedVerticalNormalAlignmentSet)
+        
+        let actualVerticalSoftAlignment = restraint.alignment(for: .vertical, with: .soft)
+        let expectedVerticalSoftAlignmentSet: Set<Alignment> = [.softLeft, .softRight]
+        XCTAssert(actualVerticalSoftAlignment == expectedVerticalSoftAlignmentSet)
+        
+        let actualHorizontalNormalAlignment = restraint.alignment(for: .horizontal, with: .normal)
+        let expectedHorizontalNormalAlignmentSet: Set<Alignment> = [.top, .bottom]
+        XCTAssert(actualHorizontalNormalAlignment == expectedHorizontalNormalAlignmentSet)
+        
+        let actualHorizontalSoftAlignment = restraint.alignment(for: .horizontal, with: .soft)
+        let expectedHorizontalSoftAlignmentSet: Set<Alignment> = [.softTop, .softBottom]
+        XCTAssert(actualHorizontalSoftAlignment == expectedHorizontalSoftAlignmentSet)
+    }
 }
