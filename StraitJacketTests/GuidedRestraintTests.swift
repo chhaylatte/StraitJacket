@@ -126,10 +126,40 @@ class GuidedRestraintTests: XCTestCase {
         
         let subview1AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview1 }
         let subview1Attributes = subview1AlignmentConstraints.map { String(describing: $0.firstAttribute) }
-        let subview1AttributeSet = Set(subview1Attributes)
+        let actualSubview1AttributeSet = Set(subview1Attributes)
         let expectedSubview1AttributeSet = Set([NSLayoutAttribute.top, .bottom, .left, .centerY].map { String(describing: $0) })
+        XCTAssert(expectedSubview1AttributeSet == actualSubview1AttributeSet)
         
-        XCTAssert(expectedSubview1AttributeSet == subview1AttributeSet)
+        let subview2AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview2 }
+        let subview2Attributes = subview2AlignmentConstraints.map { String(describing: $0.firstAttribute) }
+        let actualSubview2AttributeSet = Set(subview2Attributes)
+        let expectedSubview2AttributeSet = Set([NSLayoutAttribute.top, .bottom, .right, .centerY].map { String(describing: $0) })
+        XCTAssert(expectedSubview2AttributeSet == actualSubview2AttributeSet)
+    }
+    
+    func testChainVerticallyInGuide() {
+        let view = UIView()
+        let subview1 = UIView(), subview2 = UIView()
+        let guide = UILayoutGuide()
+        
+        let restraint = Restraint(view)
+            .addItems([subview1, subview2, guide])
+            .chainVertically([subview1, subview2], in: guide)
+        restraint.isActive = true
+        
+        let alignmentConstraints = view.constraints.filter { $0.secondItem === guide }
+        
+        let subview1AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview1 }
+        let subview1Attributes = subview1AlignmentConstraints.map { String(describing: $0.firstAttribute) }
+        let actualSubview1AttributeSet = Set(subview1Attributes)
+        let expectedSubview1AttributeSet = Set([NSLayoutAttribute.top, .left, .right, .centerX].map { String(describing: $0) })
+        XCTAssert(expectedSubview1AttributeSet == actualSubview1AttributeSet)
+        
+        let subview2AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview2 }
+        let subview2Attributes = subview2AlignmentConstraints.map { String(describing: $0.firstAttribute) }
+        let actualSubview2AttributeSet = Set(subview2Attributes)
+        let expectedSubview2AttributeSet = Set([NSLayoutAttribute.left, .bottom, .right, .centerX].map { String(describing: $0) })
+        XCTAssert(expectedSubview2AttributeSet == actualSubview2AttributeSet)
     }
     
     func testGuideAxisCenterAlignment() {
@@ -147,7 +177,7 @@ class GuidedRestraintTests: XCTestCase {
         XCTAssert(alignmentFromGuideYCentering == [Alignment.centerY, .top, .bottom])
     }
     
-    func testGuideEndsAlignment() {
+    func testGuideHorizontalEndingAlignment() {
         let view = UIView()
         let restraint = Restraint(view)
         
@@ -156,6 +186,17 @@ class GuidedRestraintTests: XCTestCase {
         
         let (first2, last2) = restraint.horizontalEndingAlignment(for: .soft)
         XCTAssert(first2 == .softLeft && last2 == .softRight)
+    }
+    
+    func testGuideVerticalEndingAlignment() {
+        let view = UIView()
+        let restraint = Restraint(view)
+        
+        let (first, last) = restraint.verticalEndingAlignment(for: .normal)
+        XCTAssert(first == .top && last == .bottom)
+        
+        let (first2, last2) = restraint.verticalEndingAlignment(for: .soft)
+        XCTAssert(first2 == .softTop && last2 == .softBottom)
     }
     
     func testGuideAxisAlignment() {
