@@ -45,7 +45,7 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
         }
     }
     
-    func withId(_ identifier: String) -> RestraintModifier {
+    public func withId(_ identifier: String) -> RestraintModifier {
         return RestraintModifier(value, multiple: multiple, relation: relation, priority: priority, identifier: identifier)
     }
 }
