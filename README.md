@@ -1,17 +1,18 @@
 #  StraitJacket
 
 ## Why
-### It will keep you from hurting yourself
-- Not xibs or storyboards (because these are not very scalable or maintainable)
-- Not stackviews (views tend to disappear or you need to use container views)
+### It will keep devs from hurting themselves
+- No xibs or storyboards with their unscalability and unmaintainability
+- No stackviews and stackview related bugs
 - Much faster to write and less error prone than anchor based code and similar libraries
 - Create many constraints per line instead of one per line
-- Much higher skimmability and code density (Spend less time reading text and more time understanding layout)
+- Much higher skimmability and code density
+- Built on top of auto layout
 
 ## How it works
-### It's all swift code.  There is no DSL to learn.
+### It's just swift code
 
-Here's a working example:
+Here's an example:
 ```swift
 let aRestraint = Restraint(self.view)
             .addItems([usernameTextField,
