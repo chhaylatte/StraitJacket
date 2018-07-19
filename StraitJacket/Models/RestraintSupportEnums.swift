@@ -29,3 +29,8 @@ public enum GuideXCentering {
     case right
     case centerX
 }
+
+enum Size {
+    case width
+    case height
+}
