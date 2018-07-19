@@ -463,10 +463,8 @@ class RestraintTests: XCTestCase {
         let modifiers = [RestraintModifier(0, multiple: 0.25, relation: .equal),
                          RestraintModifier(0, multiple: 0.25, relation: .greaterThanOrEqual),
                          RestraintModifier(0, multiple: 0.25, relation: .lessThanOrEqual)]
-        let size: [Size] = [.width, .height]
         let restraint = Restraint(UIView())
         let v0 = UIView(), v1 = UIView()
-        
         
         modifiers.forEach { modifier in
             directions.forEach { direction in
