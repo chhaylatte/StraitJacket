@@ -3,7 +3,7 @@
 ## Why
 ### It will keep devs from hurting themselves
 - No xibs or storyboards with their unscalability and unmaintainability
-- No stackviews and stackview related bugs
+- No confusing amalgamations of stackviews and stackview related bugs
 - Much faster to write and less error prone than anchor based code and similar libraries
 - Create many constraints per line instead of one per line
 - Much higher skimmability and code density
@@ -29,7 +29,7 @@ let aRestraint = Restraint(self.view)
                               createForgotButtonGuide], in: allItemsBoundaryGuide)
             .chainHorizontally([createAccountButton, dividerLabel, forgotPasswordButton],
                                in: createForgotButtonSubGuide)
-aRestraint.isActive = true
+aRestraint.activate()
 ```
 
 Constraints are created using the `Restraint` object.  Its methods are capable of creating many constraints at once with a single method call and are all chainable.  All methods are mutating, so repeatedly calling the same constraints creation will create duplicate constraints.  The `Restraint` object is generic and is aware of the type of view it is init'd with.  The root view that `Restraint` is init'd with holds the created constraints.
