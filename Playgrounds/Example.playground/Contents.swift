@@ -90,7 +90,7 @@ class MyViewController : UIViewController {
         
         self.view = view
         
-        defaultRestraint.isActive = true
+        defaultRestraint.activate()
         
         view
     }

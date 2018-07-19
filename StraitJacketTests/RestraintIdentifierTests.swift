@@ -36,7 +36,7 @@ class RestraintIdentifierTests: XCTestCase {
             .chainHorizontally([label1, Space(expectedSpace).withId(expectedIdentifier),
                                 label2, Space(expectedSpace).withId(expectedIdentifier2),
                                 label3])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test label1 - label2 - label3
         let constraint = view.constraints[0]
@@ -61,7 +61,7 @@ class RestraintIdentifierTests: XCTestCase {
             .chainVertically([label1, Space(expectedSpace).withId(expectedIdentifier),
                               label2, Space(expectedSpace).withId(expectedIdentifier2),
                               label3])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test label1 - label2 - label3
         let constraint = view.constraints[0]
@@ -83,7 +83,7 @@ class RestraintIdentifierTests: XCTestCase {
             .setWidths([view1.width(1).withId(expectedId1),
                         Width(view2, value: 1).withId(expectedId2)])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint1 = view1.constraints[0]
         let constraint2 = view2.constraints[0]
@@ -104,7 +104,7 @@ class RestraintIdentifierTests: XCTestCase {
             .setHeights([view1.height(1).withId(expectedId1),
                          Height(view2, value: 1).withId(expectedId2)])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint1 = view1.constraints[0]
         let constraint2 = view2.constraints[0]
@@ -126,7 +126,7 @@ class RestraintIdentifierTests: XCTestCase {
             .setRelativeWidths([view1.relativeWidth(1.0, of: view).withId(expectedId1),
                                 view2.relativeWidth(1.0, of: view).withId(expectedId2)])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint1 = view.constraints[0]
         let constraint2 = view.constraints[1]
@@ -148,7 +148,7 @@ class RestraintIdentifierTests: XCTestCase {
             .setRelativeHeights([view1.relativeHeight(1.0, of: view).withId(expectedId1),
                                  view2.relativeHeight(1.0, of: view).withId(expectedId2)])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint1 = view.constraints[0]
         let constraint2 = view.constraints[1]
@@ -192,7 +192,7 @@ class RestraintIdentifierTests: XCTestCase {
             let restraint = Restraint(view)
                 .addItems([view1])
                 .alignItems([view1], to: [side])
-            restraint.isActive = true
+            restraint.activate()
             
             let constraint1 = view.constraints[0]
             

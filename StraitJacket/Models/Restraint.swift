@@ -24,7 +24,6 @@ extension UIView: RestraintTargetable {
 public class Restraint<T: UIView> {
     public init(_ view: T, subRestraints: [Restraint] = []) {
         self.view = view
-        self.subRestraints = subRestraints
     }
     
     private(set) weak var view: T!
@@ -33,20 +32,28 @@ public class Restraint<T: UIView> {
     private(set) var subRestraints: [Restraint] = []
     private var identifierToCostraint: [String: NSLayoutConstraint] = [:]
     
-    public var isActive: Bool = false {
-        didSet {
-            isActive
-                ? NSLayoutConstraint.activate(constraints)
-                : NSLayoutConstraint.deactivate(constraints)
-            subRestraints.forEach { $0.isActive = isActive }
-            view.setNeedsLayout()
-        }
+    public func activate() {
+        NSLayoutConstraint.activate(constraints)
+        subRestraints.forEach { $0.activate() }
+        view.setNeedsLayout()
+    }
+    
+    public func deactivate() {
+        NSLayoutConstraint.deactivate(constraints)
+        subRestraints.forEach { $0.deactivate() }
+        view.setNeedsLayout()
     }
     
     public func addItems(_ items: [RestraintTargetable]) -> Restraint {
         items.forEach {
             $0.addToRootView(view)
         }
+        
+        return self
+    }
+    
+    public func addRestraints(_ subRestraints: [Restraint]) -> Restraint {
+        self.subRestraints.append(contentsOf: subRestraints)
         
         return self
     }

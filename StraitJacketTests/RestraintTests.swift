@@ -32,12 +32,32 @@ class RestraintTests: XCTestCase {
             .chainVertically([label1, label2])
         
         XCTAssert(view.constraints.isEmpty)
-        XCTAssert(!viewRestraint.isActive)
         
-        viewRestraint.isActive = true
-        
+        viewRestraint.activate()
         XCTAssert(!view.constraints.isEmpty)
-        XCTAssert(viewRestraint.isActive == true)
+        
+        viewRestraint.deactivate()
+        XCTAssert(view.constraints.isEmpty)
+    }
+    
+    func testSubRestraintsActivation() {
+        let label1 = UILabel(), label2 = UILabel()
+        let view = UIView()
+        
+        let viewRestraint = Restraint(view)
+            .addItems([label1, label2])
+            .chainVertically([label1, label2])
+        
+        let superRestraint = Restraint(view)
+            .addRestraints([viewRestraint])
+        
+        XCTAssert(view.constraints.isEmpty)
+        
+        superRestraint.activate()
+        XCTAssert(!view.constraints.isEmpty)
+        
+        superRestraint.deactivate()
+        XCTAssert(view.constraints.isEmpty)
     }
     
     // MARK: - Vertical
@@ -50,7 +70,7 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .addItems([label1, label2, label3])
             .chainVertically([label1, label2, label3])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test label1 - label2
         let constraint = view.constraints[0]
@@ -86,7 +106,7 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .addItems([label1, label2])
             .chainVertically([label1, Space(expectedSpace), label2])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test label1 - label2
         let constraint = view.constraints[0]
@@ -111,7 +131,7 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .addItems([label1, label2])
             .chainVertically([label1, label2])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test label1 - label2
         let constraint = view.constraints[0]
@@ -137,7 +157,7 @@ class RestraintTests: XCTestCase {
             .addItems([label1, label2, label3, label4])
             .chainVertically([label1, label2],
                       [label3, label4])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test Column 1
         let constraint = view.constraints[0]
@@ -174,7 +194,7 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .addItems([label1, label2, label3])
             .chainHorizontally([label1, label2, label3])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test label1 - label2
         let constraint = view.constraints[0]
@@ -210,7 +230,7 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .addItems([label1, label2])
             .chainHorizontally([label1, Space(expectedSpace), label2])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test label1 - label2
         let constraint = view.constraints[0]
@@ -235,7 +255,7 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .addItems([label1, label2])
             .chainHorizontally([label1, label2])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test label1 - label2
         let constraint = view.constraints[0]
@@ -261,7 +281,7 @@ class RestraintTests: XCTestCase {
             .addItems([label1, label2, label3, label4])
             .chainHorizontally([label1, label2],
                         [label3, label4])
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         // Test Row 1
         let constraint = view.constraints[0]
@@ -298,7 +318,7 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .setWidths([view1.width(expectedWidth1), Width(view2, value: expectedWidth2)])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint1 = view1.constraints[0]
         let constraint2 = view2.constraints[0]
@@ -318,7 +338,7 @@ class RestraintTests: XCTestCase {
             .setRelativeWidths([view1.relativeWidth(expectedFactor1, of: view), RelativeWidth(view2, multiple: expectedFactor2, of: view)
                 ])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint1 = view.constraints[0]
         let constraint2 = view.constraints[1]
@@ -340,7 +360,7 @@ class RestraintTests: XCTestCase {
         let viewRestraint = Restraint(view)
             .setHeights([view1.height(expectedHeight1), Height(view2, value: expectedHeight2)])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint1 = view1.constraints[0]
         let constraint2 = view2.constraints[0]
@@ -361,7 +381,7 @@ class RestraintTests: XCTestCase {
                              RelativeHeight(view2, multiple: expectedFactor2, of: view)
                 ])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint1 = view.constraints[0]
         let constraint2 = view.constraints[1]
@@ -387,7 +407,7 @@ class RestraintTests: XCTestCase {
                 view3.relativeHeight(expectedFactor3, of: view1)
             ])
         
-        viewRestraint.isActive = true
+        viewRestraint.activate()
         
         let constraint21 = view.constraints[0]
         let constraint31 = view.constraints[1]
@@ -422,7 +442,7 @@ class RestraintTests: XCTestCase {
             let restraint = Restraint(view)
                 .addItems([view1, view2])
                 .alignItems([view1, view2], to: [side])
-            restraint.isActive = true
+            restraint.activate()
             
             let constraint1 = view.constraints[0]
             

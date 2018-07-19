@@ -61,7 +61,7 @@ class GuidedRestraintTests: XCTestCase {
             let restraint = Restraint(containerView)
                 .addItems([view1, guide])
                 .guide(guide).alignItems([view1], to: [$0])
-            restraint.isActive = true
+            restraint.activate()
             
             let constraints = containerView.constraints
             let expectedRelation: NSLayoutRelation = alignmentToRelation[$0]!
@@ -82,7 +82,7 @@ class GuidedRestraintTests: XCTestCase {
         let restraint = Restraint(containerView)
             .addItems([guide, view1])
             .chainVertically([guide, view1])
-        restraint.isActive = true
+        restraint.activate()
         
         let constraints = containerView.constraints
         XCTAssert(constraints[0].firstItem === view1)
@@ -105,7 +105,7 @@ class GuidedRestraintTests: XCTestCase {
             let restraint = Restraint(view)
                 .addItems([subview])
                 .alignItems([subview], to: [$0.withId(expectedId)])
-            restraint.isActive = true
+            restraint.activate()
             
             let actualId: String = restraint.constraints[0].identifier ?? "no value"
             XCTAssert(actualId == expectedId)
@@ -120,7 +120,7 @@ class GuidedRestraintTests: XCTestCase {
         let restraint = Restraint(view)
             .addItems([subview1, subview2, guide])
             .chainHorizontally([subview1, subview2], in: guide)
-        restraint.isActive = true
+        restraint.activate()
         
         let alignmentConstraints = view.constraints.filter { $0.secondItem === guide }
         
@@ -145,7 +145,7 @@ class GuidedRestraintTests: XCTestCase {
         let restraint = Restraint(view)
             .addItems([subview1, subview2, guide])
             .chainVertically([subview1, subview2], in: guide)
-        restraint.isActive = true
+        restraint.activate()
         
         let alignmentConstraints = view.constraints.filter { $0.secondItem === guide }
         

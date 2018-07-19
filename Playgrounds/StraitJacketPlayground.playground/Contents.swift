@@ -41,14 +41,14 @@ let viewRestraint = Restraint(view)
     .setHeights([blueView.height(200), redView.height(100), greenView.height(50), horizontalLine.height(1)])
 
 
-viewRestraint.isActive = true
+viewRestraint.activate()
 
 let visibleView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 visibleView.backgroundColor = .purple
 
 Restraint(visibleView)
     .addItems([view])
-    .alignItems([view], to: [.top, .bottom, .right, .left]).isActive = true
+    .alignItems([view], to: [.top, .bottom, .right, .left]).activate()
 
 PlaygroundPage.current.liveView = visibleView
 
