@@ -31,7 +31,7 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
     }
     
     public var description: String {
-        return "Modifier(\(relationString) \(value) @ \(priority.rawValue))"
+        return "RestraintModifier(\(relationString) \(value) @ \(priority.rawValue))"
     }
     
     private var relationString: String {
@@ -45,7 +45,7 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
         }
     }
     
-    func withId(_ identifier: String) -> RestraintModifier {
+    public func withId(_ identifier: String) -> RestraintModifier {
         return RestraintModifier(value, multiple: multiple, relation: relation, priority: priority, identifier: identifier)
     }
 }

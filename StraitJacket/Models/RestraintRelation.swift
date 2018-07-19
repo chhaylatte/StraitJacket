@@ -39,7 +39,7 @@ public struct RestraintRelation {
         self.modifier = modifier
     }
     
-    func withId(_ identifier: String) -> RestraintRelation {
+    public func withId(_ identifier: String) -> RestraintRelation {
         var newModifier = modifier
         newModifier.identifier = identifier
         

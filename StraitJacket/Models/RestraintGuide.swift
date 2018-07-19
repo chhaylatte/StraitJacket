@@ -26,7 +26,7 @@ public enum Alignment: Hashable {
     indirect case alignementWithId(Alignment, String)
     indirect case alignementWithPriority(Alignment, UILayoutPriority)
     
-    func withId(_ identifier: String) -> Alignment {
+    public func withId(_ identifier: String) -> Alignment {
         switch self {
         case .alignementWithId(_, _):
             return self
@@ -35,7 +35,7 @@ public enum Alignment: Hashable {
         }
     }
     
-    func withPriority(_ priority: UILayoutPriority) -> Alignment {
+    public func withPriority(_ priority: UILayoutPriority) -> Alignment {
         switch self {
         case .alignementWithId(_, _):
             return self

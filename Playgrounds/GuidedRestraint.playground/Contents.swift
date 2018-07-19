@@ -143,13 +143,13 @@ class MyViewController : UIViewController {
                 restraintGuide.alignItems([horizontalYellowLine], to: [.bottom, .left, .right])
             
         }
-        restraint.isActive = true
+        restraint.activate()
         
         subtitleLabel.text = "Subtitle"
         self.view
         
         subtitleLabel.text = "Subtitle\nSubtitle Subtitle\nSubtitle"
-        restraint.isActive = true // for some reason constraint may get deactivated
+        restraint.activate() // for some reason constraint may get deactivated
         self.view
         
         let restraint2 = Restraint(view)
@@ -170,7 +170,7 @@ class MyViewController : UIViewController {
                 restraintGuide.alignItems([titleLabel2, subtitleLabel2], to: [.right])
                 restraintGuide.alignItems([subtitleLabel2], to: [.bottom])
         }
-        restraint2.isActive = true
+        restraint2.activate()
         
         self.view
         
@@ -188,7 +188,7 @@ class MyViewController : UIViewController {
                 restraintGuide.alignItems([titleLabel3, subtitleLabel3], to: [.right])
                 restraintGuide.alignItems([subtitleLabel3], to: [.bottom])
         }
-        restraint3.isActive = true
+        restraint3.activate()
         
         self.view
     }

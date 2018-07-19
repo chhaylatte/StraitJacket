@@ -27,7 +27,7 @@ public struct RestraintValue {
         self.modifier = modifier
     }
     
-    func withId(_ identifier: String) -> RestraintValue {
+    public func withId(_ identifier: String) -> RestraintValue {
         var newModifier = self.modifier
         newModifier.identifier = identifier
         
