@@ -455,4 +455,60 @@ class RestraintTests: XCTestCase {
             XCTAssert(constraint1.firstAttribute == expectedAttribute, "Expected \(side) to connect \(expectedAttribute) anchor")
         }
     }
+    
+    // MARK: - Constraint Building
+    
+    func testModifiedChainConstraint() {
+        let directions: [Direction] = [Direction.horizontal, .vertical]
+        let modifiers = [RestraintModifier(0, multiple: 0.25, relation: .equal),
+                         RestraintModifier(0, multiple: 0.25, relation: .greaterThanOrEqual),
+                         RestraintModifier(0, multiple: 0.25, relation: .lessThanOrEqual)]
+        let size: [Size] = [.width, .height]
+        let restraint = Restraint(UIView())
+        let v0 = UIView(), v1 = UIView()
+        
+        
+        modifiers.forEach { modifier in
+            directions.forEach { direction in
+                let aConstraint = restraint.modifiedChainConstraint(for: direction, v0: v0, v1: v1, modifier: modifier)
+                XCTAssert(aConstraint.constant == modifier.value)
+                XCTAssert(aConstraint.relation == modifier.relation)
+            }
+        }
+    }
+    
+    func testModifiedSizeConstraint() {
+        let modifiers = [RestraintModifier(0, multiple: 0.25, relation: .equal),
+                         RestraintModifier(0, multiple: 0.25, relation: .greaterThanOrEqual),
+                         RestraintModifier(0, multiple: 0.25, relation: .lessThanOrEqual)]
+        let size: [Size] = [.width, .height]
+        let restraint = Restraint(UIView())
+        let v0 = UIView()
+        
+        modifiers.forEach { modifier in
+            size.forEach { size in
+                let aConstraint = restraint.modifiedSizeConstraint(for: size, v0: v0, modifier: modifier)
+                XCTAssert(aConstraint.relation == modifier.relation)
+                XCTAssert(aConstraint.constant == modifier.value)
+            }
+        }
+    }
+    
+    func testModifiedRelativeSizeConstraint() {
+        let modifiers = [RestraintModifier(0, multiple: 0.25, relation: .equal),
+                         RestraintModifier(0, multiple: 0.25, relation: .greaterThanOrEqual),
+                         RestraintModifier(0, multiple: 0.25, relation: .lessThanOrEqual)]
+        let size: [Size] = [.width, .height]
+        let restraint = Restraint(UIView())
+        let v0 = UIView(), v1 = UIView()
+        
+        modifiers.forEach { modifier in
+            size.forEach { size in
+                let aRelativeConstraint = restraint.modifiedRelativeSizeConstraint(for: size, v0: v0, v1: v1, modifier: modifier)
+                XCTAssert(aRelativeConstraint.constant == modifier.value)
+                XCTAssert(aRelativeConstraint.relation == modifier.relation)
+                XCTAssert(aRelativeConstraint.multiplier == modifier.multiple)
+            }
+        }
+    }
 }

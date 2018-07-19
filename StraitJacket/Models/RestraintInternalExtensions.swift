@@ -90,12 +90,12 @@ extension Restraint {
     }
 }
 
-internal extension Restraint {
+extension Restraint {
     
     // MARK: - Internal Processing
     
     internal func process(restraintRelations: [[RestraintRelation]],
-                 buildConstraints: (RestraintTargetable, RestraintTargetable, RestraintModifier) -> [NSLayoutConstraint]) {
+                          buildConstraints: (RestraintTargetable, RestraintTargetable, RestraintModifier) -> [NSLayoutConstraint]) {
         for relations in restraintRelations {
             for relation in relations {
                 let builtConstraints = buildConstraints(relation.view0, relation.view1, relation.modifier)
