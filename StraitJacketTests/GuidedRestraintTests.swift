@@ -166,12 +166,12 @@ class GuidedRestraintTests: XCTestCase {
         let view = UIView()
         let restraint = Restraint(view)
         
-        let alignmentFromGuideXCentering =  [Restraint.GuideXCentering.centerX, .left, .right]
+        let alignmentFromGuideXCentering =  [GuideXCentering.centerX, .left, .right]
             .map { restraint.alignment(with: $0) }
         
         XCTAssert(alignmentFromGuideXCentering == [Alignment.centerX, .left, .right])
         
-        let alignmentFromGuideYCentering =  [Restraint.GuideYCentering.centerY, .top, .bottom]
+        let alignmentFromGuideYCentering =  [GuideYCentering.centerY, .top, .bottom]
             .map { restraint.alignment(with: $0) }
         
         XCTAssert(alignmentFromGuideYCentering == [Alignment.centerY, .top, .bottom])
