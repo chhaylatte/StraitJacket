@@ -63,33 +63,12 @@ public class Restraint<T: UIView> {
     }
 }
 
-public extension Restraint {
+extension Restraint {
     
-    enum Direction {
-        case horizontal
-        case vertical
-    }
+    // MARK: - Internal Support
     
-    public enum GuidePinning {
-        case normal
-        case soft
-    }
-    
-    public enum GuideYCentering {
-        case top
-        case bottom
-        case centerY
-    }
-    
-    public enum GuideXCentering {
-        case left
-        case right
-        case centerX
-    }
-    
-    // MARK: -
-    
-    func alignment(with centering: GuideYCentering) -> Alignment {
+    // MARK: Alignment
+    internal func alignment(with centering: GuideYCentering) -> Alignment {
         switch centering {
         case .top:
             return Alignment.top
@@ -100,7 +79,7 @@ public extension Restraint {
         }
     }
     
-    func alignment(with centering: GuideXCentering) -> Alignment {
+    internal func alignment(with centering: GuideXCentering) -> Alignment {
         switch centering {
         case .left:
             return Alignment.left
@@ -148,8 +127,7 @@ public extension Restraint {
         }
     }
     
-    // MARK: -
-    
+    // MARK: Chaining
     private func horizontalAxisAlignment(for pinning: GuidePinning, centering: GuideYCentering) -> Set<Alignment> {
         var alignmentSet = alignment(for: .horizontal, with: pinning)
         let centerAlignment = alignment(with: centering)
@@ -165,6 +143,14 @@ public extension Restraint {
         
         return alignmentSet
     }
+}
+
+
+
+extension Restraint {
+    
+    
+    // MARK: - Private Chaining
     
     private func chainHorizontally(_ views: [[Restrainable]], spacing: CGFloat = 8) -> Restraint {
         views.forEach { _ = chainHorizontally($0, spacing: spacing) }
@@ -183,6 +169,32 @@ public extension Restraint {
                 
                 for modifier in modifiers {
                     let aConstraint = modifiedChainConstraint(for: .horizontal, v0: v0, v1: v1, modifier: modifier)
+                    builtConstraints.append(aConstraint)
+                }
+            }
+            
+            return builtConstraints
+        })
+        
+        return self
+    }
+    
+    private func chainVertically(_ views: [[Restrainable]], spacing: CGFloat = 8) -> Restraint {
+        views.forEach { _ = chainVertically($0, spacing: spacing) }
+        
+        return self
+    }
+    
+    private func chainVertically(_ restrainableChain: [Restrainable], spacing: CGFloat = 8) -> Restraint {
+        movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
+            var builtConstraints: [NSLayoutConstraint] = []
+            
+            if modifiers.isEmpty {
+                let aConstraint = v0.topAnchor.constraint(equalTo: v1.bottomAnchor, constant: spacing)
+                builtConstraints.append(aConstraint)
+            } else {
+                for modifier in modifiers {
+                    let aConstraint = modifiedChainConstraint(for: .vertical, v0: v0, v1: v1, modifier: modifier)
                     builtConstraints.append(aConstraint)
                 }
             }
@@ -236,28 +248,6 @@ public extension Restraint {
     /// - Parameters:
     ///     - views: The `Restrainable` items to chain
     ///     - spacing: The default spacing between each view
-    private func chainVertically(_ views: [[Restrainable]], spacing: CGFloat = 8) -> Restraint {
-        for restrainableChain in views {
-            movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
-                var builtConstraints: [NSLayoutConstraint] = []
-                
-                if modifiers.isEmpty {
-                    let aConstraint = v0.topAnchor.constraint(equalTo: v1.bottomAnchor, constant: spacing)
-                    builtConstraints.append(aConstraint)
-                } else {
-                    for modifier in modifiers {
-                        let aConstraint = modifiedChainConstraint(for: .vertical, v0: v0, v1: v1, modifier: modifier)
-                        builtConstraints.append(aConstraint)
-                    }
-                }
-                
-                return builtConstraints
-            })
-        }
-        
-        return self
-    }
-    
     public func chainVertically(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
         return chainVertically(views, spacing: spacing)
     }
@@ -335,6 +325,8 @@ public extension Restraint {
         
         return self
     }
+    
+    // MARK: - Aligning
     
     public func alignItems(_ views: [RestraintTargetable], to alignment: Set<Alignment>, of target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
