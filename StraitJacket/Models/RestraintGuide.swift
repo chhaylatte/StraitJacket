@@ -148,32 +148,4 @@ public enum Alignment: Hashable {
         
         return constraint
     }
-    
-}
-
-public extension Restraint {
-    func guide(_ guide: UILayoutGuide) -> GuidedRestraint<T> {
-        return GuidedRestraint(layoutGuide: guide, restraint: self)
-    }
-    
-    func guide(_ guide: UILayoutGuide, guideBlock: (GuidedRestraint<T>) -> Void) -> Restraint<T> {
-        guideBlock(GuidedRestraint(layoutGuide: guide, restraint: self))
-        
-        return self
-    }
-}
-
-public class GuidedRestraint<T: UIView> {
-    private let layoutGuide: UILayoutGuide
-    private let restraint: Restraint<T>
-    
-    public init(layoutGuide: UILayoutGuide, restraint: Restraint<T>) {
-        self.layoutGuide = layoutGuide
-        self.restraint = restraint
-    }
-    
-    public func alignItems(_ views: [UIView], to alignment: Set<Alignment>) -> Restraint<T> {
-        return restraint.alignItems(views, to: alignment, of: layoutGuide)
-    }
-    
 }
