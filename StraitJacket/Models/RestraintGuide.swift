@@ -8,6 +8,10 @@
 
 import Foundation
 
+public enum ViewAlignment {
+    case view(RestraintTargetable, Set<Alignment>)
+}
+
 public enum Alignment: Hashable {
     
     case top

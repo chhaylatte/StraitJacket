@@ -112,6 +112,39 @@ class GuidedRestraintTests: XCTestCase {
         }
     }
     
+    func testAlignmentMultipleIdentifiers() {
+        let view = UIView(frame: .zero)
+        let subview = UIView(frame: .zero)
+        let subview2 = UIView(frame: .zero)
+        let expectedId = "exp1"
+        let expectedId2 = "exp2"
+        
+        let restraint = Restraint(view)
+            .addItems([subview, subview2])
+            .alignItems(to: view, viewAlignment: [
+                .view(subview, [Alignment.left.withId(expectedId)]),
+                .view(subview2, [Alignment.right.withId(expectedId2)])
+                ])
+        
+        restraint.activate()
+        
+        let constraint = restraint.constraints[0]
+        let actualId: String = constraint.identifier ?? "no value"
+        XCTAssert(actualId == expectedId)
+        XCTAssert(constraint.firstItem === subview)
+        XCTAssert(constraint.secondItem === view)
+        XCTAssert(constraint.firstAttribute == .left)
+        XCTAssert(constraint.secondAttribute == .left)
+        
+        let constraint2 = restraint.constraints[1]
+        let actualId2: String = constraint2.identifier ?? "no value"
+        XCTAssert(actualId2 == expectedId2)
+        XCTAssert(constraint2.firstItem === subview2)
+        XCTAssert(constraint2.secondItem === view)
+        XCTAssert(constraint2.firstAttribute == .right)
+        XCTAssert(constraint2.secondAttribute == .right)
+    }
+    
     func testChainHorizontallyInGuide() {
         let view = UIView()
         let subview1 = UIView(), subview2 = UIView()

@@ -67,6 +67,16 @@ public extension Restraint {
     
     // MARK: - Aligning
     
+    /**
+     Aligns many items to the same target with the same alignment.  This method will crash the program if using alignment identifiers with multiple alignment items since identifiers must be unique.
+     
+     - Parameters:
+         - views: A collection of `RestraintTargetable` to be aligned.
+         - alignment: The set of `Alignment` to align to `target`.
+         - target: The `RestraintTargetable` that the `views` will be aligned to.
+     
+     - SeeAlso: alignItems(_ views:to alignment:)
+     */
     public func alignItems(_ views: [RestraintTargetable], to alignment: Set<Alignment>, of target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraints: { (view, modifier) in
@@ -76,8 +86,33 @@ public extension Restraint {
         return self
     }
     
+    /**
+     Calls alignItems(_ views: to alignment: of target:) with `target = self.view`
+     
+     - Parameters:
+         - views: A collection of `RestraintTargetable` to be aligned.
+         - alignment: The set of `Alignment` to align to `target`.
+     
+     - SeeAlso: alignItems(_ views: to alignment: of target:)
+     */
     public func alignItems(_ views: [RestraintTargetable], to alignment: Set<Alignment>) -> Restraint {
         return alignItems(views, to: alignment, of: self.view)
+    }
+    
+    
+    /// Aligns many items with different alignments to the same target.
+    ///
+    /// - Parameters:
+    ///     - target: A `RestraintTargetable` to align items to.
+    ///     - viewAlignment: Enum with associated type to denote an item and its alignment.
+    public func alignItems(to target: RestraintTargetable, viewAlignment: [ViewAlignment]) -> Restraint {
+        viewAlignment.forEach {
+            if case let .view(aView, alignment) = $0 {
+                _ = alignItems([aView], to: alignment, of: target)
+            }
+        }
+        
+        return self
     }
     
     // MARK: - Sizing
