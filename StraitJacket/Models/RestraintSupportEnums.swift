@@ -13,23 +13,6 @@ internal enum Direction {
     case vertical
 }
 
-public enum GuidePinning {
-    case normal
-    case soft
-}
-
-public enum GuideYCentering {
-    case top
-    case bottom
-    case centerY
-}
-
-public enum GuideXCentering {
-    case left
-    case right
-    case centerX
-}
-
 enum Size {
     case width
     case height
