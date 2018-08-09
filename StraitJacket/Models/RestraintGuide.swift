@@ -31,21 +31,11 @@ public enum Alignment: Hashable {
     indirect case alignementWithPriority(Alignment, UILayoutPriority)
     
     public func withId(_ identifier: String) -> Alignment {
-        switch self {
-        case .alignementWithId(_, _):
-            return self
-        default:
-            return .alignementWithId(self, identifier)
-        }
+        return .alignementWithId(self, identifier)
     }
     
     public func withPriority(_ priority: UILayoutPriority) -> Alignment {
-        switch self {
-        case .alignementWithId(_, _):
-            return self
-        default:
-            return .alignementWithPriority(self, priority)
-        }
+        return .alignementWithPriority(self, priority)
     }
     
     func modifiedAlignmentConstraint(forSource v0: RestraintTargetable,
@@ -74,7 +64,7 @@ public enum Alignment: Hashable {
                 let aConstraint = constraintFunc(v1.topAnchor, modifier.value)
                 
                 return aConstraint
-                
+
             case .bottom:
                 let constraintFunc = Restraint.constraintFunction(v0.bottomAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.bottomAnchor, modifier.value)
@@ -92,7 +82,6 @@ public enum Alignment: Hashable {
                 let aConstraint = constraintFunc(v1.rightAnchor, modifier.value)
                 
                 return aConstraint
-                
                 
             case .centerX:
                 let constraintFunc = Restraint.constraintFunction(v0.centerXAnchor, relation: .equal)
@@ -135,11 +124,20 @@ public enum Alignment: Hashable {
             case .alignementWithId(let alignment, let identifier):
                 newModifier.identifier = identifier
                 
-                return modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
+                let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
+                newModifier.identifier = aConstraint.identifier
+                newModifier.priority = aConstraint.priority
+                
+                return aConstraint
+                
             case .alignementWithPriority(let alignment, let priority):
                 newModifier.priority = priority
                 
-                return modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
+                let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
+                newModifier.identifier = aConstraint.identifier
+                newModifier.priority = aConstraint.priority
+                
+                return aConstraint
             }
         }()
         
