@@ -171,22 +171,21 @@ public extension Restraint {
     public func chainHorizontally(_ views: [Restrainable],
                                   in guide: UILayoutGuide,
                                   spacing: CGFloat = 8,
-                                  pinningOnAxis: GuidePinning = .soft,
-                                  pinningOnEnds: GuidePinning = .normal,
-                                  centering: GuideYCentering = .centerY) -> Restraint {
+                                  aligning: Set<Alignment> = [.top, .bottom, .left, .right]) -> Restraint {
         let targetable = views.compactMap { $0 as? RestraintTargetable }
-        let axisAlignmentSet = horizontalAxisAlignment(for: pinningOnAxis, centering: centering)
-        let (firstAlignment, lastAlignment) = horizontalEndingAlignment(for: pinningOnEnds)
+        let beginningAlignment = aligning.intersection(AlignmentSet.horizontalChainBeginning)
+        let endingAlignment = aligning.intersection(AlignmentSet.horizontalChainEnding)
+        let chainAlignment = aligning.intersection(AlignmentSet.horizontalChainAlignment)
         
         _ = chainHorizontally(views, spacing: spacing)
-        _ = alignItems(targetable, to: axisAlignmentSet, of: guide)
+        _ = alignItems(targetable, to: chainAlignment, of: guide)
         
         if let first = targetable.first {
-            _ = alignItems([first], to: [firstAlignment], of: guide)
+            _ = alignItems([first], to: beginningAlignment, of: guide)
         }
         
         if let last = targetable.last {
-            _ = alignItems([last], to: [lastAlignment], of: guide)
+            _ = alignItems([last], to: endingAlignment, of: guide)
         }
         
         return self
@@ -204,22 +203,21 @@ public extension Restraint {
     public func chainVertically(_ views: [Restrainable],
                                 in guide: UILayoutGuide,
                                 spacing: CGFloat = 8,
-                                pinningOnAxis: GuidePinning = .soft,
-                                pinningOnEnds: GuidePinning = .normal,
-                                centering: GuideXCentering = .centerX) -> Restraint {
+                                aligning: Set<Alignment> = [.top, .bottom, .left, .right]) -> Restraint {
         let targetable = views.compactMap { $0 as? RestraintTargetable }
-        let axisAlignmentSet = verticalAxisAlignment(for: pinningOnAxis, centering: centering)
-        let (firstAlignment, lastAlignment) = verticalEndingAlignment(for: pinningOnEnds)
+        let beginningAlignment = aligning.intersection(AlignmentSet.verticalChainBeginning)
+        let endingAlignment = aligning.intersection(AlignmentSet.verticalChainEnding)
+        let chainAlignment = aligning.intersection(AlignmentSet.verticalChainAlignment)
         
         _ = chainVertically(views, spacing: spacing)
-        _ = alignItems(targetable, to: axisAlignmentSet, of: guide)
+        _ = alignItems(targetable, to: chainAlignment, of: guide)
         
         if let first = targetable.first {
-            _ = alignItems([first], to: [firstAlignment], of: guide)
+            _ = alignItems([first], to: beginningAlignment, of: guide)
         }
         
         if let last = targetable.last {
-            _ = alignItems([last], to: [lastAlignment], of: guide)
+            _ = alignItems([last], to: endingAlignment, of: guide)
         }
         
         return self

@@ -58,8 +58,8 @@ class MyViewController : UIViewController {
         return aButton
     }()
     
+    lazy var buttonGuide = UILayoutGuide()
     lazy var secondaryButtonGuide = UILayoutGuide()
-    lazy var secondaryButtonFlexibleGuide = UILayoutGuide()
     lazy var allItemsBoundaryGuide = UILayoutGuide()
     
     lazy var defaultRestraint: Restraint = {
@@ -70,19 +70,21 @@ class MyViewController : UIViewController {
                            passwordTextField,
                            confirmButton,
                            
-                           secondaryButtonGuide,
-                               secondaryButtonFlexibleGuide,
+                           buttonGuide,
+                               secondaryButtonGuide,
                                    createAccountButton, dividerLabel, forgotPasswordButton,
                        ])
             .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
-            .alignItems([secondaryButtonFlexibleGuide], to: [.centerX, .top, .bottom, .softLeft, .softRight], of: secondaryButtonGuide)
             .chainVertically([usernameTextField,
                               passwordTextField,
                               confirmButton,
-                              secondaryButtonGuide],
-                             in: allItemsBoundaryGuide, pinningOnAxis: .normal)
+                              buttonGuide],
+                             in: allItemsBoundaryGuide)
+            .alignItems([secondaryButtonGuide], to: [.centerX, .top, .bottom, .softLeft, .softRight], of: buttonGuide)
             .chainHorizontally([createAccountButton, dividerLabel, forgotPasswordButton],
-                               in: secondaryButtonFlexibleGuide)
+                               in: secondaryButtonGuide)
+        
+        
         
         return aRestraint
     }()

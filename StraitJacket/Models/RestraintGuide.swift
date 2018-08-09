@@ -12,6 +12,16 @@ public enum ViewAlignment {
     case view(RestraintTargetable, Set<Alignment>)
 }
 
+public struct AlignmentSet {
+    static let horizontalChainAlignment: Set<Alignment> = [.top, .bottom, .centerY, .softTop, .softBottom]
+    static let horizontalChainBeginning: Set<Alignment> = [.left, .softLeft]
+    static let horizontalChainEnding: Set<Alignment> = [.right, .softRight]
+    
+    static let verticalChainAlignment: Set<Alignment> = [.left, .right, .centerX, .softLeft, .softRight]
+    static let verticalChainBeginning: Set<Alignment> = [.top, .softTop]
+    static let verticalChainEnding: Set<Alignment> = [.bottom, .softBottom]
+}
+
 public enum Alignment: Hashable {
     
     case top
