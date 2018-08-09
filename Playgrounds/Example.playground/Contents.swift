@@ -65,12 +65,15 @@ class MyViewController : UIViewController {
     lazy var defaultRestraint: Restraint = {
         
         let aRestraint = Restraint(self.view)
-            .addItems([usernameTextField,
-                       passwordTextField,
-                       confirmButton,
-                       createAccountButton, dividerLabel, forgotPasswordButton,
-                       secondaryButtonGuide, secondaryButtonFlexibleGuide,
-                       allItemsBoundaryGuide])
+            .addItems([allItemsBoundaryGuide,
+                           usernameTextField,
+                           passwordTextField,
+                           confirmButton,
+                           
+                           secondaryButtonGuide,
+                               secondaryButtonFlexibleGuide,
+                                   createAccountButton, dividerLabel, forgotPasswordButton,
+                       ])
             .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
             .alignItems([secondaryButtonFlexibleGuide], to: [.centerX, .top, .bottom, .softLeft, .softRight], of: secondaryButtonGuide)
             .chainVertically([usernameTextField,
