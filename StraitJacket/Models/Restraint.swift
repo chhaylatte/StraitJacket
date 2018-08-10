@@ -8,20 +8,13 @@
 
 import Foundation
 
-extension UILayoutGuide: RestraintTargetable {
-    public func addToRootView(_ view: UIView) {
-        view.addLayoutGuide(self)
-    }
-}
-
-extension UIView: RestraintTargetable {
-    public func addToRootView(_ view: UIView) {
-        translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(self)
-    }
-}
-
 public class Restraint<T: UIView> {
+    
+    /**
+     - Parameters:
+         - view: The root view.
+         - subRestraints: Child `Restraint` objects.  `Restraint` can be composed and activated in at the same time when added as to `subRestraints`.
+     */
     public init(_ view: T, subRestraints: [Restraint] = []) {
         self.view = view
     }
@@ -32,18 +25,25 @@ public class Restraint<T: UIView> {
     private(set) var subRestraints: [Restraint] = []
     internal var identifierToCostraint: [String: NSLayoutConstraint] = [:]
     
+    /// Activates its constraints and `subSubrestraints`.  Also calls setNeedsLayout on its root view.
     public func activate() {
         NSLayoutConstraint.activate(constraints)
         subRestraints.forEach { $0.activate() }
         view.setNeedsLayout()
     }
     
+    /// Deactivates its constraints and `subSubrestraints`.  Also calls setNeedsLayout on its root view.
     public func deactivate() {
         NSLayoutConstraint.deactivate(constraints)
         subRestraints.forEach { $0.deactivate() }
         view.setNeedsLayout()
     }
     
+    /**
+     Adds such as `UIView` to the root view.
+     - Parameters:
+         - items: A collection of `RestraintTargetable` items.
+     */
     public func addItems(_ items: [RestraintTargetable]) -> Restraint {
         items.forEach {
             $0.addToRootView(view)
@@ -52,12 +52,22 @@ public class Restraint<T: UIView> {
         return self
     }
     
+    /**
+     Adds a `Restraint` object to `subRestraints`
+     - Parameters:
+         - subRestraints: An array of `Restraint` objects.
+     */
     public func addRestraints(_ subRestraints: [Restraint]) -> Restraint {
         self.subRestraints.append(contentsOf: subRestraints)
         
         return self
     }
     
+    /**
+     Returns the underlying `NSLayoutConstraint` created by `Restraint` with the respective withId method.
+     - Parameters:
+         - id: The key corresponding to the constraint.
+     */
     public func constraintWithId(_ id: String) -> NSLayoutConstraint? {
         return identifierToCostraint[id]
     }

@@ -11,14 +11,14 @@ import Foundation
 /// Model for a relational modifier between two `UIView`.
 public struct RestraintRelation {
     
-    public let view0: UIView
-    public let view1: UIView
+    public let view0: RestraintTargetable
+    public let view1: RestraintTargetable
     public let modifier: RestraintModifier
     
-    public init (_ sourceView: UIView,
+    public init (_ sourceView: RestraintTargetable,
                  constant: CGFloat = 0,
                  multiple: CGFloat,
-                 of targetView: UIView,
+                 of targetView: RestraintTargetable,
                  relation: NSLayoutRelation = .equal,
                  priority: UILayoutPriority = .required,
                  identifier: String? = nil) {
@@ -31,8 +31,8 @@ public struct RestraintRelation {
                                      identifier: identifier)
     }
     
-    init (_ sourceView: UIView,
-          targetView: UIView,
+    init (_ sourceView: RestraintTargetable,
+          targetView: RestraintTargetable,
           modifier: RestraintModifier) {
         view0 = sourceView
         view1 = targetView

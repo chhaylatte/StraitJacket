@@ -13,7 +13,7 @@ internal enum Direction {
     case vertical
 }
 
-enum Size {
+internal enum Size {
     case width
     case height
 }

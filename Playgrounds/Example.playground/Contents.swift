@@ -6,6 +6,18 @@ import StraitJacket
 
 class MyViewController : UIViewController {
     
+    lazy var titleLabel: UILabel = {
+        let aLabel = UILabel(frame: .zero)
+        aLabel.text = "StraitJacket"
+        aLabel.font = UIFont.systemFont(ofSize: 30)
+        aLabel.textAlignment = .center
+        aLabel.textColor = .black
+        aLabel.sizeToFit()
+        aLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        
+        return aLabel
+    }()
+    
     lazy var usernameTextField: UITextField = {
         let aTextField = UITextField(frame: .zero)
         aTextField.placeholder = "username"
@@ -18,6 +30,7 @@ class MyViewController : UIViewController {
         let aTextField = UITextField(frame: .zero)
         aTextField.placeholder = "password"
         aTextField.borderStyle = .roundedRect
+        aTextField.isSecureTextEntry = true
         
         return aTextField
     }()
@@ -64,8 +77,14 @@ class MyViewController : UIViewController {
     
     lazy var defaultRestraint: Restraint = {
         
+        // The `Restraint` object handles constraint creation and activation.
+        // It must be created with a root view which holds created constraints
         let aRestraint = Restraint(self.view)
+            // Items like views must be added first before they can take part in constraint creation.
+            // This also serves as a list of every item laid out within the root view.
+            // Using spacing can help with getting an overall idea of the entire layout.
             .addItems([allItemsBoundaryGuide,
+                           titleLabel,
                            usernameTextField,
                            passwordTextField,
                            confirmButton,
@@ -74,17 +93,20 @@ class MyViewController : UIViewController {
                                secondaryButtonGuide,
                                    createAccountButton, dividerLabel, forgotPasswordButton,
                        ])
+            .setWidths([allItemsBoundaryGuide.width(260)])
             .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
-            .chainVertically([usernameTextField,
+            // Many constraints can be created within a single function call
+            .chainVertically([titleLabel,
+                              Space(60),
+                              usernameTextField,
                               passwordTextField,
                               confirmButton,
+                              Space(30),
                               buttonGuide],
                              in: allItemsBoundaryGuide)
-            .alignItems([secondaryButtonGuide], to: [.centerX, .top, .bottom, .softLeft, .softRight], of: buttonGuide)
+            .alignItems([secondaryButtonGuide], to: [.centerX, .top, .bottom], of: buttonGuide)
             .chainHorizontally([createAccountButton, dividerLabel, forgotPasswordButton],
                                in: secondaryButtonGuide)
-        
-        
         
         return aRestraint
     }()
@@ -95,6 +117,7 @@ class MyViewController : UIViewController {
         
         self.view = view
         
+        // Don't forget to activate the constraints.
         defaultRestraint.activate()
         
         view
