@@ -80,7 +80,7 @@ class MyViewController : UIViewController {
         // The `Restraint` object handles constraint creation and activation.
         // It must be created with a root view which holds created constraints
         let aRestraint = Restraint(self.view)
-            // Items like views must be added first before they can take part in constraint creation.
+            // Views must be added to the root view before they can take part in constraint creation.
             // This also serves as a list of every item laid out within the root view.
             // Using spacing can help with getting an overall idea of the entire layout.
             .addItems([allItemsBoundaryGuide,

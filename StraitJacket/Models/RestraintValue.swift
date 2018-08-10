@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Model for a modifier for a single `RestraintTargetable`.
+/// Model for a modifier for building a constraint for a single `RestraintTargetable`.
 public struct RestraintValue {
     
     public let view: RestraintTargetable

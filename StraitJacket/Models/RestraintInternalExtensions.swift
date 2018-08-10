@@ -8,6 +8,16 @@
 
 import Foundation
 
+internal enum Direction {
+    case horizontal
+    case vertical
+}
+
+internal enum Size {
+    case width
+    case height
+}
+
 extension Restraint {
     
     // MARK: - Internal Processing
@@ -23,7 +33,7 @@ extension Restraint {
     }
     
     internal func process(restraintValues: [[RestraintValue]],
-                 buildConstraints: (RestraintTargetable, RestraintModifier) -> [NSLayoutConstraint]) {
+                          buildConstraints: (RestraintTargetable, RestraintModifier) -> [NSLayoutConstraint]) {
         
         for values in restraintValues {
             for value in values {
@@ -34,7 +44,7 @@ extension Restraint {
     }
     
     internal func movingProcess(restrainables: [Restrainable],
-                       buildConstraints: (RestraintTargetable, RestraintTargetable, [RestraintModifier]) -> [NSLayoutConstraint]) {
+                                buildConstraints: (RestraintTargetable, RestraintTargetable, [RestraintModifier]) -> [NSLayoutConstraint]) {
         
         var restraintModifiers: [RestraintModifier] = []
         var (view0, view1): (RestraintTargetable?, RestraintTargetable?) = (nil, nil)
@@ -149,8 +159,8 @@ extension Restraint {
         return aConstraint
     }
     
-    static func constraintFunction<AnchorType>(_ anchor: NSLayoutAnchor<AnchorType>,
-                                               relation: NSLayoutRelation) -> (NSLayoutAnchor<AnchorType>, CGFloat) -> NSLayoutConstraint {
+    internal static func constraintFunction<AnchorType>(_ anchor: NSLayoutAnchor<AnchorType>,
+                                                        relation: NSLayoutRelation) -> (NSLayoutAnchor<AnchorType>, CGFloat) -> NSLayoutConstraint {
         switch relation {
         case .equal:
             return anchor.constraint(equalTo:constant:)
@@ -161,7 +171,7 @@ extension Restraint {
         }
     }
     
-    func didBuildConstraint(_ constraint: NSLayoutConstraint) {
+    internal func didBuildConstraint(_ constraint: NSLayoutConstraint) {
         constraints.append(constraint)
         
         guard let identifier = constraint.identifier else { return }

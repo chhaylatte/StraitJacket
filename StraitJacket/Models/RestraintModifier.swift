@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Model for constraint properties.
+/// Model for constraint properties.  Modeled after the properties of `UILayoutConstraint`.
 public struct RestraintModifier: Restrainable, CustomStringConvertible {
     public var value: CGFloat
     public var multiple: CGFloat

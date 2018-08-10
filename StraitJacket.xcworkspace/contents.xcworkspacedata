@@ -8,12 +8,6 @@
       location = "group:Playgrounds/Example.playground">
    </FileRef>
    <FileRef
-      location = "group:Playgrounds/GuidedRestraint.playground">
-   </FileRef>
-   <FileRef
-      location = "group:Playgrounds/StraitJacketPlayground.playground">
-   </FileRef>
-   <FileRef
       location = "group:StraitJacket.xcodeproj">
    </FileRef>
 </Workspace>

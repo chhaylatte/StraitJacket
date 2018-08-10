@@ -1,8 +1,8 @@
 //
-//  RestraintGuide.swift
+//  Alignment.swift
 //  StraitJacket
 //
-//  Created by Danny Chhay on 5/24/18.
+//  Created by Danny Chhay on 8/10/18.
 //  Copyright © 2018 Danny Chhay. All rights reserved.
 //
 
@@ -48,7 +48,7 @@ public enum Alignment: Hashable {
         return .alignementWithPriority(self, priority)
     }
     
-    func modifiedAlignmentConstraint(forSource v0: RestraintTargetable,
+    internal func modifiedAlignmentConstraint(forSource v0: RestraintTargetable,
                                      target v1: RestraintTargetable,
                                      modifier: RestraintModifier) -> NSLayoutConstraint {
         return Alignment.modifiedAlignmentConstraint(alignment: self,
@@ -61,10 +61,10 @@ public enum Alignment: Hashable {
     ///
     /// - Parameters:
     ///     - modifier: Only the modifier.value and modifier.priority is used.
-    static func modifiedAlignmentConstraint(alignment: Alignment,
-                                     forSource v0: RestraintTargetable,
-                                     target v1: RestraintTargetable,
-                                     modifier: RestraintModifier) -> NSLayoutConstraint {
+    internal static func modifiedAlignmentConstraint(alignment: Alignment,
+                                            forSource v0: RestraintTargetable,
+                                            target v1: RestraintTargetable,
+                                            modifier: RestraintModifier) -> NSLayoutConstraint {
         var newModifier: RestraintModifier = modifier
         let constraint: NSLayoutConstraint = {
             
@@ -74,7 +74,7 @@ public enum Alignment: Hashable {
                 let aConstraint = constraintFunc(v1.topAnchor, modifier.value)
                 
                 return aConstraint
-
+                
             case .bottom:
                 let constraintFunc = Restraint.constraintFunction(v0.bottomAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.bottomAnchor, modifier.value)
