@@ -11,7 +11,7 @@
 ## How it works
 ### It's just swift code
 
-Constraints are created using the `Restraint` object.
+Constraints are created using the `Restraint` object.  Its methods are capable of creating many constraints at once with a single method call and are all chainable.  The root view of `Restraint` is init'd with holds the created constraints. Items must be added to the `Restraint` for them to be visible to the Restraint's view.  This also serves as a list of all items being laid out by `Restraint` object.
 
 ```swift
 let aRestraint = Restraint(self.view)
@@ -20,15 +20,15 @@ let aRestraint = Restraint(self.view)
                      in: self.view.layoutMarginsGuide)
 ```
 
-Its methods are capable of creating many constraints at once with a single method call and are all chainable.  The root view of `Restraint` is init'd with holds the created constraints. Items must be added to the `Restraint` for them to be visible to the Restraint's view.  This also serves as a list of all items being laid out by `Restraint` object.
+Each `Restraint` object maintains a collection of its created constraints.  Constraints are not active upon creation. Don't forget to activate the `Restraint`.  
 
 ```swift
 aRestraint.activate()
 ```
 
-Each `Restraint` object maintains a collection of its created constraints.  Constraints are not active upon creation. Don't forget to activate the `Restraint`.  
+Constraints can be created with respective `withId:` methods and priorities can also be added to individual constraints using their respective `withPriority:` methods.
 
 ```swift
 aRestraint.constraintWithId("space")
+// do something with the constraint
 ```
-Constraints can be created with respective `withId` methods and priorities can also be added to individual constraints using their respective `withPriority` functions.
