@@ -26,7 +26,7 @@ Each `Restraint` object maintains a collection of its created constraints.  Cons
 aRestraint.activate()
 ```
 
-Constraints can be created with respective `withId:` methods and priorities can also be added to individual constraints using their respective `withPriority:` methods.
+Constraints can be created with their respective `withId:` methods and priorities can also be added to individual constraints using their respective `withPriority:` methods.  Constraints can be referred to by id.
 
 ```swift
 aRestraint.constraintWithId("space")
