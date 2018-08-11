@@ -509,4 +509,45 @@ class RestraintTests: XCTestCase {
             }
         }
     }
+    
+    func testActivateAndDeactivateRestraints() {
+        let view = UIView()
+        let subview = UIView()
+        
+        let widthRestraint = Restraint(view)
+            .addItems([subview])
+            .setWidths([subview.width(20)])
+        
+        let alignLeftRestraint = Restraint(view)
+            .addRestraints([widthRestraint])
+            .addItems([subview])
+            .alignItems([subview], to: [.left])
+        
+        let alignRightRestraint = Restraint(view)
+            .addRestraints([widthRestraint])
+            .addItems([subview])
+            .alignItems([subview], to: [.right])
+        
+        alignLeftRestraint.activate()
+        
+        Restraint.activate(alignRightRestraint, oldRestraints: alignLeftRestraint)
+        
+        XCTAssert(widthRestraint.constraints.first!.isActive == true)
+        
+        let leftConstraintsActive = alignLeftRestraint.constraints
+            .map { $0.isActive }
+            .reduce(true) { (result, current) -> Bool in
+                return result && current
+        }
+        
+        XCTAssert(leftConstraintsActive == false)
+        
+        let rightConstraintsActive = alignRightRestraint.constraints
+            .map { $0.isActive }
+            .reduce(true) { (result, current) -> Bool in
+                return result && current
+        }
+        
+        XCTAssert(rightConstraintsActive == true)
+    }
 }

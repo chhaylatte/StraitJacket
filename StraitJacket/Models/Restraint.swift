@@ -39,6 +39,37 @@ public class Restraint<T: UIView> {
         view.setNeedsLayout()
     }
     
+    /// Returns all constraints on `Restraint` including all constraints in `subRestraints`
+    public func totalConstraints() -> [NSLayoutConstraint] {
+        let subConstraints = subRestraints
+            .map { $0.constraints }
+            .reduce([]) { (result, additionalConstraints) -> [NSLayoutConstraint] in
+                return result + additionalConstraints
+        }
+        
+        return constraints + subConstraints
+    }
+    
+    /**
+     Activates `newRestraint` while deactivating `oldRestraints`.  This method skips deactivating constraints that are active in `newRestraint`.
+     - Parameters:
+         - newRestraints: The new `Restraint` object to activate.
+         - oldRestraints: The old `Restraint` object to deactivate.
+     */
+    public static func activate(_ newRestraints: Restraint, oldRestraints: Restraint) {
+        let newConstraints = Set(newRestraints.totalConstraints())
+        let oldConstraints = Set(oldRestraints.totalConstraints())
+        
+        let deactivatedConstraintsSet = oldConstraints.subtracting(newConstraints)
+        let activatedConstraintsSet = newConstraints.subtracting(oldConstraints)
+        
+        let deactivatedConstraints = Array(deactivatedConstraintsSet)
+        let activatedConstraints = Array(activatedConstraintsSet)
+        
+        NSLayoutConstraint.deactivate(deactivatedConstraints)
+        NSLayoutConstraint.activate(activatedConstraints)
+    }
+    
     /**
      Adds such as `UIView` to the root view.
      - Parameters:

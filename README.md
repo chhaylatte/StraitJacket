@@ -15,20 +15,8 @@
 Here's an example:
 ```swift
 let aRestraint = Restraint(self.view)
-            .addItems([usernameTextField,
-                       passwordTextField,
-                       confirmButton,
-                       createAccountButton, dividerLabel, forgotPasswordButton,
-                       createForgotButtonGuide, createForgotButtonSubGuide,
-                       allItemsBoundaryGuide])
-            .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY])
-            .alignItems([createForgotButtonSubGuide], to: [.centerX, .top, .bottom, .softLeft, .softRight], of: createForgotButtonGuide)
-            .chainVertically([usernameTextField,
-                              passwordTextField,
-                              confirmButton,
-                              createForgotButtonGuide], in: allItemsBoundaryGuide)
-            .chainHorizontally([createAccountButton, dividerLabel, forgotPasswordButton],
-                               in: createForgotButtonSubGuide)
+    .addItems([titleLabel, usernameTextField, passwordTextField, confirmButton])
+    .chainVertically([titleLabel, Space(60), usernameTextField, passwordTextField, confirmButton], in: self.view.layoutMarginsGuide)
 aRestraint.activate()
 ```
 
