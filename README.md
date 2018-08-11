@@ -18,12 +18,9 @@ let aRestraint = Restraint(self.view)
     .addItems([titleLabel, usernameTextField, passwordTextField, confirmButton])
     .chainVertically([titleLabel, Space(60).withId("space"), usernameTextField, passwordTextField, confirmButton],
                      in: self.view.layoutMarginsGuide)
-aRestraint.activate()
 ```
 
-Its methods are capable of creating many constraints at once with a single method call and are all chainable.  The root view of `Restraint` is init'd with holds the created constraints.
-
-Items must be added to the `Restraint` for them to be visible to the Restraint's view.  This also serves as a list of all items being laid out by `Restraint` object.
+Its methods are capable of creating many constraints at once with a single method call and are all chainable.  The root view of `Restraint` is init'd with holds the created constraints. Items must be added to the `Restraint` for them to be visible to the Restraint's view.  This also serves as a list of all items being laid out by `Restraint` object.
 
 ```swift
 aRestraint.activate()
