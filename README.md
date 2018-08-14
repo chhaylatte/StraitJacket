@@ -34,11 +34,12 @@ aRestraint.constraintWithId("space")
 ```
 
 Restraints are also composable.
-```
+```swift
 let restraint1A = Restraint(someView)
 // make some constraints
 let restraint1B = Restraint(someView)
 // make some other constraints
 let restraint1 = Restraint(someView, subRestraints: [restraint1A, restraint1B])
+restraint1.activate()
 // activating restraint1 also activates restraint1A and restraint1B
 ```
