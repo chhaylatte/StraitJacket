@@ -29,7 +29,7 @@ aRestraint.activate()
 Constraints can be created with their respective `withId:` methods and priorities can also be added to individual constraints using the respective `withPriority:` methods.  Constraints can be referred to by id.
 
 ```swift
-aRestraint.constraintWithId("space")
+let spaceConstraint = aRestraint.constraintWithId("space")
 // do something with the constraint
 ```
 
