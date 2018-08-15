@@ -530,7 +530,7 @@ class RestraintTests: XCTestCase {
         
         alignLeftRestraint.activate()
         
-        Restraint.activate(alignRightRestraint, oldRestraints: alignLeftRestraint)
+        Restraint.activate(alignRightRestraint, andDeactivate: alignLeftRestraint)
         
         XCTAssert(widthRestraint.constraints.first!.isActive == true)
         
@@ -549,5 +549,23 @@ class RestraintTests: XCTestCase {
         }
         
         XCTAssert(rightConstraintsActive == true)
+    }
+    
+    func testAddAndRemoveConstraints() {
+        let aView = UIView()
+        
+        let aRestraint = Restraint(aView)
+        let aWidthConstraint = aView.widthAnchor.constraint(equalToConstant: 100)
+        aRestraint.addConstraints([aWidthConstraint])
+        
+        XCTAssert(aView.constraints.isEmpty)
+        XCTAssert(aRestraint.constraints.contains(aWidthConstraint))
+        
+        aRestraint.activate()
+        XCTAssert(aView.constraints.contains(aWidthConstraint))
+        
+        aRestraint.removeConstraints([aWidthConstraint])
+        XCTAssert(aRestraint.constraints.isEmpty)
+        XCTAssert(aView.constraints.isEmpty)
     }
 }

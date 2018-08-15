@@ -56,7 +56,7 @@ public class Restraint<T: UIView> {
          - newRestraints: The new `Restraint` object to activate.
          - oldRestraints: The old `Restraint` object to deactivate.
      */
-    public static func activate(_ newRestraints: Restraint, oldRestraints: Restraint) {
+    public static func activate(_ newRestraints: Restraint, andDeactivate oldRestraints: Restraint) {
         let newConstraints = Set(newRestraints.totalConstraints())
         let oldConstraints = Set(oldRestraints.totalConstraints())
         
@@ -75,6 +75,7 @@ public class Restraint<T: UIView> {
      - Parameters:
          - items: A collection of `RestraintTargetable` items.
      */
+    @discardableResult
     public func addItems(_ items: [RestraintTargetable]) -> Restraint {
         items.forEach {
             $0.addToRootView(view)
@@ -88,8 +89,36 @@ public class Restraint<T: UIView> {
      - Parameters:
          - subRestraints: An array of `Restraint` objects.
      */
+    @discardableResult
     public func addRestraints(_ subRestraints: [Restraint]) -> Restraint {
         self.subRestraints.append(contentsOf: subRestraints)
+        
+        return self
+    }
+    
+    /**
+     Adds `NSLayoutConstraint`s to be used by `Restraint`.  Constraints are not automatically activated.
+     - Parameters:
+         - constraints: A collection of `NSLayoutConstraint`.
+     */
+    @discardableResult
+    public func addConstraints(_ constraints: [NSLayoutConstraint]) -> Restraint {
+        self.constraints.append(contentsOf: constraints)
+        
+        return self
+    }
+    
+    /**
+     Removes `NSLayoutConstraint`s from `Restraint`.  Constraints are automatically deactivated.
+     - Parameters:
+         - constraints: A collection of `NSLayoutConstraint`.
+     */
+    @discardableResult
+    public func removeConstraints(_ constraints: [NSLayoutConstraint]) -> Restraint {
+        let constraintSet = Set(constraints)
+        let removeStartIndex = self.constraints.partition { constraintSet.contains($0) }
+        self.constraints.removeSubrange(removeStartIndex..<self.constraints.count)
+        NSLayoutConstraint.deactivate(constraints)
         
         return self
     }
@@ -118,6 +147,7 @@ public extension Restraint {
      
      - SeeAlso: alignItems(_ views:to alignment:)
      */
+    @discardableResult
     public func alignItems(_ views: [RestraintTargetable], to alignment: Set<Alignment>, of target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
         process(restraintValues: [restraintValues], buildConstraints: { (view, modifier) in
@@ -136,6 +166,7 @@ public extension Restraint {
      
      - SeeAlso: alignItems(_ views: to alignment: of target:)
      */
+    @discardableResult
     public func alignItems(_ views: [RestraintTargetable], to alignment: Set<Alignment>) -> Restraint {
         return alignItems(views, to: alignment, of: self.view)
     }
@@ -146,6 +177,7 @@ public extension Restraint {
     /// - Parameters:
     ///     - target: A `RestraintTargetable` to align items to.
     ///     - viewAlignment: Enum with associated type to denote an item and its alignment.
+    @discardableResult
     public func alignItems(to target: RestraintTargetable, viewAlignment: [ViewAlignment]) -> Restraint {
         viewAlignment.forEach {
             if case let .view(aView, alignment) = $0 {
@@ -157,7 +189,7 @@ public extension Restraint {
     }
     
     // MARK: - Sizing
-    
+    @discardableResult
     public func setWidths(_ values: [Width]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
@@ -168,6 +200,7 @@ public extension Restraint {
         return self
     }
     
+    @discardableResult
     public func setHeights(_ values: [Height]...) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .height, v0: view, modifier: modifier)
@@ -178,6 +211,7 @@ public extension Restraint {
         return self
     }
     
+    @discardableResult
     public func setRelativeWidths(_ relations: [RelativeWidth]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .width, v0: v0, v1: v1, modifier: modifier)
@@ -188,6 +222,7 @@ public extension Restraint {
         return self
     }
     
+    @discardableResult
     public func setRelativeHeights(_ relations: [RelativeHeight]...) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .height, v0: v0, v1: v1, modifier: modifier)
@@ -205,10 +240,12 @@ public extension Restraint {
     /// - Parameters:
     ///     - views: The `Restrainable` items to chain
     ///     - spacing: The default spacing between each view
+    @discardableResult
     public func chainHorizontally(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
         return chainHorizontally(views, spacing: spacing)
     }
     
+    @discardableResult
     public func chainHorizontally(_ views: [Restrainable],
                                   in guide: UILayoutGuide,
                                   spacing: CGFloat = 8,
@@ -237,10 +274,12 @@ public extension Restraint {
     /// - Parameters:
     ///     - views: The `Restrainable` items to chain
     ///     - spacing: The default spacing between each view
+    @discardableResult
     public func chainVertically(_ views: [Restrainable]..., spacing: CGFloat = 8) -> Restraint {
         return chainVertically(views, spacing: spacing)
     }
     
+    @discardableResult
     public func chainVertically(_ views: [Restrainable],
                                 in guide: UILayoutGuide,
                                 spacing: CGFloat = 8,
@@ -268,12 +307,14 @@ public extension Restraint {
 extension Restraint {
     // MARK: - Private
     
+    @discardableResult
     private func chainHorizontally(_ views: [[Restrainable]], spacing: CGFloat = 8) -> Restraint {
         views.forEach { _ = chainHorizontally($0, spacing: spacing) }
         
         return self
     }
     
+    @discardableResult
     private func chainHorizontally(_ restrainableChain: [Restrainable], spacing: CGFloat = 8) -> Restraint {
         movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
             var builtConstraints: [NSLayoutConstraint] = []
@@ -295,12 +336,14 @@ extension Restraint {
         return self
     }
     
+    @discardableResult
     private func chainVertically(_ views: [[Restrainable]], spacing: CGFloat = 8) -> Restraint {
         views.forEach { _ = chainVertically($0, spacing: spacing) }
         
         return self
     }
     
+    @discardableResult
     private func chainVertically(_ restrainableChain: [Restrainable], spacing: CGFloat = 8) -> Restraint {
         movingProcess(restrainables: restrainableChain, buildConstraints: { (v0, v1, modifiers) in
             var builtConstraints: [NSLayoutConstraint] = []
