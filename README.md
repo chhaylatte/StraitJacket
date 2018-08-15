@@ -1,4 +1,5 @@
 #  StraitJacket
+StraitJacket is an object oriented autolayout solution designed to do more with less.
 
 ## Why
 ### It will keep devs from hurting themselves
@@ -33,7 +34,7 @@ let spaceConstraint = aRestraint.constraintWithId("space")
 // do something with the constraint
 ```
 
-Restraints are also composable.
+### Restraints are composable
 ```swift
 let restraint1A = Restraint(someView)
 // make some constraints
@@ -42,4 +43,9 @@ let restraint1B = Restraint(someView)
 let restraint1 = Restraint(someView, subRestraints: [restraint1A, restraint1B])
 restraint1.activate()
 // activating restraint1 also activates restraint1A and restraint1B
+```
+### It can use any NSLayoutConstraint
+```swift
+let aConstraint: NSLayoutConstraint = // some constraint
+aRestraint.addConstraints([aConstraint])
 ```
