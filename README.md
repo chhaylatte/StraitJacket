@@ -11,7 +11,7 @@
 ## How it works
 ### It's just swift code
 
-Constraints are created using the `Restraint` object.  Its methods are capable of creating many constraints at once with a single method call and are all chainable.  The root view of `Restraint` is init'd with holds the created constraints. Items must be added to the `Restraint` for them to be visible to the Restraint's view.  This also serves as a list of all items being laid out by `Restraint` object.
+Constraints are created using the `Restraint` object.  Its methods are capable of creating many constraints at once and are all chainable.  The root view that `Restraint` is init'd with holds the created constraints. Items must be added to the root view for constraints to be built.  The `addItems:` method can be used to add multiple items for convenience.
 
 ```swift
 let aRestraint = Restraint(self.view)
@@ -20,15 +20,26 @@ let aRestraint = Restraint(self.view)
                      in: self.view.layoutMarginsGuide)
 ```
 
-Each `Restraint` object maintains a collection of its created constraints.  Constraints are not active upon creation. Don't forget to activate the `Restraint`.  
+Constraints are not active upon creation. Don't forget to activate the `Restraint`.  
 
 ```swift
 aRestraint.activate()
 ```
 
-Constraints can be created with their respective `withId:` methods and priorities can also be added to individual constraints using their respective `withPriority:` methods.  Constraints can be referred to by id.
+Constraints can be created with their respective `withId:` methods and priorities can also be added to individual constraints using the respective `withPriority:` methods.  Constraints can be referred to by id.
 
 ```swift
-aRestraint.constraintWithId("space")
+let spaceConstraint = aRestraint.constraintWithId("space")
 // do something with the constraint
+```
+
+Restraints are also composable.
+```swift
+let restraint1A = Restraint(someView)
+// make some constraints
+let restraint1B = Restraint(someView)
+// make some other constraints
+let restraint1 = Restraint(someView, subRestraints: [restraint1A, restraint1B])
+restraint1.activate()
+// activating restraint1 also activates restraint1A and restraint1B
 ```
