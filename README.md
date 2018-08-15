@@ -49,3 +49,7 @@ restraint1.activate()
 let aConstraint: NSLayoutConstraint = // some constraint
 aRestraint.addConstraints([aConstraint])
 ```
+
+
+## Example
+See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Playgrounds/Example.playground/Contents.swift)
