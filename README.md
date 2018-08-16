@@ -110,7 +110,7 @@ lazy var defaultRestraint: Restraint = {
 
 ### SnapKit
 
-I had a great deal of trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, SnapKit's constraints don't work correctly.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.
+I had a great deal of trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, SnapKit's constraints don't work correctly.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.
 
 ```swift
 // 60 lines of code.  Cannot be condensed without introducing loops and complexity.
