@@ -61,7 +61,7 @@ I will compare various autolayout libraries building the same exact screen.  I w
 ### StraitJacket
 
 ```swift
-// 16 lines of uncondensed layout code
+// 13 lines of uncondensed layout code
 lazy var defaultRestraint: Restraint = {
     let aRestraint = Restraint(self.view)
         .addItems([allItemsBoundaryGuide,
@@ -92,7 +92,7 @@ lazy var defaultRestraint: Restraint = {
 }()
 ```
 ```swift
-// 10 lines condensed layout code
+// 7 lines condensed layout code
 lazy var defaultRestraint: Restraint = {
     let aRestraint = Restraint(self.view)
         .addItems([allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide, secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
@@ -110,10 +110,10 @@ lazy var defaultRestraint: Restraint = {
 
 ### SnapKit
 
-I had a great deal of trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, SnapKit's constraints don't work correctly.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.
+I had a great deal of trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, SnapKit's constraints don't work correctly.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  All around this was pretty time consuming.
 
 ```swift
-// 60 lines of code.  Cannot be condensed without introducing loops and complexity.
+// 63 lines of layout code.  Cannot be condensed without introducing loops and complexity.
 func makeConstraints() {
     
     [allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
@@ -127,7 +127,11 @@ func makeConstraints() {
     
     allItemsBoundaryGuide.snp.makeConstraints { (make) -> Void in
         make.width.equalTo(260)
-        make.center.equalTo(self.view)
+        make.center.equalTo(view)
+        make.left.greaterThanOrEqualTo(view)
+        make.right.lessThanOrEqualTo(view)
+        make.top.greaterThanOrEqualTo(view)
+        make.bottom.lessThanOrEqualTo(view)
     }
     
     titleLabel.snp.makeConstraints { (make) in
