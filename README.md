@@ -55,13 +55,65 @@ aRestraint.addConstraints([aConstraint])
 See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Playgrounds/Example.playground/Contents.swift)
 
 ## Comparison
+I will compare various autolayout libraries building the same exact screen.  I will count just layout code including new lines and brackets.  I will omit constraint activiation calls and adding of view items.
+
+
+### StraitJacket
+
+```swift
+// 16 lines of uncondensed layout code
+lazy var defaultRestraint: Restraint = {
+    let aRestraint = Restraint(self.view)
+        .addItems([allItemsBoundaryGuide,
+                       titleLabel,
+                       usernameTextField,
+                       passwordTextField,
+                       confirmButton,
+                       
+                       buttonGuide,
+                           secondaryButtonGuide,
+                               createAccountButton, dividerLabel, forgotPasswordButton,
+                   ])
+        .setWidths([allItemsBoundaryGuide.width(260)])
+        .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
+        .chainVertically([titleLabel,
+                          Space(60),
+                          usernameTextField,
+                          passwordTextField,
+                          confirmButton,
+                          Space(30),
+                          buttonGuide],
+                         in: allItemsBoundaryGuide)
+        .alignItems([secondaryButtonGuide], to: [.centerX, .top, .bottom], of: buttonGuide)
+        .chainHorizontally([createAccountButton, dividerLabel, forgotPasswordButton],
+                           in: secondaryButtonGuide)
+    
+    return aRestraint
+}()
+```
+```swift
+// 10 lines condensed layout code
+lazy var defaultRestraint: Restraint = {
+    let aRestraint = Restraint(self.view)
+        .addItems([allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide, secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
+        .setWidths([allItemsBoundaryGuide.width(260)])
+        .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
+        .chainVertically([titleLabel, Space(60), usernameTextField, passwordTextField, confirmButton, Space(30), buttonGuide],
+                         in: allItemsBoundaryGuide)
+        .alignItems([secondaryButtonGuide], to: [.centerX, .top, .bottom], of: buttonGuide)
+        .chainHorizontally([createAccountButton, dividerLabel, forgotPasswordButton],
+                           in: secondaryButtonGuide)
+    
+    return aRestraint
+}()
+```
 
 ### SnapKit
 
 I had a great deal of trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, SnapKit's constraints don't work correctly.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.
 
 ```swift
-// 60 lines of code including just constraint building, brackets, and new lines
+// 60 lines of code.  Cannot be condensed without introducing loops and complexity.
 func makeConstraints() {
     
     [allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
