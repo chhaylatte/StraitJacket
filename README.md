@@ -61,6 +61,7 @@ See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Play
 I had a great deal of trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, SnapKit's constraints don't work correctly.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.
 
 ```swift
+// 71 lines of code
 func makeConstraints() {
     
     [allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
