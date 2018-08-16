@@ -53,3 +53,82 @@ aRestraint.addConstraints([aConstraint])
 
 ## Example
 See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Playgrounds/Example.playground/Contents.swift)
+
+## Comparison
+
+```swift
+// Using SnapKit
+// I had a great deal of trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, SnapKit's constraints don't work correctly
+func makeConstraints() {
+    
+    [allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
+        view.addLayoutGuide($0)
+    }
+    
+    [titleLabel, usernameTextField, passwordTextField, confirmButton,
+     createAccountButton, dividerLabel, forgotPasswordButton].forEach {
+        view.addSubview($0)
+    }
+    
+    allItemsBoundaryGuide.snp.makeConstraints { (make) -> Void in
+        make.width.equalTo(260)
+        make.center.equalTo(self.view)
+    }
+    
+    titleLabel.snp.makeConstraints { (make) in
+        make.top.equalTo(allItemsBoundaryGuide)
+        make.left.equalTo(allItemsBoundaryGuide)
+        make.right.equalTo(allItemsBoundaryGuide)
+    }
+
+    usernameTextField.snp.makeConstraints { (make) in
+        make.top.equalTo(titleLabel.snp.bottom).offset(60)
+        make.left.equalTo(allItemsBoundaryGuide)
+        make.right.equalTo(allItemsBoundaryGuide)
+    }
+
+    passwordTextField.snp.makeConstraints { (make) in
+        make.top.equalTo(usernameTextField.snp.bottom).offset(8)
+        make.left.equalTo(allItemsBoundaryGuide)
+        make.right.equalTo(allItemsBoundaryGuide)
+    }
+
+    confirmButton.snp.makeConstraints { (make) in
+        make.top.equalTo(passwordTextField.snp.bottom).offset(8)
+        make.left.equalTo(allItemsBoundaryGuide)
+        make.right.equalTo(allItemsBoundaryGuide)
+    }
+    
+    buttonGuide.snp.makeConstraints { (make) in
+        make.top.equalTo(confirmButton.snp.bottom).offset(30)
+        make.bottom.equalTo(allItemsBoundaryGuide)
+        make.left.equalTo(allItemsBoundaryGuide)
+        make.right.equalTo(allItemsBoundaryGuide)
+    }
+
+    secondaryButtonGuide.snp.makeConstraints { (make) in
+        make.top.equalTo(buttonGuide)
+        make.bottom.equalTo(buttonGuide)
+        make.center.equalTo(buttonGuide)
+    }
+    
+    createAccountButton.snp.makeConstraints { (make) in
+        make.top.equalTo(secondaryButtonGuide)
+        make.bottom.equalTo(secondaryButtonGuide)
+        make.left.equalTo(secondaryButtonGuide)
+    }
+
+    dividerLabel.snp.makeConstraints { (make) in
+        make.top.equalTo(secondaryButtonGuide)
+        make.bottom.equalTo(secondaryButtonGuide)
+        make.left.equalTo(createAccountButton.snp.right).offset(8)
+    }
+
+    forgotPasswordButton.snp.makeConstraints { (make) in
+        make.top.equalTo(secondaryButtonGuide)
+        make.bottom.equalTo(secondaryButtonGuide)
+        make.left.equalTo(dividerLabel.snp.right).offset(8)
+        make.right.equalTo(secondaryButtonGuide)
+    }
+}
+```
