@@ -1,7 +1,7 @@
 #  StraitJacket
-StraitJacket is an object oriented autolayout solution designed to do more with less.
+StraitJacket is an object oriented autolayout solution designed for efficient development.  It can create many constraints in one method call and creates only a single type of constraint per method, which increases readability and reduces complexity.
 
-## Why
+## Why use it
 ### It will keep devs from hurting themselves
 - No xibs or storyboards
 - No confusing amalgamations of stackviews and stackview related bugs
@@ -55,11 +55,11 @@ aRestraint.addConstraints([aConstraint])
 See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Playgrounds/Example.playground/Contents.swift)
 
 ## Comparison
-I will compare various autolayout libraries building the same exact screen.  I will count just layout code including new lines and brackets.  I will omit constraint activiation calls and adding of view items.
+I will compare various autolayout libraries building the same exact screen.  I will count just layout code including new lines and brackets.  I will omit constraint activation calls and adding of view items.
 
 
 ### StraitJacket
-
+Adding views is trivial with a single method call and that act creates a list of all items involved as well as provides big picture view of what the layout should look like.  It's also very simple to use custom spacing between views when using the convenience chain method.
 ```swift
 // 13 lines of uncondensed layout code
 lazy var defaultRestraint: Restraint = {
@@ -110,7 +110,7 @@ lazy var defaultRestraint: Restraint = {
 
 ### SnapKit
 
-I had a great deal of trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, SnapKit's constraints don't work correctly.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  All around this was pretty time consuming.
+I had some trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, layout will have issues.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  This was a pretty tedious process.
 
 ```swift
 // 63 lines of layout code.  Cannot be condensed without introducing loops and complexity.
@@ -188,6 +188,63 @@ func makeConstraints() {
         make.bottom.equalTo(secondaryButtonGuide)
         make.left.equalTo(dividerLabel.snp.right).offset(8)
         make.right.equalTo(secondaryButtonGuide)
+    }
+}
+```
+
+### PureLayout
+PureLayout was a little weird to work with using Swift, since it's Objective-C and forced me to create a bridging header.  It doesn't work with layout guides so I had to use container views which I see as a problem.  Its methods aren't really type safe since as it's possible to insert incorrect enum values that result in crashes.  Its distribute array of views require casting to NSArray and it's not flexible enough.  I had to use a constraint override for custom spacing.
+
+Like SnapKit, initializing views with a frame or calling sizeToFit seems to cause layout issues.
+
+The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in loops and ordinary methods mixed together.  This kind of code is very difficult to skim.  I also had a lot of bugs because I relied on autofill and got the paramter name wrong several times.  Adding the views into the relevant views was also kind of annoying to do.
+
+```swift
+// 29 Lines of code
+func makeConstraints() {
+    
+    [allItemsBoundaryGuide, buttonGuide].forEach {
+        view.addSubview($0)
+    }
+    
+    [titleLabel, usernameTextField, passwordTextField, confirmButton].forEach {
+        allItemsBoundaryGuide.addSubview($0)
+    }
+    
+    buttonGuide.addSubview(secondaryButtonGuide)
+    [createAccountButton, dividerLabel, forgotPasswordButton].forEach {
+        secondaryButtonGuide.addSubview($0)
+    }
+    
+    allItemsBoundaryGuide.autoCenterInSuperview()
+    allItemsBoundaryGuide.autoSetDimension(.width, toSize: 260)
+    
+    let allItemsBoundarViews = [titleLabel, usernameTextField, passwordTextField, confirmButton]
+    
+    (allItemsBoundarViews as NSArray).autoDistributeViews(along: .vertical, alignedTo: .vertical, withFixedSpacing: 8)[1].priority = .defaultLow
+    
+    (allItemsBoundarViews + [buttonGuide]).forEach { view in
+        view.autoAlignAxis(toSuperviewMarginAxis: .vertical)
+        view.autoPinEdge(toSuperviewEdge: .left)
+        view.autoPinEdge(toSuperviewEdge: .right)
+    }
+    usernameTextField.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 60)
+    
+    buttonGuide.autoPinEdge(.top, to: .bottom, of: confirmButton, withOffset: 30)
+    buttonGuide.autoPinEdge(.bottom, to: .bottom, of: allItemsBoundaryGuide)
+    buttonGuide.autoSetDimension(.height, toSize: 30)
+    
+    secondaryButtonGuide.autoCenterInSuperview()
+    secondaryButtonGuide.autoPinEdge(toSuperviewEdge: .top)
+    secondaryButtonGuide.autoPinEdge(toSuperviewEdge: .bottom)
+    
+    let buttonGuideItems = [createAccountButton, dividerLabel, forgotPasswordButton]
+    (buttonGuideItems as NSArray).autoDistributeViews(along: .horizontal, alignedTo: .horizontal, withFixedSpacing: 8, insetSpacing: false, matchedSizes: false).forEach {
+        $0.priority = .defaultLow
+    }
+    buttonGuideItems.forEach { item in
+        item.autoPinEdge(toSuperviewEdge: .top)
+        item.autoPinEdge(toSuperviewEdge: .bottom)
     }
 }
 ```
