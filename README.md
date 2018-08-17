@@ -296,7 +296,7 @@ I didn't like how the DSL is so drastically different.  It mixes operators with 
 I was very curious how Cartography was implemented.  I checked their code and could not understand a single thing...
 
 ```swift
-42 lines of layout code
+// 42 lines of layout code
 constrain(view, allItemsBoundaryGuide, buttonGuide,
           titleLabel, usernameTextField, passwordTextField, confirmButton) { (view, allItemsBoundaryGuide, buttonGuide,
             titleLabel, usernameTextField, passwordTextField, confirmButton) in
