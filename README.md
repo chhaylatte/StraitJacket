@@ -179,57 +179,50 @@ func makeConstraints() {
 ```
 
 ### PureLayout 3.0.2
-PureLayout was a little weird to work with using Swift, since it's Objective-C and forced me to create a bridging header.  It doesn't work with layout guides so I had to use container views which I see as a problem.  Its methods aren't really type safe since as it's possible to insert incorrect enum values that result in crashes.  Its distribute array of views require casting to NSArray and it's not flexible enough.  I had to use a constraint override for custom spacing.
+PureLayout was a little weird to work with using Swift, since it's Objective-C.  It doesn't work with layout guides so I had to use container views which I see as a problem.  Its methods aren't really type safe since as it's possible to insert incorrect enum values that result in crashes.  Its distribute array of views require casting to NSArray.  I used a constraint override for custom spacing instead of breaking up loops to emphasize distributing views.
 
 The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in different logical styles being mixed.  This kind of code is very difficult to skim.  I also had a lot of bugs because I relied on autofill and got the paramter name wrong several times.  Adding the views into the relevant views was also kind of annoying to do.  I was able to avoid nesting some views, but this is more trouble then its worth since containment produces more stable layout then aligning views on top of another.
 
 ```swift
-// 30 Lines of code
+// 27 Lines of code
 func makeConstraints() {
-    
-    [allItemsBoundaryGuide, buttonGuide].forEach {
+    [allItemsBoundaryGuide,
+     titleLabel, usernameTextField, passwordTextField, confirmButton,
+     buttonGuide, secondaryButtonGuide].forEach {
         view.addSubview($0)
     }
     
-    [titleLabel, usernameTextField, passwordTextField, confirmButton].forEach {
-        allItemsBoundaryGuide.addSubview($0)
-    }
-    
-    buttonGuide.addSubview(secondaryButtonGuide)
     [createAccountButton, dividerLabel, forgotPasswordButton].forEach {
         secondaryButtonGuide.addSubview($0)
     }
     
+    let allItemsBoundarViews: NSArray = [titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide]
+    let alignAllItems = ([allItemsBoundaryGuide] + allItemsBoundarViews as NSArray)
+    let leftAndRightSides = [ALEdge.left, .right]
+    let topAndBottomSides = [ALEdge.top, .bottom]
+    
     allItemsBoundaryGuide.autoCenterInSuperview()
     allItemsBoundaryGuide.autoSetDimension(.width, toSize: 260)
     
-    let allItemsBoundarViews = [titleLabel, usernameTextField, passwordTextField, confirmButton]
-    
-    (allItemsBoundarViews as NSArray).autoDistributeViews(along: .vertical, alignedTo: .vertical, withFixedSpacing: 8)[1].priority = .defaultLow
-    
-    (allItemsBoundarViews + [buttonGuide]).forEach { view in
-        view.autoAlignAxis(toSuperviewMarginAxis: .vertical)
-        view.autoPinEdge(toSuperviewEdge: .left)
-        view.autoPinEdge(toSuperviewEdge: .right)
-    }
-    usernameTextField.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 60)
-    
-    buttonGuide.autoPinEdge(.top, to: .bottom, of: confirmButton, withOffset: 30)
+    titleLabel.autoPinEdge(.top, to: .top, of: allItemsBoundaryGuide)
+    leftAndRightSides.forEach { alignAllItems.autoAlignViews(to: $0) }
+    allItemsBoundarViews.autoDistributeViews(along: .vertical, alignedTo: .vertical, withFixedSpacing: 8, insetSpacing: false, matchedSizes: false).forEach { $0.priority = .defaultLow }
     buttonGuide.autoPinEdge(.bottom, to: .bottom, of: allItemsBoundaryGuide)
-    buttonGuide.autoSetDimension(.height, toSize: 30)
     
-    secondaryButtonGuide.autoCenterInSuperview()
-    secondaryButtonGuide.autoPinEdge(toSuperviewEdge: .top)
-    secondaryButtonGuide.autoPinEdge(toSuperviewEdge: .bottom)
+    usernameTextField.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 60)
+    buttonGuide.autoPinEdge(.top, to: .bottom, of: confirmButton, withOffset: 30)
     
-    let buttonGuideItems = [createAccountButton, dividerLabel, forgotPasswordButton]
-    (buttonGuideItems as NSArray).autoDistributeViews(along: .horizontal, alignedTo: .horizontal, withFixedSpacing: 8, insetSpacing: false, matchedSizes: false).forEach {
-        $0.priority = .defaultLow
+    secondaryButtonGuide.autoAlignAxis(.vertical, toSameAxisOf: buttonGuide)
+    topAndBottomSides.forEach {
+        secondaryButtonGuide.autoPinEdge($0, to: $0, of: buttonGuide)
     }
-    buttonGuideItems.forEach { item in
-        item.autoPinEdge(toSuperviewEdge: .top)
-        item.autoPinEdge(toSuperviewEdge: .bottom)
-    }
+    
+    let secondaryButtonItems: NSArray = [createAccountButton, dividerLabel, forgotPasswordButton]
+    let alignItems: NSArray = secondaryButtonItems + [secondaryButtonGuide] as NSArray
+    topAndBottomSides.forEach { alignItems.autoAlignViews(to: $0) }
+    secondaryButtonItems.autoDistributeViews(along: .horizontal, alignedTo: .horizontal, withFixedSpacing: 8, insetSpacing: false, matchedSizes: false)
+    createAccountButton.autoPinEdge(.left, to: .left, of: secondaryButtonGuide)
+    forgotPasswordButton.autoPinEdge(.right, to: .right, of: secondaryButtonGuide)
 }
 ```
 
