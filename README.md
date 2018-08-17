@@ -113,9 +113,8 @@ lazy var defaultRestraint: Restraint = {
 I had some trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, layout will have issues.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  This was a pretty tedious process.
 
 ```swift
-// 63 lines of layout code.  Cannot be condensed without introducing loops and complexity.
+// 48 lines of layout code.  Cannot be condensed without introducing loops and complexity.
 func makeConstraints() {
-    
     [allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
         view.addLayoutGuide($0)
     }
@@ -128,66 +127,51 @@ func makeConstraints() {
     allItemsBoundaryGuide.snp.makeConstraints { (make) -> Void in
         make.width.equalTo(260)
         make.center.equalTo(view)
-        make.left.greaterThanOrEqualTo(view)
-        make.right.lessThanOrEqualTo(view)
-        make.top.greaterThanOrEqualTo(view)
-        make.bottom.lessThanOrEqualTo(view)
+        make.left.top.greaterThanOrEqualTo(view)
+        make.right.bottom.lessThanOrEqualTo(view)
     }
     
     titleLabel.snp.makeConstraints { (make) in
-        make.top.equalTo(allItemsBoundaryGuide)
-        make.left.equalTo(allItemsBoundaryGuide)
-        make.right.equalTo(allItemsBoundaryGuide)
+        make.top.left.right.equalTo(allItemsBoundaryGuide)
     }
-
+    
     usernameTextField.snp.makeConstraints { (make) in
         make.top.equalTo(titleLabel.snp.bottom).offset(60)
-        make.left.equalTo(allItemsBoundaryGuide)
-        make.right.equalTo(allItemsBoundaryGuide)
+        make.left.right.equalTo(allItemsBoundaryGuide)
     }
-
+    
     passwordTextField.snp.makeConstraints { (make) in
         make.top.equalTo(usernameTextField.snp.bottom).offset(8)
-        make.left.equalTo(allItemsBoundaryGuide)
-        make.right.equalTo(allItemsBoundaryGuide)
+        make.left.right.equalTo(allItemsBoundaryGuide)
     }
-
+    
     confirmButton.snp.makeConstraints { (make) in
         make.top.equalTo(passwordTextField.snp.bottom).offset(8)
-        make.left.equalTo(allItemsBoundaryGuide)
-        make.right.equalTo(allItemsBoundaryGuide)
+        make.left.right.equalTo(allItemsBoundaryGuide)
     }
     
     buttonGuide.snp.makeConstraints { (make) in
         make.top.equalTo(confirmButton.snp.bottom).offset(30)
-        make.bottom.equalTo(allItemsBoundaryGuide)
-        make.left.equalTo(allItemsBoundaryGuide)
-        make.right.equalTo(allItemsBoundaryGuide)
+        make.bottom.left.right.equalTo(allItemsBoundaryGuide)
     }
-
+    
     secondaryButtonGuide.snp.makeConstraints { (make) in
-        make.top.equalTo(buttonGuide)
-        make.bottom.equalTo(buttonGuide)
+        make.top.bottom.equalTo(buttonGuide)
         make.center.equalTo(buttonGuide)
     }
     
     createAccountButton.snp.makeConstraints { (make) in
-        make.top.equalTo(secondaryButtonGuide)
-        make.bottom.equalTo(secondaryButtonGuide)
-        make.left.equalTo(secondaryButtonGuide)
+        make.top.bottom.left.equalTo(secondaryButtonGuide)
     }
-
+    
     dividerLabel.snp.makeConstraints { (make) in
-        make.top.equalTo(secondaryButtonGuide)
-        make.bottom.equalTo(secondaryButtonGuide)
+        make.top.bottom.equalTo(secondaryButtonGuide)
         make.left.equalTo(createAccountButton.snp.right).offset(8)
     }
-
+    
     forgotPasswordButton.snp.makeConstraints { (make) in
-        make.top.equalTo(secondaryButtonGuide)
-        make.bottom.equalTo(secondaryButtonGuide)
+        make.top.bottom.right.equalTo(secondaryButtonGuide)
         make.left.equalTo(dividerLabel.snp.right).offset(8)
-        make.right.equalTo(secondaryButtonGuide)
     }
 }
 ```
@@ -246,5 +230,110 @@ func makeConstraints() {
         item.autoPinEdge(toSuperviewEdge: .top)
         item.autoPinEdge(toSuperviewEdge: .bottom)
     }
+}
+```
+
+## Layout Anchors
+This is the direct way of setting up constraints.  Problems may include forgetting to set translateAutoresizingMask to false.  There's enough text here to build a gigantic wall.
+
+```swift
+// 40 lines of layout code
+override func updateViewConstraints() {
+    if !didSetupConstraints {
+        didSetupConstraints = true
+        NSLayoutConstraint.activate([
+            allItemsBoundaryGuide.widthAnchor.constraint(equalToConstant: 260),
+            allItemsBoundaryGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            allItemsBoundaryGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            allItemsBoundaryGuide.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
+            allItemsBoundaryGuide.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+            allItemsBoundaryGuide.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
+            allItemsBoundaryGuide.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
+                titleLabel.topAnchor.constraint(equalTo: allItemsBoundaryGuide.topAnchor),
+                titleLabel.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+                titleLabel.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+                usernameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 60),
+                usernameTextField.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+                usernameTextField.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+                passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 8),
+                passwordTextField.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+                passwordTextField.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+                confirmButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 8),
+                confirmButton.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+                confirmButton.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+                
+                buttonGuide.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: 30),
+                buttonGuide.bottomAnchor.constraint(equalTo: allItemsBoundaryGuide.bottomAnchor),
+                buttonGuide.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+                buttonGuide.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+                    secondaryButtonGuide.centerYAnchor.constraint(equalTo: buttonGuide.centerYAnchor),
+                    secondaryButtonGuide.centerXAnchor.constraint(equalTo: buttonGuide.centerXAnchor),
+                    secondaryButtonGuide.topAnchor.constraint(equalTo: buttonGuide.topAnchor),
+                    secondaryButtonGuide.bottomAnchor.constraint(equalTo: buttonGuide.bottomAnchor),
+                        createAccountButton.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
+                        createAccountButton.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
+                        createAccountButton.leftAnchor.constraint(equalTo: secondaryButtonGuide.leftAnchor),
+                        dividerLabel.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
+                        dividerLabel.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
+                        dividerLabel.leftAnchor.constraint(equalTo: createAccountButton.rightAnchor, constant: 8),
+                        forgotPasswordButton.leftAnchor.constraint(equalTo: dividerLabel.rightAnchor, constant: 8),
+                        forgotPasswordButton.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
+                        forgotPasswordButton.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
+                        forgotPasswordButton.rightAnchor.constraint(equalTo: secondaryButtonGuide.rightAnchor)
+            ])
+    }
+    super.updateViewConstraints()
+}
+```
+
+## Cartography
+Cartography shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works though.  I was allowed only 10 items but I needed 11 items for this exmaple.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  This was kind of weird to have to do.  The DSL itself was very straigtforward.  I didn't have to guess how something works.  It worked how I expected.  I had the problem with putting invalid values crashing though, which I did intentionally.  Something like ```view.top == otherView.right```.  No matter what I did I could never get the `distribute(vertically:)` function to work.  It just messes up my layout.  I didn't like how the DSL is so drastically different.  It mixes operators with things that look like function calls.  It's nitpicky, but that bothered me.
+
+I was very curious how Cartography was implemented.  I checked their code and could not understand a single thing...
+
+```swift
+42 lines of layout code
+constrain(view, allItemsBoundaryGuide, buttonGuide,
+          titleLabel, usernameTextField, passwordTextField, confirmButton) { (view, allItemsBoundaryGuide, buttonGuide,
+            titleLabel, usernameTextField, passwordTextField, confirmButton) in
+            
+            allItemsBoundaryGuide.width == 260
+            allItemsBoundaryGuide.center == view.center
+            
+            titleLabel.top == allItemsBoundaryGuide.top
+            titleLabel.left == allItemsBoundaryGuide.left
+            titleLabel.right == allItemsBoundaryGuide.right
+            align(left: [titleLabel, usernameTextField, passwordTextField, confirmButton])
+            align(right: [titleLabel, usernameTextField, passwordTextField, confirmButton])
+            align(centerX: [titleLabel, usernameTextField, passwordTextField, confirmButton])
+            
+            usernameTextField.top == titleLabel.bottom + 60
+            // distribute(by: 8, vertically: [usernameTextField, passwordTextField, confirmButton]) // this doesn't work?
+            passwordTextField.top == usernameTextField.bottom + 8
+            confirmButton.top == passwordTextField.bottom + 8
+            
+            buttonGuide.top == confirmButton.bottom + 30
+            buttonGuide.left == allItemsBoundaryGuide.left
+            buttonGuide.right == allItemsBoundaryGuide.right
+            buttonGuide.bottom == allItemsBoundaryGuide.bottom
+}
+
+constrain(view, allItemsBoundaryGuide, confirmButton, buttonGuide, secondaryButtonGuide,
+          createAccountButton, dividerLabel,forgotPasswordButton) { (view, allItemsBoundaryGuide, confirmButton, buttonGuide, secondaryButtonGuide,
+            createAccountButton, dividerLabel,forgotPasswordButton) in
+            
+            secondaryButtonGuide.centerX == buttonGuide.centerX
+            secondaryButtonGuide.top == buttonGuide.top
+            secondaryButtonGuide.bottom == buttonGuide.bottom
+            
+            createAccountButton.top == secondaryButtonGuide.top
+            createAccountButton.bottom == secondaryButtonGuide.bottom
+            createAccountButton.left == secondaryButtonGuide.left
+            
+            align(top: [createAccountButton, dividerLabel, forgotPasswordButton])
+            align(bottom: [createAccountButton, dividerLabel, forgotPasswordButton])
+            forgotPasswordButton.right == secondaryButtonGuide.right
+            
+            distribute(by: 8, leftToRight: [createAccountButton, dividerLabel, forgotPasswordButton])
 }
 ```
