@@ -286,8 +286,6 @@ The DSL itself was very straigtforward.  It worked how I expected it.  I had the
 
 It turns out that `distribute(vertically:)` method turns sets `translatesAutoresizingMaskIntoConstraints = true`, so I had to turn it off manually after the constrain function.
 
-I didn't like how the DSL is so drastically different.  It mixes operators with things that look like function calls.  It's nitpicky, but that bothered me.  I hope they can make
-
 I was very curious how Cartography was implemented.  I checked their code and could not understand a single thing...
 
 ```swift
