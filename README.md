@@ -287,7 +287,11 @@ override func updateViewConstraints() {
 ```
 
 ## Cartography
-Cartography shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works though.  I was allowed only 10 items but I needed 11 items for this exmaple.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  This was kind of weird to have to do.  The DSL itself was very straigtforward.  I didn't have to guess how something works.  It worked how I expected.  I had the problem with putting invalid values crashing though, which I did intentionally.  Something like ```view.top == otherView.right```.  No matter what I did I could never get the `distribute(vertically:)` function to work.  It just messes up my layout.  I didn't like how the DSL is so drastically different.  It mixes operators with things that look like function calls.  It's nitpicky, but that bothered me.
+Cartography shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works though.  I was allowed only 10 items but I needed 11 items for this example.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  This was kind of weird to have to do.  
+
+The DSL itself was very straigtforward.  I didn't have to figure out how something works.  It worked how I expected it.  I had the problem with putting invalid values crashing though, which I did intentionally.  Something like ```view.top == otherView.right```.  No matter what I did I could never get the `distribute(vertically:)` function to work.  It just messes up my layout.  
+
+I didn't like how the DSL is so drastically different.  It mixes operators with things that look like function calls.  It's nitpicky, but that bothered me.
 
 I was very curious how Cartography was implemented.  I checked their code and could not understand a single thing...
 
