@@ -55,13 +55,14 @@ aRestraint.addConstraints([aConstraint])
 See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Playgrounds/Example.playground/Contents.swift)
 
 ## Comparison
-I will compare various autolayout libraries building the same exact screen.  I will count just layout code including new lines and brackets.  I will omit constraint activation calls and adding of view items.
+I will compare various autolayout libraries building the same exact screen.  I will count just layout code including new lines and brackets.  I will omit constraint activation calls, adding of view items, return statements, and function declarations.  I will also count the total character counts excluding spaces using the character count tool.
 
 
 ### StraitJacket
 Adding views is trivial with a single method call and that act creates a list of all items involved as well as provides big picture view of what the layout should look like.  It's also very simple to use custom spacing between views when using the convenience chain method.
 ```swift
 // 13 lines of uncondensed layout code
+// 677 characters excluding spaces for layout
 lazy var defaultRestraint: Restraint = {
     let aRestraint = Restraint(self.view)
         .addItems([allItemsBoundaryGuide,
@@ -93,6 +94,7 @@ lazy var defaultRestraint: Restraint = {
 ```
 ```swift
 // 7 lines condensed layout code
+// 676 characters for layout
 lazy var defaultRestraint: Restraint = {
     let aRestraint = Restraint(self.view)
         .addItems([allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide, secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
@@ -115,7 +117,8 @@ SnapKit works as a more concise version of layout anchors.  Its code is much eas
 Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  This was a pretty tedious process but not as much as layout anchors.
 
 ```swift
-// 49 lines of layout code.  Cannot be condensed without introducing loops and complexity.
+// 49 lines for layout
+// 1374 characters for layout
 func makeConstraints() {
     [allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
         view.addLayoutGuide($0)
@@ -184,7 +187,8 @@ PureLayout was a little weird to work with using Swift, since it's Objective-C. 
 The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in different logical styles being mixed.  This kind of code is very difficult to skim.  I also had a lot of bugs because I relied on autofill and got the paramter name wrong several times.  Adding the views into the relevant views was also kind of annoying to do.  I was able to avoid nesting some views, but this is more trouble then its worth since containment produces more stable layout then aligning views on top of another.
 
 ```swift
-// 27 Lines of code
+// 27 lines for layout
+// 1522 characters for
 func makeConstraints() {
     [allItemsBoundaryGuide,
      titleLabel, usernameTextField, passwordTextField, confirmButton,
@@ -230,7 +234,8 @@ func makeConstraints() {
 This is the direct way of setting up constraints.  Problems may include forgetting to set translateAutoresizingMask to false.  This gigantic wall of text is kind of intimidating.
 
 ```swift
-// 40 lines of layout code
+// 40 lines for layout
+// 3023 characters for layout
 override func updateViewConstraints() {
     if !didSetupConstraints {
         didSetupConstraints = true
@@ -289,7 +294,8 @@ It turns out that `distribute(vertically:)` method turns sets `translatesAutores
 I was very curious how Cartography was implemented.  I checked their code and could not understand a single thing...
 
 ```swift
-// 40 lines of layout code
+// 40 lines for layout
+// 1727 characters for layout
 constrain(view, allItemsBoundaryGuide, buttonGuide,
           titleLabel, usernameTextField, passwordTextField, confirmButton) { (view, allItemsBoundaryGuide, buttonGuide,
             titleLabel, usernameTextField, passwordTextField, confirmButton) in
