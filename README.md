@@ -108,12 +108,14 @@ lazy var defaultRestraint: Restraint = {
 }()
 ```
 
-### SnapKit
+### SnapKit 4.0.0
 
-I had some trouble getting this to work.  It turns out that if you create views with frame, or call sizeToFit, layout will have issues.  Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  This was a pretty tedious process.
+SnapKit works as a more concise version of layout anchors.  Its code is much easier to read through and allows multiple constraint creation at once.
+
+Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  This was a pretty tedious process but not as much as layout anchors.
 
 ```swift
-// 48 lines of layout code.  Cannot be condensed without introducing loops and complexity.
+// 49 lines of layout code.  Cannot be condensed without introducing loops and complexity.
 func makeConstraints() {
     [allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
         view.addLayoutGuide($0)
@@ -176,15 +178,13 @@ func makeConstraints() {
 }
 ```
 
-### PureLayout
+### PureLayout 3.0.2
 PureLayout was a little weird to work with using Swift, since it's Objective-C and forced me to create a bridging header.  It doesn't work with layout guides so I had to use container views which I see as a problem.  Its methods aren't really type safe since as it's possible to insert incorrect enum values that result in crashes.  Its distribute array of views require casting to NSArray and it's not flexible enough.  I had to use a constraint override for custom spacing.
 
-Like SnapKit, initializing views with a frame or calling sizeToFit seems to cause layout issues.
-
-The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in loops and ordinary methods mixed together.  This kind of code is very difficult to skim.  I also had a lot of bugs because I relied on autofill and got the paramter name wrong several times.  Adding the views into the relevant views was also kind of annoying to do.
+The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in different logical styles being mixed.  This kind of code is very difficult to skim.  I also had a lot of bugs because I relied on autofill and got the paramter name wrong several times.  Adding the views into the relevant views was also kind of annoying to do.  I was able to avoid nesting some views, but this is more trouble then its worth since containment produces more stable layout then aligning views on top of another.
 
 ```swift
-// 29 Lines of code
+// 30 Lines of code
 func makeConstraints() {
     
     [allItemsBoundaryGuide, buttonGuide].forEach {
@@ -234,7 +234,7 @@ func makeConstraints() {
 ```
 
 ## Layout Anchors
-This is the direct way of setting up constraints.  Problems may include forgetting to set translateAutoresizingMask to false.  There's enough text here to build a gigantic wall.
+This is the direct way of setting up constraints.  Problems may include forgetting to set translateAutoresizingMask to false.  This gigantic wall of text is kind of intimidating.
 
 ```swift
 // 40 lines of layout code
@@ -286,58 +286,57 @@ override func updateViewConstraints() {
 }
 ```
 
-## Cartography
-Cartography shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works though.  I was allowed only 10 items but I needed 11 items for this example.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  This was kind of weird to have to do.  
+## Cartography 3.0.2
+Cartography shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works though.  I was allowed only 10 items but I needed 11 items for this example.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  This was kind of weird to have to do.  Copying a constraint also requires creating another constrain call.  Getting autofill to have the right amount of items is a challenge.
 
-The DSL itself was very straigtforward.  I didn't have to figure out how something works.  It worked how I expected it.  I had the problem with putting invalid values crashing though, which I did intentionally.  Something like ```view.top == otherView.right```.  No matter what I did I could never get the `distribute(vertically:)` function to work.  It just messes up my layout.  
+The DSL itself was very straigtforward.  It worked how I expected it.  I had the problem with putting invalid values crashing though, which I did intentionally.  Something like ```view.top == otherView.right```.  
 
-I didn't like how the DSL is so drastically different.  It mixes operators with things that look like function calls.  It's nitpicky, but that bothered me.
+It turns out that `distribute(vertically:)` method turns sets `translatesAutoresizingMaskIntoConstraints = true`, so I had to turn it off manually after the constrain function.
+
+I didn't like how the DSL is so drastically different.  It mixes operators with things that look like function calls.  It's nitpicky, but that bothered me.  I hope they can make
 
 I was very curious how Cartography was implemented.  I checked their code and could not understand a single thing...
 
 ```swift
-// 42 lines of layout code
+// 40 lines of layout code
 constrain(view, allItemsBoundaryGuide, buttonGuide,
           titleLabel, usernameTextField, passwordTextField, confirmButton) { (view, allItemsBoundaryGuide, buttonGuide,
             titleLabel, usernameTextField, passwordTextField, confirmButton) in
-            
+
             allItemsBoundaryGuide.width == 260
             allItemsBoundaryGuide.center == view.center
-            
+
             titleLabel.top == allItemsBoundaryGuide.top
-            titleLabel.left == allItemsBoundaryGuide.left
-            titleLabel.right == allItemsBoundaryGuide.right
-            align(left: [titleLabel, usernameTextField, passwordTextField, confirmButton])
-            align(right: [titleLabel, usernameTextField, passwordTextField, confirmButton])
-            align(centerX: [titleLabel, usernameTextField, passwordTextField, confirmButton])
-            
+
+            align(left: [allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide])
+            align(right: [allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide])
+            align(centerX: [allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton])
+
             usernameTextField.top == titleLabel.bottom + 60
-            // distribute(by: 8, vertically: [usernameTextField, passwordTextField, confirmButton]) // this doesn't work?
-            passwordTextField.top == usernameTextField.bottom + 8
-            confirmButton.top == passwordTextField.bottom + 8
-            
+             distribute(by: 8, vertically: [usernameTextField, passwordTextField, confirmButton]) // This turns on autoresizing mask constraints!
+
             buttonGuide.top == confirmButton.bottom + 30
-            buttonGuide.left == allItemsBoundaryGuide.left
-            buttonGuide.right == allItemsBoundaryGuide.right
             buttonGuide.bottom == allItemsBoundaryGuide.bottom
 }
 
-constrain(view, allItemsBoundaryGuide, confirmButton, buttonGuide, secondaryButtonGuide,
-          createAccountButton, dividerLabel,forgotPasswordButton) { (view, allItemsBoundaryGuide, confirmButton, buttonGuide, secondaryButtonGuide,
+constrain(confirmButton, buttonGuide, secondaryButtonGuide,
+          createAccountButton, dividerLabel,forgotPasswordButton) { (confirmButton, buttonGuide, secondaryButtonGuide,
             createAccountButton, dividerLabel,forgotPasswordButton) in
-            
+
             secondaryButtonGuide.centerX == buttonGuide.centerX
             secondaryButtonGuide.top == buttonGuide.top
             secondaryButtonGuide.bottom == buttonGuide.bottom
-            
-            createAccountButton.top == secondaryButtonGuide.top
-            createAccountButton.bottom == secondaryButtonGuide.bottom
+
             createAccountButton.left == secondaryButtonGuide.left
-            
-            align(top: [createAccountButton, dividerLabel, forgotPasswordButton])
-            align(bottom: [createAccountButton, dividerLabel, forgotPasswordButton])
-            forgotPasswordButton.right == secondaryButtonGuide.right
-            
+
+            align(top: [secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
+            align(bottom: [secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
             distribute(by: 8, leftToRight: [createAccountButton, dividerLabel, forgotPasswordButton])
+
+            forgotPasswordButton.right == secondaryButtonGuide.right
+}
+
+[usernameTextField, passwordTextField, confirmButton].forEach {
+    $0.translatesAutoresizingMaskIntoConstraints = false
 }
 ```
