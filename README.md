@@ -58,6 +58,7 @@ See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Play
 I will compare various autolayout libraries building the same exact screen.  I will count just layout code including new lines and brackets.  I will omit constraint activation calls, adding of view items, return statements, and function declarations.  I will also count the total character counts excluding spaces using the character count tool.
 
 
+
 ### StraitJacket
 Adding views is trivial with a single method call and that act creates a list of all items involved as well as provides big picture view of what the layout should look like.  It's also very simple to use custom spacing between views when using the convenience chain method.
 ```swift
