@@ -68,7 +68,7 @@ The following is the line and character count comparison of various layout libra
 |------------|--------------|---------|------------|----------------|-------------|--------|
 | Lines      |            7 |      49 |         27 |             40 |          40 |     29 |
 | Characters |          494 |    1374 |       1522 |           3023 |        1727 |    429 |
-| Lines/Char |        70.57 |   28.04 |      56.37 |          75.58 |       43.18 |  14.79 |
+| Char/Lines |        70.57 |   28.04 |      56.37 |          75.58 |       43.18 |  14.79 |
 
 #### Line and character metrics normalized to StraitJacket
 
