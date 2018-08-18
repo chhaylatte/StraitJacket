@@ -338,3 +338,54 @@ constrain(confirmButton, buttonGuide, secondaryButtonGuide,
     $0.translatesAutoresizingMaskIntoConstraints = false
 }
 ```
+
+## Stevia 4.3.0
+I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may be confusing or lead to nesting hell with the `sv` calls, but this can be avoided with specialized subviews instead.  This has the tradeoff of making yet more views to manage.  If these are not huge issues for layout needs, then Stevia can do the job extremely well.
+
+Stevia has the distinction of having hot reloading, and it's native.  I may have to steal this idea in the future.
+
+```swift
+// 29 lines for layout
+// 429 characters for layout
+sv(allItemsBoundaryGuide
+    .sv(titleLabel,
+        usernameTextField,
+        passwordTextField,
+        confirmButton,
+        buttonGuide
+            .sv(secondaryButtonGuide
+                .sv(createAccountButton, dividerLabel, forgotPasswordButton)
+            )
+    )
+)
+
+layout(
+    >=0,
+    |-(>=0)-allItemsBoundaryGuide-(>=0)-|,
+    >=0
+)
+
+allItemsBoundaryGuide.width(260)
+allItemsBoundaryGuide.centerInContainer()
+allItemsBoundaryGuide.layout(
+    0,
+    |-titleLabel-|,
+    30,
+    |-usernameTextField-|,
+    8,
+    |-passwordTextField-|,
+    8,
+    |-confirmButton-|,
+    30,
+    |-buttonGuide-|,
+    0
+)
+
+secondaryButtonGuide.centerInContainer()
+secondaryButtonGuide.top(0).bottom(0)
+secondaryButtonGuide.layout(
+    0,
+    |-createAccountButton-dividerLabel-forgotPasswordButton-|,
+    0
+)
+```
