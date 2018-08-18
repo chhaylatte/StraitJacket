@@ -57,13 +57,40 @@ See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Play
 ## Comparison
 I will compare various autolayout libraries building the same exact screen.  I will count just layout code including new lines and brackets.  I will omit constraint activation calls, adding of view items, return statements, and function declarations.  I will also count the total character counts excluding spaces using the character count tool.
 
+### Summary of Comparison
+The following is the line and character count comparison of various layout libraries normalized to the StraitJacket example layout.
 
+### Layout Code Metrics
+
+#### Line and character metrics for layout code only
+
+|            | StraitJacket | SnapKit | PureLayout | Layout Anchors | Cartography | Stevia |
+|------------|--------------|---------|------------|----------------|-------------|--------|
+| Lines      |            7 |      49 |         27 |             40 |          40 |     29 |
+| Characters |          494 |    1374 |       1522 |           3023 |        1727 |    429 |
+| Lines/Char |        70.57 |   28.04 |      56.37 |          75.58 |       43.18 |  14.79 |
+
+#### Line and character metrics normalized to StraitJacket
+
+|                         | StraitJacket | SnapKit | PureLayout | Layout Anchors | Cartography | Stevia |
+|-------------------------|--------------|---------|------------|----------------|-------------|--------|
+| Lines/StraitJacket      |            1 |       7 |       3.86 |           5.71 |        5.71 |   4.14 |
+| Characters/StraitJacket |            1 |    2.78 |       3.08 |           6.12 |        3.50 |   0.87 |
+
+#### Total line and character metrics to add all views and layout all views
+
+|                               | StraitJacket | Stevia |
+|-------------------------------|--------------|--------|
+| Total Lines                   |            9 |     41 |
+| Total Characters              |          676 |    614 |
+| Total Lines/StraitJacket      |            1 |   4.56 |
+| Total Characters/StraitJacket |            1 |   0.91 |
 
 ### StraitJacket
 Adding views is trivial with a single method call and that act creates a list of all items involved as well as provides big picture view of what the layout should look like.  It's also very simple to use custom spacing between views when using the convenience chain method.
 ```swift
 // 13 lines of uncondensed layout code
-// 677 characters excluding spaces for layout
+// 494 characters excluding spaces for layout
 lazy var defaultRestraint: Restraint = {
     let aRestraint = Restraint(self.view)
         .addItems([allItemsBoundaryGuide,
@@ -95,7 +122,9 @@ lazy var defaultRestraint: Restraint = {
 ```
 ```swift
 // 7 lines condensed layout code
-// 676 characters for layout
+// 494 characters for layout
+// 9 lines to add views an layout
+// 676 characters to add views and layout
 lazy var defaultRestraint: Restraint = {
     let aRestraint = Restraint(self.view)
         .addItems([allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide, secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
@@ -347,6 +376,8 @@ Stevia has the distinction of having hot reloading, and it's native.  I may have
 ```swift
 // 29 lines for layout
 // 429 characters for layout
+// 41 lines to add views and layout
+// 614 to add views and layout
 sv(allItemsBoundaryGuide
     .sv(titleLabel,
         usernameTextField,
