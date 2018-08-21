@@ -247,7 +247,7 @@ public extension Restraint {
     
     @discardableResult
     public func chainHorizontally(_ views: [Restrainable],
-                                  in guide: UILayoutGuide,
+                                  in guide: RestraintTargetable,
                                   spacing: CGFloat = 8,
                                   aligning: Set<Alignment> = [.top, .bottom, .left, .right]) -> Restraint {
         let targetable = views.compactMap { $0 as? RestraintTargetable }
@@ -281,7 +281,7 @@ public extension Restraint {
     
     @discardableResult
     public func chainVertically(_ views: [Restrainable],
-                                in guide: UILayoutGuide,
+                                in guide: RestraintTargetable,
                                 spacing: CGFloat = 8,
                                 aligning: Set<Alignment> = [.top, .bottom, .left, .right]) -> Restraint {
         let targetable = views.compactMap { $0 as? RestraintTargetable }
