@@ -76,9 +76,13 @@ Total Lines/StraitJacket | 1 | 6.4 | 4.1 | 5.6 | 5.4 | 4.6
 Total Characters/StraitJacket | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 0.9
 
 ### StraitJacket
-StraitJackets puts all responsibility of creating and managing constraints into a single object.  The developer mainly needs to learn about the `Restraint` object in order to use this library.  Adding views is trivial with one method call to add many views which also serves as a list of all relevant views.  Using spacing as needed can provide the big picture view of what the intended layout should look like.  It's also very simple to specify custom spacing between views using the chain method.
+StraitJackets puts all responsibility of creating and managing constraints into a single object.  The code is pretty stylistically simple and has low variation.  This Makes the code very skimmable.  
 
-All work is done through the Restraint object.  The code is pretty stylistically simple and has low variation.  This Makes the code very skimmable.
+Adding views is trivial with one method call to add many views which also serves as a list of all relevant views.  Using spacing as needed can provide the big picture view of what the intended layout should look like.  
+
+It's also very simple to specify custom spacing between views using the chain method.
+
+All work is done through the Restraint object.  
 ```swift
 // Layout: 24 lines, 676 characters uncondensed
 lazy var defaultRestraint: Restraint = {
@@ -365,9 +369,9 @@ constrain(confirmButton, buttonGuide, secondaryButtonGuide,
 ```
 
 ## Stevia 4.3.0
-I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may be confusing or lead to nesting hell with the `sv` calls, but this can be avoided with specialized subviews instead.  This has the tradeoff of making yet more views to manage.  If these are not issues for layout needs, then Stevia can do the job extremely well.
+I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may be confusing or lead to nesting hell with the `sv` calls, but this can be avoided by simply not nesting them.  If these are not issues for layout needs, then Stevia can do the job extremely well.
 
-Stevia has the distinction of having hot reloading, and it's native.  I may have to steal this idea in the future.
+Stevia has the distinction of having hot reloading for native development.  I may have to steal this idea in the future.
 
 ```swift
 // layout: 41 lines, 614 characters
