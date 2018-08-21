@@ -8,11 +8,12 @@ StraitJacket is an object oriented autolayout solution designed for efficient de
 - Much faster to write and less error prone than anchor based code and similar libraries
 - Much higher skimmability and code density
 - Built on top of auto layout
+- Manage constraints
 
 ## How it works
 ### It's just swift code
 
-Constraints are created using the `Restraint` object.  Its methods are capable of creating many constraints at once and are all chainable.  The root view that `Restraint` is init'd with holds the created constraints. Items must be added to the root view for constraints to be built.  The `addItems:` method can be used to add multiple items for convenience.
+There is no DSL in StraitJacket.  Constraints are created using the `Restraint` object.  Its methods are capable of creating many constraints at once and are all chainable.  `Restraint` is init'd with a root view to holds the created constraints. The `addItems:` method can be used to add multiple views for convenience.
 
 ```swift
 let aRestraint = Restraint(self.view)
@@ -45,6 +46,7 @@ restraint1.activate()
 // activating restraint1 also activates restraint1A and restraint1B
 ```
 ### It can use any NSLayoutConstraint
+Any constraint that is referenced can be added to a Restraint.
 ```swift
 let aConstraint: NSLayoutConstraint = // some constraint
 aRestraint.addConstraints([aConstraint])
@@ -55,19 +57,18 @@ aRestraint.addConstraints([aConstraint])
 See the [Playground](https://github.com/chhaylatte/StraitJacket/blob/master/Playgrounds/Example.playground/Contents.swift)
 
 ## Comparison
-I will compare various autolayout libraries building the same exact screen.  I will count just layout code including new lines and brackets.  I will omit constraint activation calls, adding of view items, return statements, and function declarations.  I will also count the total character counts excluding spaces using the character count tool.
-
-### Summary of Comparison
-The following is the line and character count comparison of various layout libraries normalized to the StraitJacket example layout.
+I will compare various autolayout libraries in building the same exact screen by looking at total lines, and total characters to build the same screen.  I will omit white spaces, constraint activation calls, return statements, and function declarations.
 
 ### Layout Code Metrics
 
-I find that number of lines of code corresponds inversely to understandability and maintainability, and number of characters corresponds inversely to readability and proptorinally to time to write.  Therefore the smaller these metrics, the better.
+I find that number of lines of code corresponds inversely to understandability and maintainability, and number of characters corresponds inversely to readability and proportionally to time to write.  Therefore the smaller these metrics, the better.
 
 | | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Cartography | Stevia
 :-- | --: | --: | --: | --: | --: | --:
 Total Lines | 9 | 58 | 37 | 50 | 49 | 41
 Total Characters | 676 | 1608 | 1768 | 3307 | 1961 | 614
+
+Metrics normalized to StraitJacket
 
 | | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Cartography | Stevia
 :-- | --: | --: | --: | --: | --: | --:
@@ -75,7 +76,7 @@ Total Lines/StraitJacket | 1 | 6.4 | 4.1 | 5.6 | 5.4 | 4.6
 Total Characters/StraitJacket | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 0.9
 
 ### StraitJacket
-Adding views is trivial with a single method call and that act creates a list of all items involved as well as provides big picture view of what the layout should look like.  It's also very simple to use custom spacing between views when using the convenience chain method.
+StraitJacket is designed to be very direct and concise.  Each method call already shows the intent of each line as the chaining pattern puts each method name right in the front, allowing highly skimmable code.  The API purposefully avoids using anchor connections to reduce errors and opts to use its own methods to fill in the fine details.  Adding views is trivial with a single method call and at the same time creates a list of all items in the layout.  Using spacing as needed can provide the big picture view of what the intended layout should look like.  It's also very simple to specify custom spacing between views using the chain method.  Functionality to turn off constraints is built right into the the Restraint system and does not require the developer to store the constraints, just the Restraint object.
 ```swift
 // Layout: 24 lines, 676 characters uncondensed
 lazy var defaultRestraint: Restraint = {
@@ -128,7 +129,7 @@ lazy var defaultRestraint: Restraint = {
 
 SnapKit works as a more concise version of layout anchors.  Its code is much easier to read through and allows multiple constraint creation at once.
 
-Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  This was a pretty tedious process but not as much as layout anchors.
+Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  Like using layout anchors, the developer must be cautious when connecting anchors or lots of grief would result.  This was a pretty tedious process but nowhere nearly as much as layout anchors.  SnapKit tries to hide constraints from the developer but they can be referenced by calling `.constraint.layoutConstraints` after each make constraint call.
 
 ```swift
 // Layout: 58 lines: 1608 characters
@@ -195,9 +196,9 @@ func makeConstraints() {
 ```
 
 ### PureLayout 3.0.2
-PureLayout was a little weird to work with using Swift, since it's Objective-C.  It doesn't work with layout guides so I had to use container views which I see as a problem.  Its methods aren't really type safe since as it's possible to insert incorrect enum values that result in crashes.  Its distribute array of views require casting to NSArray.  I used a constraint override for custom spacing instead of breaking up loops to emphasize distributing views.
+PureLayout was a little weird to work with using Swift, since it's written in Objective-C.  It doesn't work with layout guides so I had to use container views which I see as a problem.  Its methods aren't really type safe since as it's possible to insert incorrect enum values that result in crashes.  Its distribute array of views require casting to NSArray.  I used a constraint override for custom spacing instead of breaking up loops to emphasize the intent of distributing views.
 
-The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in different logical styles being mixed.  This kind of code is very difficult to skim.  I also had a lot of bugs because I relied on autofill and got the paramter name wrong several times.  Adding the views into the relevant views was also kind of annoying to do.  I was able to avoid nesting some views, but this is more trouble then its worth since containment produces more stable layout then aligning views on top of another.
+The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in different logical styles being mixed.  This kind of code is very difficult to skim through.  I also had a lot of bugs because I relied on autofill and got the parameter name wrong several times.
 
 ```swift
 // layout: 37 lines, 1768 characters
@@ -243,7 +244,7 @@ func makeConstraints() {
 ```
 
 ## Layout Anchors
-This is the direct way of setting up constraints.  Problems may include forgetting to set translateAutoresizingMask to false.  This gigantic wall of text is kind of intimidating.
+This is the direct way of setting up constraints.  Problems may include forgetting to set translateAutoresizingMask to false.  This gigantic wall of text is kind of intimidating and mind numbing to read through.  Comments may help a lot with this style.  Since these methods return constraints directly, referencing them is pretty natural.
 
 ```swift
 // layout: 50 lines, 3307 characters
@@ -300,7 +301,7 @@ NSLayoutConstraint.activate([
 ```
 
 ## Cartography 3.0.2
-Cartography shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works though.  I was allowed only 10 items but I needed 11 items for this example.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  This was kind of weird to have to do.  Copying a constraint also requires creating another constrain call.  Getting autofill to have the right amount of items is a challenge.
+Cartography shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works.  I was allowed only 10 items but I needed 11 items for this example.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  Copying a constraint also requires creating another constrain call.  Getting autofill to have the right amount of items is a challenge.
 
 The DSL itself was very straigtforward.  It worked how I expected it.  I had the problem with putting invalid values crashing though, which I did intentionally.  Something like ```view.top == otherView.right```.  
 
@@ -362,7 +363,7 @@ constrain(confirmButton, buttonGuide, secondaryButtonGuide,
 ```
 
 ## Stevia 4.3.0
-I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may be confusing or lead to nesting hell with the `sv` calls, but this can be avoided with specialized subviews instead.  This has the tradeoff of making yet more views to manage.  If these are not huge issues for layout needs, then Stevia can do the job extremely well.
+I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may be confusing or lead to nesting hell with the `sv` calls, but this can be avoided with specialized subviews instead.  This has the tradeoff of making yet more views to manage.  If these are not issues for layout needs, then Stevia can do the job extremely well.
 
 Stevia has the distinction of having hot reloading, and it's native.  I may have to steal this idea in the future.
 
