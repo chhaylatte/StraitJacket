@@ -76,7 +76,9 @@ Total Lines/StraitJacket | 1 | 6.4 | 4.1 | 5.6 | 5.4 | 4.6
 Total Characters/StraitJacket | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 0.9
 
 ### StraitJacket
-StraitJacket is designed to be very direct and concise.  Each method call already shows the intent of each line as the chaining pattern puts each method name right in the front, allowing highly skimmable code.  The API purposefully avoids using anchor connections to reduce errors and opts to use its own methods to fill in the fine details.  Adding views is trivial with a single method call and at the same time creates a list of all items in the layout.  Using spacing as needed can provide the big picture view of what the intended layout should look like.  It's also very simple to specify custom spacing between views using the chain method.  Functionality to turn off constraints is built right into the the Restraint system and does not require the developer to store the constraints, just the Restraint object.
+StraitJackets puts all responsibility of creating and managing constraints into a single object.  The developer mainly needs to learn about the `Restraint` object in order to use this library.  Adding views is trivial with one method call to add many views which also serves as a list of all relevant views.  Using spacing as needed can provide the big picture view of what the intended layout should look like.  It's also very simple to specify custom spacing between views using the chain method.
+
+All work is done through the Restraint object.  The code is pretty stylistically simple and has low variation.  This Makes the code very skimmable.
 ```swift
 // Layout: 24 lines, 676 characters uncondensed
 lazy var defaultRestraint: Restraint = {
