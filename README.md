@@ -62,35 +62,22 @@ The following is the line and character count comparison of various layout libra
 
 ### Layout Code Metrics
 
-#### Line and character metrics for layout code only
+I find that number of lines of code corresponds inversely to understandability and maintainability, and number of characters corresponds inversely to readability and proptorinally to time to write.  Therefore the smaller these metrics, the better.
 
-|            | StraitJacket | SnapKit | PureLayout | Layout Anchors | Cartography | Stevia |
-|------------|--------------|---------|------------|----------------|-------------|--------|
-| Lines      |            7 |      49 |         27 |             40 |          40 |     29 |
-| Characters |          494 |    1374 |       1522 |           3023 |        1727 |    429 |
-| Char/Lines |        70.57 |   28.04 |      56.37 |          75.58 |       43.18 |  14.79 |
+| | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Cartography | Stevia
+:-- | --: | --: | --: | --: | --: | --:
+Total Lines | 9 | 58 | 37 | 50 | 49 | 41
+Total Characters | 676 | 1608 | 1768 | 3307 | 1961 | 614
 
-#### Line and character metrics normalized to StraitJacket
-
-|                         | StraitJacket | SnapKit | PureLayout | Layout Anchors | Cartography | Stevia |
-|-------------------------|--------------|---------|------------|----------------|-------------|--------|
-| Lines/StraitJacket      |            1 |       7 |       3.86 |           5.71 |        5.71 |   4.14 |
-| Characters/StraitJacket |            1 |    2.78 |       3.08 |           6.12 |        3.50 |   0.87 |
-
-#### Total line and character metrics to add all views and layout all views
-
-|                               | StraitJacket | Stevia |
-|-------------------------------|--------------|--------|
-| Total Lines                   |            9 |     41 |
-| Total Characters              |          676 |    614 |
-| Total Lines/StraitJacket      |            1 |   4.56 |
-| Total Characters/StraitJacket |            1 |   0.91 |
+| | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Cartography | Stevia
+:-- | --: | --: | --: | --: | --: | --:
+Total Lines/StraitJacket | 1 | 6.4 | 4.1 | 5.6 | 5.4 | 4.6
+Total Characters/StraitJacket | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 0.9
 
 ### StraitJacket
 Adding views is trivial with a single method call and that act creates a list of all items involved as well as provides big picture view of what the layout should look like.  It's also very simple to use custom spacing between views when using the convenience chain method.
 ```swift
-// 13 lines of uncondensed layout code
-// 494 characters excluding spaces for layout
+// Layout: 24 lines, 676 characters uncondensed
 lazy var defaultRestraint: Restraint = {
     let aRestraint = Restraint(self.view)
         .addItems([allItemsBoundaryGuide,
@@ -121,10 +108,7 @@ lazy var defaultRestraint: Restraint = {
 }()
 ```
 ```swift
-// 7 lines condensed layout code
-// 494 characters for layout
-// 9 lines to add views an layout
-// 676 characters to add views and layout
+// Layout: 9 lines, 676 characters
 lazy var defaultRestraint: Restraint = {
     let aRestraint = Restraint(self.view)
         .addItems([allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide, secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
@@ -147,8 +131,7 @@ SnapKit works as a more concise version of layout anchors.  Its code is much eas
 Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  I also had to think a lot about if I'm connecting the correct anchors to the correct anchors of correct elements.  This was a pretty tedious process but not as much as layout anchors.
 
 ```swift
-// 49 lines for layout
-// 1374 characters for layout
+// Layout: 58 lines: 1608 characters
 func makeConstraints() {
     [allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
         view.addLayoutGuide($0)
@@ -217,8 +200,7 @@ PureLayout was a little weird to work with using Swift, since it's Objective-C. 
 The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in different logical styles being mixed.  This kind of code is very difficult to skim.  I also had a lot of bugs because I relied on autofill and got the paramter name wrong several times.  Adding the views into the relevant views was also kind of annoying to do.  I was able to avoid nesting some views, but this is more trouble then its worth since containment produces more stable layout then aligning views on top of another.
 
 ```swift
-// 27 lines for layout
-// 1522 characters for
+// layout: 37 lines, 1768 characters
 func makeConstraints() {
     [allItemsBoundaryGuide,
      titleLabel, usernameTextField, passwordTextField, confirmButton,
@@ -264,54 +246,57 @@ func makeConstraints() {
 This is the direct way of setting up constraints.  Problems may include forgetting to set translateAutoresizingMask to false.  This gigantic wall of text is kind of intimidating.
 
 ```swift
-// 40 lines for layout
-// 3023 characters for layout
-override func updateViewConstraints() {
-    if !didSetupConstraints {
-        didSetupConstraints = true
-        NSLayoutConstraint.activate([
-            allItemsBoundaryGuide.widthAnchor.constraint(equalToConstant: 260),
-            allItemsBoundaryGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            allItemsBoundaryGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            allItemsBoundaryGuide.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
-            allItemsBoundaryGuide.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
-            allItemsBoundaryGuide.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
-            allItemsBoundaryGuide.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
-                titleLabel.topAnchor.constraint(equalTo: allItemsBoundaryGuide.topAnchor),
-                titleLabel.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
-                titleLabel.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
-                usernameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 60),
-                usernameTextField.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
-                usernameTextField.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
-                passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 8),
-                passwordTextField.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
-                passwordTextField.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
-                confirmButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 8),
-                confirmButton.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
-                confirmButton.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
-                
-                buttonGuide.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: 30),
-                buttonGuide.bottomAnchor.constraint(equalTo: allItemsBoundaryGuide.bottomAnchor),
-                buttonGuide.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
-                buttonGuide.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
-                    secondaryButtonGuide.centerYAnchor.constraint(equalTo: buttonGuide.centerYAnchor),
-                    secondaryButtonGuide.centerXAnchor.constraint(equalTo: buttonGuide.centerXAnchor),
-                    secondaryButtonGuide.topAnchor.constraint(equalTo: buttonGuide.topAnchor),
-                    secondaryButtonGuide.bottomAnchor.constraint(equalTo: buttonGuide.bottomAnchor),
-                        createAccountButton.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
-                        createAccountButton.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
-                        createAccountButton.leftAnchor.constraint(equalTo: secondaryButtonGuide.leftAnchor),
-                        dividerLabel.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
-                        dividerLabel.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
-                        dividerLabel.leftAnchor.constraint(equalTo: createAccountButton.rightAnchor, constant: 8),
-                        forgotPasswordButton.leftAnchor.constraint(equalTo: dividerLabel.rightAnchor, constant: 8),
-                        forgotPasswordButton.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
-                        forgotPasswordButton.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
-                        forgotPasswordButton.rightAnchor.constraint(equalTo: secondaryButtonGuide.rightAnchor)
-            ])
-    }
-    super.updateViewConstraints()
+// layout: 50 lines, 3307 characters
+[allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
+    view.addLayoutGuide($0)
 }
+
+[titleLabel, usernameTextField, passwordTextField, confirmButton,
+ createAccountButton, dividerLabel, forgotPasswordButton].forEach {
+    $0.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview($0)
+}
+
+NSLayoutConstraint.activate([
+    allItemsBoundaryGuide.widthAnchor.constraint(equalToConstant: 260),
+    allItemsBoundaryGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+    allItemsBoundaryGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+    allItemsBoundaryGuide.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
+    allItemsBoundaryGuide.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+    allItemsBoundaryGuide.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
+    allItemsBoundaryGuide.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
+    titleLabel.topAnchor.constraint(equalTo: allItemsBoundaryGuide.topAnchor),
+    titleLabel.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+    titleLabel.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+    usernameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 60),
+    usernameTextField.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+    usernameTextField.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+    passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 8),
+    passwordTextField.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+    passwordTextField.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+    confirmButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 8),
+    confirmButton.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+    confirmButton.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+    
+    buttonGuide.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: 30),
+    buttonGuide.bottomAnchor.constraint(equalTo: allItemsBoundaryGuide.bottomAnchor),
+    buttonGuide.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+    buttonGuide.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+    secondaryButtonGuide.centerYAnchor.constraint(equalTo: buttonGuide.centerYAnchor),
+    secondaryButtonGuide.centerXAnchor.constraint(equalTo: buttonGuide.centerXAnchor),
+    secondaryButtonGuide.topAnchor.constraint(equalTo: buttonGuide.topAnchor),
+    secondaryButtonGuide.bottomAnchor.constraint(equalTo: buttonGuide.bottomAnchor),
+    createAccountButton.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
+    createAccountButton.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
+    createAccountButton.leftAnchor.constraint(equalTo: secondaryButtonGuide.leftAnchor),
+    dividerLabel.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
+    dividerLabel.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
+    dividerLabel.leftAnchor.constraint(equalTo: createAccountButton.rightAnchor, constant: 8),
+    forgotPasswordButton.leftAnchor.constraint(equalTo: dividerLabel.rightAnchor, constant: 8),
+    forgotPasswordButton.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
+    forgotPasswordButton.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
+    forgotPasswordButton.rightAnchor.constraint(equalTo: secondaryButtonGuide.rightAnchor)
+    ])
 ```
 
 ## Cartography 3.0.2
@@ -324,8 +309,16 @@ It turns out that `distribute(vertically:)` method turns sets `translatesAutores
 I was very curious how Cartography was implemented.  I checked their code and could not understand a single thing...
 
 ```swift
-// 40 lines for layout
-// 1727 characters for layout
+// layout: 49 lines, 1961 characters
+[allItemsBoundaryGuide, buttonGuide, secondaryButtonGuide].forEach {
+    view.addLayoutGuide($0)
+}
+
+[titleLabel, usernameTextField, passwordTextField, confirmButton,
+ createAccountButton, dividerLabel, forgotPasswordButton].forEach {
+    view.addSubview($0)
+}
+
 constrain(view, allItemsBoundaryGuide, buttonGuide,
           titleLabel, usernameTextField, passwordTextField, confirmButton) { (view, allItemsBoundaryGuide, buttonGuide,
             titleLabel, usernameTextField, passwordTextField, confirmButton) in
@@ -374,10 +367,7 @@ I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to 
 Stevia has the distinction of having hot reloading, and it's native.  I may have to steal this idea in the future.
 
 ```swift
-// 29 lines for layout
-// 429 characters for layout
-// 41 lines to add views and layout
-// 614 to add views and layout
+// layout: 41 lines, 614 characters
 sv(allItemsBoundaryGuide
     .sv(titleLabel,
         usernameTextField,
