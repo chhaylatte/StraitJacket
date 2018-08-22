@@ -510,6 +510,17 @@ class RestraintTests: XCTestCase {
         }
     }
     
+    func testModifiedAlignmentConstraint() {
+        let expOffset: CGFloat = 130
+        let alignmentWithPriority = Alignment.centerY.offset(expOffset).withId("dont care").priority(.defaultLow).withId("sss")
+        
+        let view = UIView()
+        let subview = UIView()
+        
+        let constraint = alignmentWithPriority.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
+        XCTAssert(constraint.constant == expOffset)
+    }
+    
     func testActivateAndDeactivateRestraints() {
         let view = UIView()
         let subview = UIView()
