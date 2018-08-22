@@ -37,15 +37,20 @@ public enum Alignment: Hashable {
     case centerY
     case centerX
     
-    indirect case alignementWithId(Alignment, String)
-    indirect case alignementWithPriority(Alignment, UILayoutPriority)
+    indirect case alignmentWithId(Alignment, String)
+    indirect case alignmentWithPriority(Alignment, UILayoutPriority)
+    indirect case alignmentWithOffset(Alignment, CGFloat)
     
     public func withId(_ identifier: String) -> Alignment {
-        return .alignementWithId(self, identifier)
+        return .alignmentWithId(self, identifier)
     }
     
-    public func withPriority(_ priority: UILayoutPriority) -> Alignment {
-        return .alignementWithPriority(self, priority)
+    public func priority(_ priority: UILayoutPriority) -> Alignment {
+        return .alignmentWithPriority(self, priority)
+    }
+    
+    public func offset(_ offset: CGFloat) -> Alignment {
+        return .alignmentWithOffset(self, offset)
     }
     
     internal func modifiedAlignmentConstraint(forSource v0: RestraintTargetable,
@@ -131,21 +136,27 @@ public enum Alignment: Hashable {
                 
                 return aConstraint
                 
-            case .alignementWithId(let alignment, let identifier):
+            case .alignmentWithId(let alignment, let identifier):
                 newModifier.identifier = identifier
                 
                 let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
-                newModifier.identifier = aConstraint.identifier
-                newModifier.priority = aConstraint.priority
+                didRecurse(updateModifier: &newModifier, with: aConstraint)
                 
                 return aConstraint
                 
-            case .alignementWithPriority(let alignment, let priority):
+            case .alignmentWithPriority(let alignment, let priority):
                 newModifier.priority = priority
                 
                 let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
-                newModifier.identifier = aConstraint.identifier
-                newModifier.priority = aConstraint.priority
+                didRecurse(updateModifier: &newModifier, with: aConstraint)
+                
+                return aConstraint
+
+            case .alignmentWithOffset(let alignment, let offset):
+                newModifier.value = offset
+                
+                let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
+                didRecurse(updateModifier: &newModifier, with: aConstraint)
                 
                 return aConstraint
             }
@@ -153,7 +164,15 @@ public enum Alignment: Hashable {
         
         constraint.identifier = newModifier.identifier
         constraint.priority = newModifier.priority
+        constraint.constant = newModifier.value
         
         return constraint
+    }
+    
+    private static func didRecurse(updateModifier: inout RestraintModifier, with constraint: NSLayoutConstraint) {
+        updateModifier.identifier = constraint.identifier
+        updateModifier.priority = constraint.priority
+        updateModifier.value = constraint.constant
+        updateModifier.multiple = constraint.multiplier
     }
 }
