@@ -4,9 +4,16 @@
    <FileRef
       location = "group:README.md">
    </FileRef>
-   <FileRef
-      location = "group:Playgrounds/Example.playground">
-   </FileRef>
+   <Group
+      location = "container:Playgrounds"
+      name = "Playgrounds">
+      <FileRef
+         location = "group:/Users/virtuoustreaty/StraitJacket/Playgrounds/ExampleAnchors.playground">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/virtuoustreaty/StraitJacket/Playgrounds/ExampleStraitJacket.playground">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:StraitJacket.xcodeproj">
    </FileRef>
