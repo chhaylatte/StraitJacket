@@ -11,6 +11,9 @@
          location = "group:/Users/virtuoustreaty/StraitJacket/Playgrounds/ExampleAnchors.playground">
       </FileRef>
       <FileRef
+         location = "group:ExampleStackView.playground">
+      </FileRef>
+      <FileRef
          location = "group:/Users/virtuoustreaty/StraitJacket/Playgrounds/ExampleStraitJacket.playground">
       </FileRef>
    </Group>
