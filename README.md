@@ -65,15 +65,15 @@ I find that number of lines of code corresponds inversely to understandability a
 
 | | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Stack Views | Cartography | Stevia
 :-- | --: | --: | --: | --: | --: | --: | --:
-Total Lines | 9 | 58 | 37 | 50 | 44 | 49 | 41
-Total Characters | 676 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
+**Total Lines** | 9 | 58 | 37 | 50 | 44 | 49 | 41
+**Total Characters** | 676 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
 
 Metrics normalized to StraitJacket
 
 | | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Stack Views | Cartography | Stevia
 :-- | --: | --: | --: | --: | --: | --: | --:
-Total Lines/StraitJacket | 1 | 6.4 | 4.1 | 5.6 | 4.9 | 5.4 | 4.6
-Total Characters/StraitJacket | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 2.9 | 0.9
+**Total Lines/StraitJacket** | 1 | 6.4 | 4.1 | 5.6 | 4.9 | 5.4 | 4.6
+**Total Characters/StraitJacket** | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 2.9 | 0.9
 
 ### StraitJacket
 StraitJackets puts all responsibility of creating and managing constraints into a single object.  The code is pretty stylistically simple and has low variation.  This Makes the code very skimmable.  
@@ -312,6 +312,7 @@ Stackviews can assist with layout views out in succession, but they bring their 
 Stack views do not save us from the need to use constraints.  We still need way to layout the stack views.  Custom spacing is achievable in stackviews but it necessarily separates it from the main constraint building code.
 
 ```swift
+// layout: 44 lines, 1972 characters
 [mainItemsStackView, buttonsStackView].forEach {
     view.addSubview($0)
     $0.translatesAutoresizingMaskIntoConstraints = false
