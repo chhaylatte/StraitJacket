@@ -63,17 +63,17 @@ I will compare various autolayout libraries in building the same exact screen by
 
 I find that number of lines of code corresponds inversely to understandability and maintainability, and number of characters corresponds inversely to readability and proportionally to time to write.  Therefore the smaller these metrics, the better.
 
-| | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Cartography | Stevia
-:-- | --: | --: | --: | --: | --: | --:
-Total Lines | 9 | 58 | 37 | 50 | 49 | 41
-Total Characters | 676 | 1608 | 1768 | 3307 | 1961 | 614
+| | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Stack Views | Cartography | Stevia
+:-- | --: | --: | --: | --: | --: | --: | --:
+Total Lines | 9 | 58 | 37 | 50 | 44 | 49 | 41
+Total Characters | 676 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
 
 Metrics normalized to StraitJacket
 
-| | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Cartography | Stevia
-:-- | --: | --: | --: | --: | --: | --:
-Total Lines/StraitJacket | 1 | 6.4 | 4.1 | 5.6 | 5.4 | 4.6
-Total Characters/StraitJacket | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 0.9
+| | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Stack Views | Cartography | Stevia
+:-- | --: | --: | --: | --: | --: | --: | --:
+Total Lines/StraitJacket | 1 | 6.4 | 4.1 | 5.6 | 4.9 | 5.4 | 4.6
+Total Characters/StraitJacket | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 2.9 | 0.9
 
 ### StraitJacket
 StraitJackets puts all responsibility of creating and managing constraints into a single object.  The code is pretty stylistically simple and has low variation.  This Makes the code very skimmable.  
@@ -303,6 +303,58 @@ NSLayoutConstraint.activate([
     forgotPasswordButton.topAnchor.constraint(equalTo: secondaryButtonGuide.topAnchor),
     forgotPasswordButton.bottomAnchor.constraint(equalTo: secondaryButtonGuide.bottomAnchor),
     forgotPasswordButton.rightAnchor.constraint(equalTo: secondaryButtonGuide.rightAnchor)
+    ])
+```
+
+## UIStackView
+Stackviews can assist with layout views out in succession, but they bring their own problems too.  They require a bit of configuration to get working properly and require extra work when weirder layouts are needed.  They force the use of container views if various centering is needed.  Views may disappear and make development difficult, and may lead to unexpected bugs at runtime.  Sometimes this makes developers create unneeded size constraints in the stack view's content views because layout isn't working as expected.
+
+Stack views do not save us from the need to use constraints.  We still need way to layout the stack views.  Custom spacing is achievable in stackviews but it necessarily separates it from the main constraint building code.
+
+```swift
+[mainItemsStackView, buttonsStackView].forEach {
+    view.addSubview($0)
+    $0.translatesAutoresizingMaskIntoConstraints = false
+}
+
+view.addLayoutGuide(allItemsBoundaryGuide)
+
+mainItemsStackView.spacing = 8
+mainItemsStackView.alignment = .fill
+mainItemsStackView.distribution = .fill
+mainItemsStackView.axis = .vertical
+mainItemsStackView.setCustomSpacing(60, after: titleLabel)
+[titleLabel, usernameTextField, passwordTextField, confirmButton].forEach {
+    mainItemsStackView.addArrangedSubview($0)
+}
+
+buttonsStackView.spacing = 8
+buttonsStackView.alignment = .fill
+buttonsStackView.distribution = .fill
+buttonsStackView.axis = .horizontal
+[createAccountButton, dividerLabel, forgotPasswordButton].forEach {
+    buttonsStackView.addArrangedSubview($0)
+}
+buttonsStackView.sizeToFit()    // doesn't layout without this
+
+NSLayoutConstraint.activate([
+    allItemsBoundaryGuide.widthAnchor.constraint(equalToConstant: 260),
+    allItemsBoundaryGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+    allItemsBoundaryGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+    allItemsBoundaryGuide.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
+    allItemsBoundaryGuide.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
+    allItemsBoundaryGuide.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
+    allItemsBoundaryGuide.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+    
+    mainItemsStackView.topAnchor.constraint(equalTo: allItemsBoundaryGuide.topAnchor),
+    mainItemsStackView.leftAnchor.constraint(equalTo: allItemsBoundaryGuide.leftAnchor),
+    mainItemsStackView.rightAnchor.constraint(equalTo: allItemsBoundaryGuide.rightAnchor),
+    
+    buttonsStackView.topAnchor.constraint(equalTo: mainItemsStackView.bottomAnchor, constant: 30),
+    buttonsStackView.centerXAnchor.constraint(equalTo: allItemsBoundaryGuide.centerXAnchor),
+    buttonsStackView.heightAnchor.constraint(equalToConstant: 40),
+    buttonsStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 1),
+    buttonsStackView.bottomAnchor.constraint(equalTo: allItemsBoundaryGuide.bottomAnchor),
     ])
 ```
 
