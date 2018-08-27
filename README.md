@@ -55,9 +55,10 @@ aRestraint.addConstraints([aConstraint])
 
 ## Example
 See the [Playground](Playgrounds/ExampleStraitJacket.playground/Contents.swift)
+![alt text](example.png)
 
 ## Comparison
-I will compare various autolayout libraries in building the same exact screen by looking at total lines, and total characters to build the same screen.  I will omit white spaces, constraint activation calls, return statements, and function declarations.
+I will compare various autolayout libraries in building the same exact screen as the above example looking at total lines, and total characters to build the same screen.  I will omit white spaces, constraint activation calls, return statements, and function declarations.
 
 ### Layout Code Metrics
 
