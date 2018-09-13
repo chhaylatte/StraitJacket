@@ -345,9 +345,7 @@ constrain(confirmButton, buttonGuide, secondaryButtonGuide,
 ```
 
 ## Stevia 4.3.0
-I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may be confusing or lead to nesting hell with the `sv` calls, but this can be avoided by simply not nesting them.  If these are not issues for layout needs, then Stevia can do the job extremely well.
-
-Stevia has the distinction of having hot reloading for native development.  I may have to steal this idea in the future.
+I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may lead to nesting hell with the `sv` calls, but this can be avoided by simply not nesting them.  If these are not issues for layout needs, then Stevia can do the job pretty well.  Personally I don't like the non uniform look of the code.
 
 ```swift
 // layout: 41 lines, 614 characters
