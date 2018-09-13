@@ -65,6 +65,8 @@ I will compare various autolayout libraries in building the same exact screen as
 
 I find that number of lines of code corresponds inversely to understandability and maintainability, and number of characters corresponds inversely to readability and proportionally to time to write.  Therefore the smaller these metrics, the better.
 
+See the [Comparison](Documentation/Comparison.md) for details.
+
 | | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Stack Views | Cartography | Stevia
 :-- | --: | --: | --: | --: | --: | --: | --:
 **Total Lines** | 9 | 58 | 37 | 50 | 44 | 49 | 41
@@ -82,5 +84,3 @@ Metrics normalized to StraitJacket
 **Total Characters/StraitJacket** | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 2.9 | 0.9
 
 ![normalize](Documentation/Assets/NormalizedLinesChars.png)
-
-See the [Comparison](Documentation/Comparison.md) for details.
