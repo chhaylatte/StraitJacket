@@ -70,6 +70,12 @@ I find that number of lines of code corresponds inversely to understandability a
 **Total Lines** | 9 | 58 | 37 | 50 | 44 | 49 | 41
 **Total Characters** | 676 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
 
+![number-lines](Assets/NumLines.png)
+
+![number-characters](Assets/NumCharacters.png)
+
+![normalize](NormalizedLinesChars.png)
+
 Metrics normalized to StraitJacket
 
 | | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Stack Views | Cartography | Stevia
