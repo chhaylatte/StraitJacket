@@ -70,11 +70,9 @@ I find that number of lines of code corresponds inversely to understandability a
 **Total Lines** | 9 | 58 | 37 | 50 | 44 | 49 | 41
 **Total Characters** | 676 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
 
-![number-lines](Assets/NumLines.png)
+![number-lines](Documentation/Assets/NumLines.png)
 
-![number-characters](Assets/NumCharacters.png)
-
-![normalize](NormalizedLinesChars.png)
+![number-characters](Documentation/Assets/NumCharacters.png)
 
 Metrics normalized to StraitJacket
 
@@ -82,5 +80,7 @@ Metrics normalized to StraitJacket
 :-- | --: | --: | --: | --: | --: | --: | --:
 **Total Lines/StraitJacket** | 1 | 6.4 | 4.1 | 5.6 | 4.9 | 5.4 | 4.6
 **Total Characters/StraitJacket** | 1 | 2.4 | 2.6 | 4.9 | 2.9 | 2.9 | 0.9
+
+![normalize](Documentation/Assets/NormalizedLinesChars.png)
 
 See the [Comparison](Documentation/Comparison.md) for details.
