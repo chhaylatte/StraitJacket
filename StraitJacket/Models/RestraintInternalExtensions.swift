@@ -22,24 +22,20 @@ extension Restraint {
     
     // MARK: - Internal Processing
     
-    internal func process(restraintRelations: [[RestraintRelation]],
+    internal func process(restraintRelations: [RestraintRelation],
                           buildConstraints: (RestraintTargetable, RestraintTargetable, RestraintModifier) -> [NSLayoutConstraint]) {
-        for relations in restraintRelations {
-            for relation in relations {
-                let builtConstraints = buildConstraints(relation.view0, relation.view1, relation.modifier)
-                builtConstraints.forEach { didBuildConstraint($0) }
-            }
+        for relation in restraintRelations {
+            let builtConstraints = buildConstraints(relation.view0, relation.view1, relation.modifier)
+            builtConstraints.forEach { didBuildConstraint($0) }
         }
     }
     
-    internal func process(restraintValues: [[RestraintValue]],
+    internal func process(restraintValues: [RestraintValue],
                           buildConstraints: (RestraintTargetable, RestraintModifier) -> [NSLayoutConstraint]) {
         
-        for values in restraintValues {
-            for value in values {
-                let builtConstraints = buildConstraints(value.view, value.modifier)
-                builtConstraints.forEach { didBuildConstraint($0) }
-            }
+        for value in restraintValues {
+            let builtConstraints = buildConstraints(value.view, value.modifier)
+            builtConstraints.forEach { didBuildConstraint($0) }
         }
     }
     

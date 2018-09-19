@@ -73,10 +73,10 @@ public class Restraint<T: UIView> {
     /**
      Adds such as `UIView` to the root view.
      - Parameters:
-         - items: A collection of `RestraintTargetable` items.
+         - items: A list of `RestraintTargetable` items.
      */
     @discardableResult
-    public func addItems(_ items: [RestraintTargetable]) -> Restraint {
+    public func addItems(_ items: RestraintTargetable...) -> Restraint {
         items.forEach {
             $0.addToRootView(view)
         }
@@ -150,7 +150,7 @@ public extension Restraint {
     @discardableResult
     public func alignItems(_ views: [RestraintTargetable], to alignment: Set<Alignment>, of target: RestraintTargetable) -> Restraint {
         let restraintValues = views.map { RestraintValue($0, value: 0) }
-        process(restraintValues: [restraintValues], buildConstraints: { (view, modifier) in
+        process(restraintValues: restraintValues, buildConstraints: { (view, modifier) in
             return Array(alignment).map { $0.modifiedAlignmentConstraint(forSource: view, target: target, modifier: modifier) }
         })
         
@@ -190,7 +190,7 @@ public extension Restraint {
     
     // MARK: - Sizing
     @discardableResult
-    public func setWidths(_ values: [Width]...) -> Restraint {
+    public func setSizes(widths values: [RestraintValue]) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .width, v0: view, modifier: modifier)
             
@@ -201,7 +201,7 @@ public extension Restraint {
     }
     
     @discardableResult
-    public func setHeights(_ values: [Height]...) -> Restraint {
+    public func setSizes(heights values: [RestraintValue]) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
             let aConstraint = modifiedSizeConstraint(for: .height, v0: view, modifier: modifier)
             
@@ -212,7 +212,7 @@ public extension Restraint {
     }
     
     @discardableResult
-    public func setRelativeWidths(_ relations: [RelativeWidth]...) -> Restraint {
+    public func setRelativeSizes(widths relations: [RelativeSize]) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .width, v0: v0, v1: v1, modifier: modifier)
             
@@ -223,7 +223,7 @@ public extension Restraint {
     }
     
     @discardableResult
-    public func setRelativeHeights(_ relations: [RelativeHeight]...) -> Restraint {
+    public func setRelativeSizes(heights relations: [RelativeSize]) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
             let aConstraint = modifiedRelativeSizeConstraint(for: .height, v0: v0, v1: v1, modifier: modifier)
             

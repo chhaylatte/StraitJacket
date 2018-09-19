@@ -59,7 +59,7 @@ class GuidedRestraintTests: XCTestCase {
             let guide = UILayoutGuide()
             
             let restraint = Restraint(containerView)
-                .addItems([view1, guide])
+                .addItems(view1, guide)
                 .alignItems([view1], to: [$0], of: guide)
             restraint.activate()
             
@@ -80,7 +80,7 @@ class GuidedRestraintTests: XCTestCase {
         let view1 = UIView()
         
         let restraint = Restraint(containerView)
-            .addItems([guide, view1])
+            .addItems(guide, view1)
             .chainVertically([guide, view1])
         restraint.activate()
         
@@ -103,7 +103,7 @@ class GuidedRestraintTests: XCTestCase {
             let expectedId = String(describing: $0) + "Id"
             
             let restraint = Restraint(view)
-                .addItems([subview])
+                .addItems(subview)
                 .alignItems([subview], to: [$0.withId(expectedId)])
             restraint.activate()
             
@@ -120,7 +120,7 @@ class GuidedRestraintTests: XCTestCase {
         let expectedId2 = "exp2"
         
         let restraint = Restraint(view)
-            .addItems([subview, subview2])
+            .addItems(subview, subview2)
             .alignItems(to: view, viewAlignment: [
                 .view(subview, [Alignment.left.withId(expectedId)]),
                 .view(subview2, [Alignment.right.withId(expectedId2)])
@@ -151,7 +151,7 @@ class GuidedRestraintTests: XCTestCase {
         let guide = UILayoutGuide()
         
         let restraint = Restraint(view)
-            .addItems([subview1, subview2, guide])
+            .addItems(subview1, subview2, guide)
             .chainHorizontally([subview1, subview2], in: guide)
         restraint.activate()
         
@@ -176,7 +176,7 @@ class GuidedRestraintTests: XCTestCase {
         let guide = UILayoutGuide()
         
         let restraint = Restraint(view)
-            .addItems([subview1, subview2, guide])
+            .addItems(subview1, subview2, guide)
             .chainVertically([subview1, subview2], in: guide)
         restraint.activate()
         

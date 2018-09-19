@@ -32,7 +32,7 @@ class RestraintIdentifierTests: XCTestCase {
         
         // label1 -(11)- label2
         let viewRestraint = Restraint(view)
-            .addItems([label1, label2, label3])
+            .addItems(label1, label2, label3)
             .chainHorizontally([label1, Space(expectedSpace).withId(expectedIdentifier),
                                 label2, Space(expectedSpace).withId(expectedIdentifier2),
                                 label3])
@@ -57,7 +57,7 @@ class RestraintIdentifierTests: XCTestCase {
         
         // label1 -(11)- label2 -(11)- label3
         let viewRestraint = Restraint(view)
-            .addItems([label1, label2, label3])
+            .addItems(label1, label2, label3)
             .chainVertically([label1, Space(expectedSpace).withId(expectedIdentifier),
                               label2, Space(expectedSpace).withId(expectedIdentifier2),
                               label3])
@@ -80,8 +80,8 @@ class RestraintIdentifierTests: XCTestCase {
         let expectedId1 = "id1", expectedId2 = "id2"
         
         let viewRestraint = Restraint(view)
-            .setWidths([view1.width(1).withId(expectedId1),
-                        Width(view2, value: 1).withId(expectedId2)])
+            .setSizes(widths: [view1.equal(1).withId(expectedId1),
+                               view2.equal(1).withId(expectedId2)])
         
         viewRestraint.activate()
         
@@ -101,8 +101,8 @@ class RestraintIdentifierTests: XCTestCase {
         let expectedId1 = "id1", expectedId2 = "id2"
         
         let viewRestraint = Restraint(view)
-            .setHeights([view1.height(1).withId(expectedId1),
-                         Height(view2, value: 1).withId(expectedId2)])
+            .setSizes(heights: [view1.equal(1).withId(expectedId1),
+                                view2.equal(1).withId(expectedId2)])
         
         viewRestraint.activate()
         
@@ -122,9 +122,9 @@ class RestraintIdentifierTests: XCTestCase {
         let expectedId1 = "id1", expectedId2 = "id2"
         
         let viewRestraint = Restraint(view)
-            .addItems([view1, view2])
-            .setRelativeWidths([view1.relativeWidth(1.0, of: view).withId(expectedId1),
-                                view2.relativeWidth(1.0, of: view).withId(expectedId2)])
+            .addItems(view1, view2)
+            .setRelativeSizes(widths: [view1.multiple(1.0, of: view).withId(expectedId1),
+                                       view2.multiple(1.0, of: view).withId(expectedId2)])
         
         viewRestraint.activate()
         
@@ -144,9 +144,9 @@ class RestraintIdentifierTests: XCTestCase {
         let expectedId1 = "id1", expectedId2 = "id2"
         
         let viewRestraint = Restraint(view)
-            .addItems([view1, view2])
-            .setRelativeHeights([view1.relativeHeight(1.0, of: view).withId(expectedId1),
-                                 view2.relativeHeight(1.0, of: view).withId(expectedId2)])
+            .addItems(view1, view2)
+            .setRelativeSizes(heights: [view1.multiple(1.0, of: view).withId(expectedId1),
+                                        view2.multiple(1.0, of: view).withId(expectedId2)])
         
         viewRestraint.activate()
         
@@ -190,7 +190,7 @@ class RestraintIdentifierTests: XCTestCase {
             let view = UIView()
             
             let restraint = Restraint(view)
-                .addItems([view1])
+                .addItems(view1)
                 .alignItems([view1], to: [side])
             restraint.activate()
             
