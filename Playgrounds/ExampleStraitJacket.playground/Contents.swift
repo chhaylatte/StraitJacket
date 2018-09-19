@@ -83,17 +83,16 @@ class MyViewController : UIViewController {
             // Views must be added to the root view before they can take part in constraint creation.
             // This also serves as a list of every item laid out within the root view.
             // Using spacing can help with getting an overall idea of the entire layout.
-            .addItems([allItemsBoundaryGuide,
-                           titleLabel,
-                           usernameTextField,
-                           passwordTextField,
-                           confirmButton,
-                           
-                           buttonGuide,
-                               secondaryButtonGuide,
-                                   createAccountButton, dividerLabel, forgotPasswordButton,
-                       ])
-            .setWidths([allItemsBoundaryGuide.width(260)])
+            .addItems(allItemsBoundaryGuide,
+                      titleLabel,
+                      usernameTextField,
+                      passwordTextField,
+                      confirmButton,
+                      
+                      buttonGuide,
+                      secondaryButtonGuide,
+                      createAccountButton, dividerLabel, forgotPasswordButton)
+            .setSizes(widths: [allItemsBoundaryGuide.equal(260)])
             .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
             // Many constraints can be created within a single function call
             .chainVertically([titleLabel,
