@@ -79,22 +79,22 @@ class MyViewController : UIViewController {
         
         // The `Restraint` object handles constraint creation and activation.
         // It must be created with a root view which holds created constraints
-        let aRestraint = Restraint(self.view)
+        // The root view serves as the default value for many constraint building methods
+        let aRestraint = Restraint(self.view,
             // Views must be added to the root view before they can take part in constraint creation.
             // This also serves as a list of every item laid out within the root view.
             // Using spacing can help with getting an overall idea of the entire layout.
-            .addItems(allItemsBoundaryGuide,
-                      titleLabel,
-                      usernameTextField,
-                      passwordTextField,
-                      confirmButton,
-                      
-                      buttonGuide,
-                      secondaryButtonGuide,
-                      createAccountButton, dividerLabel, forgotPasswordButton)
+            items: [allItemsBoundaryGuide,
+                    titleLabel,
+                    usernameTextField,
+                    passwordTextField,
+                    confirmButton,
+                    
+                    buttonGuide,
+                    secondaryButtonGuide,
+                    createAccountButton, dividerLabel, forgotPasswordButton])
             .setSizes(widths: [allItemsBoundaryGuide.equal(260)])
             .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
-            // Many constraints can be created within a single function call
             .chainVertically([titleLabel,
                               Space(60),
                               usernameTextField,
