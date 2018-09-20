@@ -31,8 +31,7 @@ class RestraintIdentifierTests: XCTestCase {
         let view = UIView()
         
         // label1 -(11)- label2
-        let viewRestraint = Restraint(view)
-            .addItems(label1, label2, label3)
+        let viewRestraint = Restraint(view, items: [label1, label2, label3])
             .chainHorizontally([label1, Space(expectedSpace).withId(expectedIdentifier),
                                 label2, Space(expectedSpace).withId(expectedIdentifier2),
                                 label3])
@@ -56,8 +55,7 @@ class RestraintIdentifierTests: XCTestCase {
         let view = UIView()
         
         // label1 -(11)- label2 -(11)- label3
-        let viewRestraint = Restraint(view)
-            .addItems(label1, label2, label3)
+        let viewRestraint = Restraint(view, items: [label1, label2, label3])
             .chainVertically([label1, Space(expectedSpace).withId(expectedIdentifier),
                               label2, Space(expectedSpace).withId(expectedIdentifier2),
                               label3])
@@ -121,8 +119,7 @@ class RestraintIdentifierTests: XCTestCase {
         
         let expectedId1 = "id1", expectedId2 = "id2"
         
-        let viewRestraint = Restraint(view)
-            .addItems(view1, view2)
+        let viewRestraint = Restraint(view, items: [view1, view2])
             .setRelativeSizes(widths: [view1.multiple(1.0, of: view).withId(expectedId1),
                                        view2.multiple(1.0, of: view).withId(expectedId2)])
         
@@ -143,8 +140,7 @@ class RestraintIdentifierTests: XCTestCase {
         
         let expectedId1 = "id1", expectedId2 = "id2"
         
-        let viewRestraint = Restraint(view)
-            .addItems(view1, view2)
+        let viewRestraint = Restraint(view, items: [view1, view2])
             .setRelativeSizes(heights: [view1.multiple(1.0, of: view).withId(expectedId1),
                                         view2.multiple(1.0, of: view).withId(expectedId2)])
         
@@ -189,8 +185,7 @@ class RestraintIdentifierTests: XCTestCase {
             let view1 = UIView()
             let view = UIView()
             
-            let restraint = Restraint(view)
-                .addItems(view1)
+            let restraint = Restraint(view, items: [view1])
                 .alignItems([view1], to: [side])
             restraint.activate()
             

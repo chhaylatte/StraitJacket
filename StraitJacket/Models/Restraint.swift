@@ -14,9 +14,13 @@ public class Restraint<T: UIView> {
      - Parameters:
          - view: The root view.
          - subRestraints: Child `Restraint` objects.  `Restraint` can be composed and activated in at the same time when added as to `subRestraints`.
+         - items: `RestraintTargetable` items to add to the root view.  These items must be part of the root view hierarchy for constraints to be built for them.
+     
      */
-    public init(_ view: T, subRestraints: [Restraint] = []) {
+    public init(_ view: T, subRestraints: [Restraint] = [], items: [RestraintTargetable] = []) {
         self.view = view
+        addRestraints(subRestraints)
+        view.addItems(items)
     }
     
     private(set) weak var view: T!
@@ -68,20 +72,6 @@ public class Restraint<T: UIView> {
         
         NSLayoutConstraint.deactivate(deactivatedConstraints)
         NSLayoutConstraint.activate(activatedConstraints)
-    }
-    
-    /**
-     Adds such as `UIView` to the root view.
-     - Parameters:
-         - items: A list of `RestraintTargetable` items.
-     */
-    @discardableResult
-    public func addItems(_ items: RestraintTargetable...) -> Restraint {
-        items.forEach {
-            $0.addToRootView(view)
-        }
-        
-        return self
     }
     
     /**
