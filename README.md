@@ -16,8 +16,7 @@ StraitJacket is an object oriented autolayout solution designed for efficient de
 There is no DSL in StraitJacket.  Constraints are created using the `Restraint` object.  Its methods are capable of creating many constraints at once and are all chainable.  `Restraint` is init'd with a root view to holds the created constraints. The `addItems:` method can be used to add multiple views for convenience.
 
 ```swift
-let aRestraint = Restraint(self.view)
-    .addItems([titleLabel, usernameTextField, passwordTextField, confirmButton])
+let aRestraint = Restraint(self.view, items: [titleLabel, usernameTextField, passwordTextField, confirmButton])
     .chainVertically([titleLabel, Space(60).withId("space"), usernameTextField, passwordTextField, confirmButton],
                      in: self.view.layoutMarginsGuide)
 ```
