@@ -7,20 +7,19 @@ It's also very simple to specify custom spacing between views using the chain me
 
 All work is done through the Restraint object.  
 ```swift
-// Layout: 24 lines, 676 characters uncondensed
+// Layout: 24 lines, 678 characters uncondensed
 lazy var defaultRestraint: Restraint = {
-    let aRestraint = Restraint(self.view)
-        .addItems([allItemsBoundaryGuide,
-                       titleLabel,
-                       usernameTextField,
-                       passwordTextField,
-                       confirmButton,
-                       
-                       buttonGuide,
-                           secondaryButtonGuide,
-                               createAccountButton, dividerLabel, forgotPasswordButton,
-                   ])
-        .setWidths([allItemsBoundaryGuide.width(260)])
+    let aRestraint = Restraint(self.view,
+        items: [allItemsBoundaryGuide,
+                titleLabel,
+                usernameTextField,
+                passwordTextField,
+                confirmButton,
+                
+                buttonGuide,
+                secondaryButtonGuide,
+                createAccountButton, dividerLabel, forgotPasswordButton])
+        .setSizes(widths: [allItemsBoundaryGuide.equal(260)])
         .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
         .chainVertically([titleLabel,
                           Space(60),
@@ -38,18 +37,14 @@ lazy var defaultRestraint: Restraint = {
 }()
 ```
 ```swift
-// Layout: 9 lines, 676 characters
+// Layout: 6 lines, 678 characters
 lazy var defaultRestraint: Restraint = {
-    let aRestraint = Restraint(self.view)
-        .addItems([allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide, secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
-        .setWidths([allItemsBoundaryGuide.width(260)])
+    let aRestraint = Restraint(self.view, items: [allItemsBoundaryGuide, titleLabel, usernameTextField, passwordTextField, confirmButton, buttonGuide, secondaryButtonGuide, createAccountButton, dividerLabel, forgotPasswordButton])
+        .setSizes(widths: [allItemsBoundaryGuide.equal(260)])
         .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
-        .chainVertically([titleLabel, Space(60), usernameTextField, passwordTextField, confirmButton, Space(30), buttonGuide],
-                         in: allItemsBoundaryGuide)
+        .chainVertically([titleLabel, Space(60), usernameTextField, passwordTextField, confirmButton, Space(30), buttonGuide], in: allItemsBoundaryGuide)
         .alignItems([secondaryButtonGuide], to: [.centerX, .top, .bottom], of: buttonGuide)
-        .chainHorizontally([createAccountButton, dividerLabel, forgotPasswordButton],
-                           in: secondaryButtonGuide)
-    
+        .chainHorizontally([createAccountButton, dividerLabel, forgotPasswordButton], in: secondaryButtonGuide)
     return aRestraint
 }()
 ```
