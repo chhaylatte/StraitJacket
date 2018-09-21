@@ -69,7 +69,7 @@ See the [Comparison](Documentation/Comparison.md) for details.
 | | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Stack Views | Cartography | Stevia
 :-- | --: | --: | --: | --: | --: | --: | --:
 **Total Lines** | 9 | 58 | 37 | 50 | 44 | 49 | 41
-**Total Characters** | 676 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
+**Total Characters** | 678 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
 
 ![number-lines](Documentation/Assets/NumLines.png)
 
