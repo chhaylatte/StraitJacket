@@ -85,7 +85,7 @@ extension RestraintTargetable {
     }
     
     /**
-     Returns `RelateiveWidth` to be used with `Restraint.setRelativeWidths`
+     Returns `RestraintRelation` struct.
      - Parameters:
          - multiple: The size as a normalized CGFloat
          - view: The target relational view

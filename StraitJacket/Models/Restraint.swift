@@ -179,6 +179,13 @@ public extension Restraint {
     }
     
     // MARK: - Sizing
+    
+    /**
+     Sets widths represented by RestraintValue structs.
+     - See: `equal(_:priority:)`, `max(_:priority:)`, `min(_:priority:)` from `RestraintTargetable`
+     - Parameters:
+         - values: `RestraintValue` items.
+     */
     @discardableResult
     public func setSizes(widths values: [RestraintValue]) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
@@ -190,6 +197,12 @@ public extension Restraint {
         return self
     }
     
+    /**
+     Sets heights represented by RestraintValue structs.
+     - See: `equal(_:priority:)`, `max(_:priority:)`, `min(_:priority:)` from `RestraintTargetable`
+     - Parameters:
+     - values: `RestraintValue` items.
+     */
     @discardableResult
     public func setSizes(heights values: [RestraintValue]) -> Restraint {
         process(restraintValues: values) { (view, modifier) in
@@ -201,6 +214,12 @@ public extension Restraint {
         return self
     }
     
+    /**
+     Sets relative widths represented by RestraintRelation structs.
+     - See: `multiple(_: of: relation: priority:)` from `RestraintTargetable`
+     - Parameters:
+     - values: `RestraintValue` items.
+     */
     @discardableResult
     public func setRelativeSizes(widths relations: [RelativeSize]) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
@@ -212,6 +231,12 @@ public extension Restraint {
         return self
     }
     
+    /**
+     Sets relative heights represented by RestraintRelation structs.
+     - See: `multiple(_: of: relation: priority:)` from `RestraintTargetable`
+     - Parameters:
+     - values: `RestraintValue` items.
+     */
     @discardableResult
     public func setRelativeSizes(heights relations: [RelativeSize]) -> Restraint {
         process(restraintRelations: relations) { (v0, v1, modifier) in
