@@ -218,7 +218,7 @@ public extension Restraint {
      Sets relative widths represented by RestraintRelation structs.
      - See: `multiple(_: of: relation: priority:)` from `RestraintTargetable`
      - Parameters:
-     - values: `RestraintValue` items.
+     - values: `RelativeSize` items.
      */
     @discardableResult
     public func setRelativeSizes(widths relations: [RelativeSize]) -> Restraint {
@@ -235,7 +235,7 @@ public extension Restraint {
      Sets relative heights represented by RestraintRelation structs.
      - See: `multiple(_: of: relation: priority:)` from `RestraintTargetable`
      - Parameters:
-     - values: `RestraintValue` items.
+     - values: `RelativeSize` items.
      */
     @discardableResult
     public func setRelativeSizes(heights relations: [RelativeSize]) -> Restraint {
