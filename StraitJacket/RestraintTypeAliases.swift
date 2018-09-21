@@ -9,7 +9,5 @@
 import Foundation
 
 public typealias Space = RestraintModifier
-public typealias Width = RestraintValue
-public typealias Height = RestraintValue
-public typealias RelativeWidth = RestraintRelation
-public typealias RelativeHeight = RestraintRelation
+public typealias RestraintSize = RestraintValue
+public typealias RelativeSize = RestraintRelation

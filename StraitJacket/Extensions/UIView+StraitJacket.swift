@@ -17,4 +17,10 @@ public extension UIView {
     public func sHeight(_ multiple: CGFloat) -> CGFloat {
         return frame.size.height * multiple
     }
+    
+    internal func addItems(_ items: [RestraintTargetable]) {
+        items.forEach {
+            $0.addToRootView(self)
+        }
+    }
 }
