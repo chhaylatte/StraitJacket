@@ -8,6 +8,9 @@
       location = "container:Playgrounds"
       name = "Playgrounds">
       <FileRef
+         location = "group:Documentation.playground">
+      </FileRef>
+      <FileRef
          location = "group:/Users/virtuoustreaty/StraitJacket/Playgrounds/ExampleAnchors.playground">
       </FileRef>
       <FileRef
