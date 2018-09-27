@@ -83,6 +83,6 @@ aView.backgroundColor = .white
 grayWidthConstraint.isActive = false
 
 aRestraint = Restraint(aView, items: [blackSubview])
-    .alignItems([blackSubview], to: [Alignment.top.offset(40), .left, Alignment.right.offset(-80), Alignment.bottom.offset(-40)])
+    .alignItems([blackSubview], to: [Alignment.top.offset(40), .left, Alignment.right.inset(80), Alignment.bottom.inset(40)])
 aRestraint.activate()
 aView
