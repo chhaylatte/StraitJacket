@@ -40,6 +40,7 @@ public enum Alignment: Hashable {
     indirect case alignmentWithId(Alignment, String)
     indirect case alignmentWithPriority(Alignment, UILayoutPriority)
     indirect case alignmentWithOffset(Alignment, CGFloat)
+    indirect case alignmentWithInset(Alignment, CGFloat)
     
     public func withId(_ identifier: String) -> Alignment {
         return .alignmentWithId(self, identifier)
@@ -51,6 +52,10 @@ public enum Alignment: Hashable {
     
     public func offset(_ offset: CGFloat) -> Alignment {
         return .alignmentWithOffset(self, offset)
+    }
+    
+    public func inset(_ inset: CGFloat) -> Alignment {
+        return .alignmentWithInset(self, inset)
     }
     
     internal func modifiedAlignmentConstraint(forSource v0: RestraintTargetable,
@@ -151,9 +156,17 @@ public enum Alignment: Hashable {
                 didRecurse(updateModifier: &newModifier, with: aConstraint)
                 
                 return aConstraint
-
+                
             case .alignmentWithOffset(let alignment, let offset):
                 newModifier.value = offset
+                
+                let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
+                didRecurse(updateModifier: &newModifier, with: aConstraint)
+                
+                return aConstraint
+                
+            case .alignmentWithInset(let alignment, let inset):
+                newModifier.value = modifierValue(for: alignment, inset: inset)
                 
                 let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
                 didRecurse(updateModifier: &newModifier, with: aConstraint)
@@ -174,5 +187,16 @@ public enum Alignment: Hashable {
         updateModifier.priority = constraint.priority
         updateModifier.value = constraint.constant
         updateModifier.multiple = constraint.multiplier
+    }
+    
+    private static func modifierValue(for alignment: Alignment, inset: CGFloat) -> CGFloat {
+        switch alignment {
+        case .top, .left, softTop, softLeft:
+            return inset
+        case .right, .bottom, .softRight, .softBottom:
+            return -inset
+        default:
+            return 0
+        }
     }
 }

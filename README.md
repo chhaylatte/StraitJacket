@@ -16,8 +16,7 @@ StraitJacket is an object oriented autolayout solution designed for efficient de
 There is no DSL in StraitJacket.  Constraints are created using the `Restraint` object.  Its methods are capable of creating many constraints at once and are all chainable.  `Restraint` is init'd with a root view to holds the created constraints. The `addItems:` method can be used to add multiple views for convenience.
 
 ```swift
-let aRestraint = Restraint(self.view)
-    .addItems([titleLabel, usernameTextField, passwordTextField, confirmButton])
+let aRestraint = Restraint(self.view, items: [titleLabel, usernameTextField, passwordTextField, confirmButton])
     .chainVertically([titleLabel, Space(60).withId("space"), usernameTextField, passwordTextField, confirmButton],
                      in: self.view.layoutMarginsGuide)
 ```
@@ -70,7 +69,7 @@ See the [Comparison](Documentation/Comparison.md) for details.
 | | StraitJacket | SnapKit | Pure Layout | Layout Anchors | Stack Views | Cartography | Stevia
 :-- | --: | --: | --: | --: | --: | --: | --:
 **Total Lines** | 9 | 58 | 37 | 50 | 44 | 49 | 41
-**Total Characters** | 676 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
+**Total Characters** | 678 | 1608 | 1768 | 3307 | 1972 | 1961 | 614
 
 ![number-lines](Documentation/Assets/NumLines.png)
 
