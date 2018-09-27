@@ -505,6 +505,29 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint.constant == expOffset)
     }
     
+    func testModifiedInsetAlignmentConstraint() {
+        let inset: CGFloat = 100
+        
+        let view = UIView()
+        let subview = UIView()
+        
+        let topInsetAlignment = Alignment.top.inset(inset)
+        var testingConstraint: NSLayoutConstraint = topInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
+        XCTAssert(testingConstraint.constant == inset)
+        
+        let bottomInsetAlignment = Alignment.bottom.inset(inset)
+        testingConstraint = bottomInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
+        XCTAssert(testingConstraint.constant == -inset)
+        
+        let leftInsetAlignment = Alignment.left.inset(inset)
+        testingConstraint = leftInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
+        XCTAssert(testingConstraint.constant == inset)
+        
+        let rightInsetAlignment = Alignment.right.inset(inset)
+        testingConstraint = rightInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
+        XCTAssert(testingConstraint.constant == -inset)
+    }
+    
     func testActivateAndDeactivateRestraints() {
         let view = UIView()
         let subview = UIView()
