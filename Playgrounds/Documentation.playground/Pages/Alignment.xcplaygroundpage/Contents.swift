@@ -75,14 +75,18 @@ graySubviewBoundaryRestraint.activate()
 aView
 
 /*:
- Alignment can be offset using the offset method on the enums.
+ Alignment can be offset or inset using the `offset` and `inset` methods respectively.
  */
 
 aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
 aView.backgroundColor = .white
-grayWidthConstraint.isActive = false
+grayWidthConstraint.constant = 100
 
-aRestraint = Restraint(aView, items: [blackSubview])
-    .alignItems([blackSubview], to: [Alignment.top.offset(40), .left, Alignment.right.inset(80), Alignment.bottom.inset(40)])
+aRestraint = Restraint(aView, items: [blackSubview, graySubview])
+    .alignItems([blackSubview], to: [Alignment.top.offset(40),
+                                     Alignment.left.inset(10),
+                                     Alignment.right.inset(10),
+                                     Alignment.bottom.inset(20)])
+    .alignItems([graySubview], to: [Alignment.centerX, Alignment.centerY.offset(-20)])
 aRestraint.activate()
 aView
