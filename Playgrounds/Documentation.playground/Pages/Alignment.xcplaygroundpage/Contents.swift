@@ -4,9 +4,11 @@ import StraitJacket
 /*:
  # Alignment
  
- ## Aligning to the Root View
+ ## Alignment Enum
  
- The `Alignment` enum describes various possible ways to align items including the sides and centers.
+ The `Alignment` enum specifies various possible ways to align items including aligning the sides and center.
+ 
+ ## Aligning to the Root View
  
  To align many views to the root view:
  
