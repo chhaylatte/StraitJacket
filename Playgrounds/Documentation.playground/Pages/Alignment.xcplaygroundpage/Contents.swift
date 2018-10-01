@@ -25,25 +25,48 @@ var aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
 aView.backgroundColor = .white
 
 // Align items with a `Restraint`
-var aRestraint = Restraint(aView, items: [blackSubview, graySubview])
-    .alignItems([blackSubview, graySubview], to: [.centerX, .centerY])
+var aRestraint = Restraint(aView, items: [graySubview])
+    .alignItems([graySubview], to: [.top, .bottom, .left, .right])
 aRestraint.activate()
 
-// Create size constraints with anchors since we're learning about Alignment only right now.
-let sizeConstraints = [
-    blackSubview.widthAnchor.constraint(equalToConstant: 200),
-    blackSubview.heightAnchor.constraint(equalToConstant: 200),
-    graySubview.widthAnchor.constraint(equalToConstant: 100),
-    graySubview.heightAnchor.constraint(equalToConstant: 100),
-]
+aView
 
-NSLayoutConstraint.activate(sizeConstraints)
 
-// This will be used later
-var grayWidthConstraint = sizeConstraints[2]
-grayWidthConstraint.priority = .defaultHigh
+/*:
+ ## Aligning with Inset
+ The Alignment enum has a method to specify insets.  Currently the compiler is confused by shorthand enum notation so `Alignment` must still be written in the code.  Ex. `Alignment.top.inset(x)` instead of `.top.inset(x)`.
+ */
+
+aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+aView.backgroundColor = .white
+
+// Align items with a `Restraint`
+aRestraint = Restraint(aView, items: [graySubview])
+    .alignItems([graySubview], to: [Alignment.top.inset(10), Alignment.bottom.inset(20), Alignment.left.inset(16), Alignment.right.inset(16)])
+aRestraint.activate()
 
 aView
+
+/*:
+ ## Aligning with offset
+ The Alignment enum has a method to specify offsets.  Currently the compiler is confused by shorthand enum notation so  `Alignment` must still be written in the code.  Ex. `Alignment.top.offset(x)` instead of `.top.offset(x)`.
+ */
+
+aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
+aView.backgroundColor = .white
+
+var aLabel = UILabel()
+aLabel.text = "StraitJacket"
+aLabel.lineBreakMode = .byTruncatingTail
+
+// The label extends beyond the gray subview's bounds without boundary constraints
+aRestraint = Restraint(aView, items: [graySubview, aLabel])
+    .alignItems([graySubview], to: [.top, .bottom, Alignment.left.inset(20), Alignment.right.inset(20)], of: aView.layoutMarginsGuide)
+    .alignItems([aLabel], to: [.centerX, Alignment.centerY.offset(20)], of: graySubview)
+aRestraint.activate()
+aView
+
+
 
 /*:
  ## Aligning to a Target
@@ -58,64 +81,35 @@ aView
 aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
 aView.backgroundColor = .white
 
-aRestraint = Restraint(aView, items: [blackSubview, graySubview])
-    .alignItems([blackSubview], to: [.centerX, .centerY], of: aView.layoutMarginsGuide)
-    .alignItems([graySubview], to: [.left], of: blackSubview)
-    .alignItems([graySubview], to: [.centerY], of: blackSubview)
+aRestraint = Restraint(aView, items: [graySubview, blackSubview])
+    .alignItems([graySubview], to: [.top, .bottom, .left, .right], of: aView.layoutMarginsGuide)
+    .alignItems([blackSubview], to: [.top, .bottom, Alignment.left.inset(20), Alignment.right.inset(20)], of: graySubview)
 aRestraint.activate()
 
 aView
-
-aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-aView.backgroundColor = .white
-
-aRestraint = Restraint(aView, items: [blackSubview, graySubview])
-    .alignItems([blackSubview], to: [.centerX, .centerY])
-    .alignItems([graySubview], to: [.centerX, .centerY], of: blackSubview)
-aRestraint.activate()
 
 /*:
  ## Soft Aligning
  
- Alignment also define "soft" versions of alignment.  Soft alignment is used for creating inequality constraints to stay within the bounds of the target.
+ Alignment also defines "soft" versions of alignment.  Soft alignment is used for creating inequality constraints to stay within the bounds of the target.  There is no need to think about whether or not the constraint relation should be a less than or greater than relation.  Soft constraints are assumed to be used for confining within a boundary.
  */
 
-aView
-
-// The gray view's width is set to be larger than the black view to simulate large content.
-grayWidthConstraint.constant = 300
-aView
-
-/*
- The soft left and right alignment constraints are activated to confine the gray subview within the bounds of the black view.
- */
-let graySubviewBoundaryRestraint = Restraint(aView)
-    .alignItems([graySubview], to: [.softLeft, .softRight], of: blackSubview)
-graySubviewBoundaryRestraint.activate()
-aView
-
-// Undo the previous constant change
-grayWidthConstraint.constant = 100
-
-/*:
- ## Alignment Offsets and Insets
- 
- Alignment can be offset or inset using the `offset` and `inset` methods respectively.
- 
- Swift gets confused when calling a method on an enum inline within a collection, so it may be required to also denote the Alignment enum.
- */
-
-aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
 aView.backgroundColor = .white
 
-blackSubview = UIView()
-blackSubview.backgroundColor = .black
+aLabel = UILabel()
+aLabel.text = "StraitJacket StraitJacket StraitJacket"
+aLabel.lineBreakMode = .byTruncatingTail
 
-aRestraint = Restraint(aView, items: [blackSubview, graySubview])
-    .alignItems([blackSubview], to: [Alignment.top.offset(40),
-                                     Alignment.left.inset(10),
-                                     Alignment.right.inset(10),
-                                     Alignment.bottom.inset(20)])
-    .alignItems([graySubview], to: [Alignment.centerX, Alignment.centerY.offset(-20)])
+// The label extends beyond the gray subview's bounds without boundary constraints
+aRestraint = Restraint(aView, items: [graySubview, aLabel])
+    .alignItems([graySubview], to: [.top, .bottom, Alignment.left.inset(20), Alignment.right.inset(20)], of: aView.layoutMarginsGuide)
+    .alignItems([aLabel], to: [.centerX, .centerY], of: graySubview)
 aRestraint.activate()
+aView
+
+// The label is now confined within the gray subview's bounds
+let boundaryRestraint = Restraint(aView, items: [aLabel])
+    .alignItems([aLabel], to:[Alignment.softLeft.inset(8), Alignment.softRight.inset(8)], of: graySubview)
+boundaryRestraint.activate()
 aView
