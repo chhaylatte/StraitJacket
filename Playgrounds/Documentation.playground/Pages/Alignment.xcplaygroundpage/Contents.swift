@@ -8,6 +8,21 @@ import StraitJacket
  
  ## Alignment Enum
  
+ ````
+ case top
+ case bottom
+ case left
+ case right
+ 
+ case softTop
+ case softBottom
+ case softLeft
+ case softRight
+ 
+ case centerY
+ case centerX
+ ````
+ 
  The `Alignment` enum specifies various possible ways to align items including aligning the sides and center.
  
  ## Aligning to the Root View
@@ -32,7 +47,6 @@ var aRestraint = Restraint(aView, items: [graySubview])
 aRestraint.activate()
 
 aView
-
 
 /*:
  ## Aligning with Inset
@@ -84,7 +98,7 @@ aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
 aView.backgroundColor = .white
 
 aRestraint = Restraint(aView, items: [graySubview, blackSubview])
-    .alignItems([graySubview], to: [.top, .bottom, .left, .right], of: aView.layoutMarginsGuide)
+    .alignItems([graySubview], to: AlignmentSet.allSides, of: aView.layoutMarginsGuide)
     .alignItems([blackSubview], to: [.top, .bottom, Alignment.left.inset(20), Alignment.right.inset(20)], of: graySubview)
 aRestraint.activate()
 

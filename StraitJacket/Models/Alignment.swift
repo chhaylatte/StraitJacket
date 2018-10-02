@@ -13,6 +13,16 @@ public enum ViewAlignment {
 }
 
 public struct AlignmentSet {
+    public static let allSides: Set<Alignment> = [.top, .bottom, .left, .right]
+    public static let vertical: Set<Alignment> = [.top, .bottom]
+    public static let horizontal: Set<Alignment> = [.left, .right]
+    
+    public static let allSoftSides: Set<Alignment> = [.softTop, .softBottom, .softLeft, .softRight]
+    public static let softVertical: Set<Alignment> = [.softTop, .softBottom]
+    public static let softHorizontal: Set<Alignment> = [.softLeft, .softRight]
+    
+    public static let centerXY: Set<Alignment> = [.centerX, .centerY]
+    
     static let horizontalChainAlignment: Set<Alignment> = [.top, .bottom, .centerY, .softTop, .softBottom]
     static let horizontalChainBeginning: Set<Alignment> = [.left, .softLeft]
     static let horizontalChainEnding: Set<Alignment> = [.right, .softRight]
