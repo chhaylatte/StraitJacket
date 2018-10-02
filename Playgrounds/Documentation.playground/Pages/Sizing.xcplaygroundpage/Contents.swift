@@ -27,17 +27,50 @@ import StraitJacket
  
  */
 
-let aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+var aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
 aView.backgroundColor = .white
 
-let graySubview = UIView()
+var graySubview = UIView()
 graySubview.backgroundColor = .gray
 
-let aRestraint = Restraint(aView, items: [graySubview])
+var aRestraint = Restraint(aView, items: [graySubview])
     .alignItems([graySubview], to: [.centerX, .centerY])
     .setSizes(widths: [graySubview.equal(200)])
     .setSizes(heights: [graySubview.equal(50)])
 aRestraint.activate()
 aView
+
+/*:
+ ## Relative Sizing
+ `Restraint` can create normalized size constraints with:
+ 
+ ````
+ func setRelativeSizes(widths relations: [RelativeSize]) -> Restraint
+ 
+ func setRelativeSizes(heights relations: [RelativeSize]) -> Restraint
+ ````
+ 
+ `RelativeSize` is a value type that can be created from StraitJacket's `RestraintTargetable` extension:
+ ````
+ func multiple(_ multiple: CGFloat,
+                  of view: RestraintTargetable,
+                 relation: NSLayoutRelation = .equal,
+                 priority: UILayoutPriority = .required) -> RestraintRelation
+ ````
+ */
+
+aView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+aView.backgroundColor = .white
+
+graySubview = UIView()
+graySubview.backgroundColor = .gray
+
+aRestraint = Restraint(aView, items: [graySubview])
+    .alignItems([graySubview], to: [.centerX, .centerY])
+    .setRelativeSizes(widths: [graySubview.multiple(0.5, of: aView)])
+    .setRelativeSizes(heights: [graySubview.multiple(1.0, of: aView)])
+aRestraint.activate()
+aView
+
 
 //: [Next](@next)
