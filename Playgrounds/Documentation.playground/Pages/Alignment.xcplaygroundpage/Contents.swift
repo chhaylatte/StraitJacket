@@ -1,3 +1,5 @@
+//: [Previous](@previous)
+
 import UIKit
 import StraitJacket
 
@@ -113,3 +115,5 @@ let boundaryRestraint = Restraint(aView, items: [aLabel])
     .alignItems([aLabel], to:[Alignment.softLeft.inset(8), Alignment.softRight.inset(8)], of: graySubview)
 boundaryRestraint.activate()
 aView
+
+//: [Next](@next)
