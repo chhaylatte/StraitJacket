@@ -91,5 +91,3 @@ aRestraint = Restraint(aView, items: [label1, label2, label3, aGuide])
 
 aRestraint.activate()
 aView
-
-//: [Next](@next)
