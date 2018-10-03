@@ -20,6 +20,7 @@
 		316A840A202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */; };
 		3171EAE4211E42C000301A06 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171EAE3211E42C000301A06 /* Alignment.swift */; };
 		31B7BE122100261E009B0252 /* RestraintInternalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B7BE112100261E009B0252 /* RestraintInternalExtensions.swift */; };
+		31DD610B2162FC6C00D36A1D /* RestraintTargetableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DD610A2162FC6C00D36A1D /* RestraintTargetableExtensions.swift */; };
 		CE2CDA15202943010034B763 /* RestraintTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */; };
 		CE53D414201FBB9400B99FDE /* StraitJacket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE53D40A201FBB9400B99FDE /* StraitJacket.framework */; };
 		CE53D41B201FBB9400B99FDE /* StraitJacket.h in Headers */ = {isa = PBXBuildFile; fileRef = CE53D40D201FBB9400B99FDE /* StraitJacket.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -52,6 +53,7 @@
 		316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDebugStringConvertible+StraitJacket.swift"; sourceTree = "<group>"; };
 		3171EAE3211E42C000301A06 /* Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alignment.swift; sourceTree = "<group>"; };
 		31B7BE112100261E009B0252 /* RestraintInternalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintInternalExtensions.swift; sourceTree = "<group>"; };
+		31DD610A2162FC6C00D36A1D /* RestraintTargetableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTargetableExtensions.swift; sourceTree = "<group>"; };
 		CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTypeAliases.swift; sourceTree = "<group>"; };
 		CE53D40A201FBB9400B99FDE /* StraitJacket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StraitJacket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE53D40D201FBB9400B99FDE /* StraitJacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StraitJacket.h; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				3171EAE3211E42C000301A06 /* Alignment.swift */,
 				3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */,
+				31DD610A2162FC6C00D36A1D /* RestraintTargetableExtensions.swift */,
 				CE53D426201FBBF100B99FDE /* Restraint.swift */,
 				31B7BE112100261E009B0252 /* RestraintInternalExtensions.swift */,
 				3134C92D203642F20077F5BE /* RestraintModifier.swift */,
@@ -279,6 +282,7 @@
 				3134C92C203642DF0077F5BE /* RestraintValue.swift in Sources */,
 				3140C35220B79E1D00CA772B /* RestraintSupportProtocols.swift in Sources */,
 				CE53D429201FBBF800B99FDE /* UIView+StraitJacket.swift in Sources */,
+				31DD610B2162FC6C00D36A1D /* RestraintTargetableExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
