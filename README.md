@@ -51,11 +51,12 @@ let aConstraint: NSLayoutConstraint = // some constraint
 aRestraint.addConstraints([aConstraint])
 ```
 
+## Documentation
+See the multiple page [Documentation Playground](Playgrounds/Documentation.playground/Pages/) for an introduction and summary various use cases.  Refer to the source code for more documentation.
 
 ## Example
-See the [Playground](Playgrounds/ExampleStraitJacket.playground/Contents.swift)
+See the [Playground](Playgrounds/ExampleStraitJacket.playground/Contents.swift) for implementation details.
 <img src="example.png" width="320px">
-
 
 ## Comparison
 I will compare various autolayout libraries in building the same exact screen as the above example looking at total lines, and total characters to build the same screen.  I will omit spaces, constraint activation calls, return statements, and function declarations.  New lines will be included for line counts since it's important in real world code.  I will strip white spaces for the character count.
