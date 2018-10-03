@@ -52,7 +52,7 @@ aRestraint.addConstraints([aConstraint])
 ```
 
 ## Documentation
-See the multiple page [Documentation Playground](Playgrounds/Documentation.playground/Pages/) for an introduction and summary various use cases.  Refer to the source code for more documentation.
+See the multiple page [Documentation Playground](Playgrounds/Documentation.playground/Pages/) for an introduction and summary of various use cases.  Refer to the source code for more documentation.
 
 ## Example
 See the [Playground](Playgrounds/ExampleStraitJacket.playground/Contents.swift) for implementation details.
