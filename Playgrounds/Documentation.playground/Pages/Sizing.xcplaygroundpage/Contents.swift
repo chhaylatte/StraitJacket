@@ -72,5 +72,4 @@ aRestraint = Restraint(aView, items: [graySubview])
 aRestraint.activate()
 aView
 
-
 //: [Next](@next)

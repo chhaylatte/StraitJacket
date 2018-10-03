@@ -4,5 +4,6 @@
         <page name='Introduction'/>
         <page name='Alignment'/>
         <page name='Sizing'/>
+        <page name='Chaining'/>
     </pages>
 </playground>

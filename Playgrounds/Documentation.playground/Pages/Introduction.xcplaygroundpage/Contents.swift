@@ -44,6 +44,11 @@ dump(["View Constraints": aView.constraints,
 /*:
  # RestraintTargetable
  `RestraintTargetable` is a type in StraitJacket that constraints can reference such as a kind of `UIView` or `UILayoutGuide`.
+ 
+ # RestraintModifier
+ `RestraintModifier` is a value type that is used by certain constraint building methods to specify constraint properties.
+ 
+ ````
  */
 
 //: [Next](@next)
