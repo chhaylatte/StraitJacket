@@ -11,7 +11,7 @@ Prerequisites:
 
 ## Steps
 1. Add `github "chhaylatte/StraitJacket"` to the Cartfile
-2. In the terminal, run: `carthage update`
+2. In Terminal, run: `carthage update`
 3. Go to your project target's general tab in Xcode
 4. Locate `StraitJacket.framework` in finder in Your_Project_Directory/Carthage/Build/iOS
 5. Drag and drop `StraitJacket.framework` into the `Embedded Binaries` section of the project target's general tab
