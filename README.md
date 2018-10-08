@@ -5,7 +5,16 @@ StraitJacket is an object oriented autolayout solution designed for efficient de
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-1. Install Carthage
+Prerequisites:
+- Carthage
+- Cartfile
+
+## Steps
+1. Add `github "chhaylatte/StraitJacket"` to the Cartfile
+2. In the terminal, run: `carthage update`
+3. Go to your project target's general tab in Xcode
+4. Locate `StraitJacket.framework` in finder in Your_Project_Directory/Carthage/Build/iOS
+5. Drag and drop `StraitJacket.framework` into the `Embedded Binaries` section of the project target's general tab
 
 ## Why use it
 ### It will keep devs from hurting themselves
