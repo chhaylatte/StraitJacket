@@ -1,6 +1,12 @@
 #  StraitJacket
 StraitJacket is an object oriented autolayout solution designed for efficient development.  It can create many constraints in one method call and creates only a single type of constraint per method, which increases readability and reduces complexity.
 
+## Installation
+
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+1. Install Carthage
+
 ## Why use it
 ### It will keep devs from hurting themselves
 - No xibs or storyboards
