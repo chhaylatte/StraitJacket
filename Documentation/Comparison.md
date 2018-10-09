@@ -51,7 +51,7 @@ lazy var defaultRestraint: Restraint = {
 
 ### SnapKit 4.0.0
 
-SnapKit works as a more concise version of layout anchors.  Its code is much easier to read through and allows multiple constraint creation at once.
+[SnapKit](https://github.com/SnapKit/SnapKit) works as a more concise version of layout anchors.  Its code is much easier to read through and allows multiple constraint creation at once.
 
 Certain constraints could have been created using loops, but it makes the code kind of awkward to follow.  Like using layout anchors, the developer must be cautious when connecting anchors or lots of grief would result.  This was a pretty tedious process but nowhere nearly as much as layout anchors.  SnapKit tries to hide constraints from the developer but they can be referenced by calling `.constraint.layoutConstraints` after each make constraint call.
 
@@ -120,7 +120,7 @@ func makeConstraints() {
 ```
 
 ### PureLayout 3.0.2
-PureLayout was a little weird to work with using Swift, since it's written in Objective-C.  It doesn't work with layout guides so I had to use container views which I see as a problem.  Its methods aren't really type safe since as it's possible to insert incorrect enum values that result in crashes.  Its distribute array of views require casting to NSArray.  I used a constraint override for custom spacing instead of breaking up loops to emphasize the intent of distributing views.
+[PureLayout](https://github.com/PureLayout/PureLayout) was a little weird to work with using Swift, since it's written in Objective-C.  It doesn't work with layout guides so I had to use container views which I see as a problem.  Its methods aren't really type safe since as it's possible to insert incorrect enum values that result in crashes.  Its distribute array of views require casting to NSArray.  I used a constraint override for custom spacing instead of breaking up loops to emphasize the intent of distributing views.
 
 The layout code is pretty hard to follow as its api has array methods which encourages using loops, which results in different logical styles being mixed.  This kind of code is very difficult to skim through.  I also had a lot of bugs because I relied on autofill and got the parameter name wrong several times.
 
@@ -278,7 +278,7 @@ NSLayoutConstraint.activate([
 ```
 
 ## Cartography 3.0.2
-Cartography shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works.  I was allowed only 10 items but I needed 11 items for this example.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  Copying a constraint also requires creating another constrain call.  Getting autofill to have the right amount of items is a challenge.
+[Cartography](https://github.com/robb/Cartography) shares some ideas with StraitJacket such as the `ConstraintGroup` and creating many constraints at once.  I didn't like how the constrain function works.  I was allowed only 10 items but I needed 11 items for this example.  This forced me to make 2 constrain calls.  Also if I wanted to change what items were to be constrained, I had to edit two lists.  Copying a constraint also requires creating another constrain call.  Getting autofill to have the right amount of items is a challenge.
 
 The DSL itself was very straigtforward.  It worked how I expected it.  I had the problem with putting invalid values crashing though, which I did intentionally.  Something like ```view.top == otherView.right```.  
 
@@ -340,7 +340,7 @@ constrain(confirmButton, buttonGuide, secondaryButtonGuide,
 ```
 
 ## Stevia 4.3.0
-I am genuinely impressed with Stevia.  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may lead to nesting hell with the `sv` calls, but this can be avoided by simply not nesting them.  If these are not issues for layout needs, then Stevia can do the job pretty well.  Personally I don't like the non uniform look of the code.
+I am genuinely impressed with [Stevia](https://github.com/freshOS/Stevia).  Its api is very easy to pick up, easy to use, and very clean.  It has a few drawbacks like it has multiple personality disorder, visual layout doesn't work with layout guides, forces layout priorties to be 750, and doesn't seem to allow a way to get the created constraints.  Setting the layout priorities in visual layout may not work as expected and just brings confusion.  Having a nested view structure may lead to nesting hell with the `sv` calls, but this can be avoided by simply not nesting them.  If these are not issues for layout needs, then Stevia can do the job pretty well.  Personally I don't like the non uniform look of the code.
 
 ```swift
 // layout: 41 lines, 614 characters
