@@ -32,7 +32,7 @@ There is no DSL in StraitJacket.  Constraints are created using the `Restraint` 
 
 ```swift
 let aRestraint = Restraint(self.view, items: [titleLabel, usernameTextField, passwordTextField, confirmButton])
-    .chainVertically([titleLabel, Space(60).withId("space"), usernameTextField, passwordTextField, confirmButton],
+    .chainVertically([titleLabel, equal(60).withId("space"), usernameTextField, passwordTextField, confirmButton],
                      in: self.view.layoutMarginsGuide)
 ```
 

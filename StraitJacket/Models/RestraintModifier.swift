@@ -31,7 +31,12 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
     }
     
     public var description: String {
-        return "RestraintModifier(\(relationString) \(value) @ \(priority.rawValue))"
+        let identifierString: String = {
+            guard let identifier = identifier else { return "" }
+            return "." + identifier
+        }()
+
+        return "RestraintModifier\(identifierString)(\(relationString) *\(multiple) + \(value) @ \(priority.rawValue))"
     }
     
     private var relationString: String {

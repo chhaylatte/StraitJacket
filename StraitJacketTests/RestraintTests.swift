@@ -100,7 +100,7 @@ class RestraintTests: XCTestCase {
         
         // label1 -(8)- label2
         let viewRestraint = Restraint(view, items: [label1, label2])
-            .chainVertically([label1, Space(expectedSpace), label2])
+            .chainVertically([label1, equal(expectedSpace), label2])
         viewRestraint.activate()
         
         // Test label1 - label2
@@ -220,7 +220,7 @@ class RestraintTests: XCTestCase {
         
         // label1 -(11)- label2
         let viewRestraint = Restraint(view, items: [label1, label2])
-            .chainHorizontally([label1, Space(expectedSpace), label2])
+            .chainHorizontally([label1, equal(expectedSpace), label2])
         viewRestraint.activate()
         
         // Test label1 - label2
@@ -298,6 +298,8 @@ class RestraintTests: XCTestCase {
     }
     
     // MARK: - Sizing
+
+    // MARK: - Widths
     
     func testSetWidths() {
         let view1 = UIView(), view2 = UIView()
@@ -316,6 +318,48 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint1.firstAttribute == .width)
         XCTAssert(constraint2.constant == expectedWidth2)
         XCTAssert(constraint2.firstAttribute == .width)
+    }
+
+    func testSetMinWidths() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        let expectedWidth1 = CGFloat(100), expectedWidth2 = CGFloat(50)
+
+        let viewRestraint = Restraint(view)
+            .setSizes(widths: [view1.min(expectedWidth1),
+                               view2.min(expectedWidth2)])
+
+        viewRestraint.activate()
+
+        let constraint1 = view1.constraints[0]
+        let constraint2 = view2.constraints[0]
+        XCTAssert(constraint1.constant == expectedWidth1)
+        XCTAssert(constraint1.firstAttribute == .width)
+        XCTAssert(constraint1.relation == .greaterThanOrEqual)
+        XCTAssert(constraint2.constant == expectedWidth2)
+        XCTAssert(constraint2.firstAttribute == .width)
+        XCTAssert(constraint2.relation == .greaterThanOrEqual)
+    }
+
+    func testSetMaxWidths() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        let expectedWidth1 = CGFloat(100), expectedWidth2 = CGFloat(50)
+
+        let viewRestraint = Restraint(view)
+            .setSizes(widths: [view1.max(expectedWidth1),
+                               view2.max(expectedWidth2)])
+
+        viewRestraint.activate()
+
+        let constraint1 = view1.constraints[0]
+        let constraint2 = view2.constraints[0]
+        XCTAssert(constraint1.constant == expectedWidth1)
+        XCTAssert(constraint1.firstAttribute == .width)
+        XCTAssert(constraint1.relation == .lessThanOrEqual)
+        XCTAssert(constraint2.constant == expectedWidth2)
+        XCTAssert(constraint2.firstAttribute == .width)
+        XCTAssert(constraint2.relation == .lessThanOrEqual)
     }
     
     func testSetRelativeWidths() {
@@ -340,8 +384,10 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint2.secondItem === view)
         XCTAssert(constraint2.multiplier == expectedFactor2)
     }
+
+    // MARK: Heights
     
-    func testSetHeight() {
+    func testSetHeights() {
         let view1 = UIView(), view2 = UIView()
         let view = UIView()
         let expectedHeight1 = CGFloat(100), expectedHeight2 = CGFloat(50)
@@ -357,6 +403,46 @@ class RestraintTests: XCTestCase {
         XCTAssert(constraint1.firstAttribute == .height)
         XCTAssert(constraint2.constant == expectedHeight2)
         XCTAssert(constraint2.firstAttribute == .height)
+    }
+
+    func testSetMinHeights() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        let expectedHeight1 = CGFloat(100), expectedHeight2 = CGFloat(50)
+
+        let viewRestraint = Restraint(view)
+            .setSizes(heights: [view1.min(expectedHeight1), view2.min(expectedHeight2)])
+
+        viewRestraint.activate()
+
+        let constraint1 = view1.constraints[0]
+        let constraint2 = view2.constraints[0]
+        XCTAssert(constraint1.constant == expectedHeight1)
+        XCTAssert(constraint1.firstAttribute == .height)
+        XCTAssert(constraint1.relation == .greaterThanOrEqual)
+        XCTAssert(constraint2.constant == expectedHeight2)
+        XCTAssert(constraint2.firstAttribute == .height)
+        XCTAssert(constraint2.relation == .greaterThanOrEqual)
+    }
+
+    func testSetMaxHeights() {
+        let view1 = UIView(), view2 = UIView()
+        let view = UIView()
+        let expectedHeight1 = CGFloat(100), expectedHeight2 = CGFloat(50)
+
+        let viewRestraint = Restraint(view)
+            .setSizes(heights: [view1.max(expectedHeight1), view2.max(expectedHeight2)])
+
+        viewRestraint.activate()
+
+        let constraint1 = view1.constraints[0]
+        let constraint2 = view2.constraints[0]
+        XCTAssert(constraint1.constant == expectedHeight1)
+        XCTAssert(constraint1.firstAttribute == .height)
+        XCTAssert(constraint1.relation == .lessThanOrEqual)
+        XCTAssert(constraint2.constant == expectedHeight2)
+        XCTAssert(constraint2.firstAttribute == .height)
+        XCTAssert(constraint2.relation == .lessThanOrEqual)
     }
     
     func testSetRelativeHeights() {
