@@ -51,7 +51,7 @@ aView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
 aView.backgroundColor = .black
 
 aRestraint = Restraint(aView, items: [label1, label2, label3])
-    .chainHorizontally([label1, Space(20), label2, Space(30), label3])
+    .chainHorizontally([label1, equal(20), label2, equal(30), label3])
     .alignItems([label1], to: [.left])
     .alignItems([label1, label2, label3], to: [.centerY])
 
@@ -86,7 +86,7 @@ aView.backgroundColor = .black
 let aGuide = UILayoutGuide()
 
 aRestraint = Restraint(aView, items: [label1, label2, label3, aGuide])
-    .chainHorizontally([label1, Space(20), label2, Space(20), label3], in: aGuide)
+    .chainHorizontally([label1, equal(20), label2, equal(20), label3], in: aGuide)
     .alignItems([aGuide], to: AlignmentSet.centerXY)
 
 aRestraint.activate()
