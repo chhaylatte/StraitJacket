@@ -32,8 +32,8 @@ class RestraintIdentifierTests: XCTestCase {
         
         // label1 -(11)- label2
         let viewRestraint = Restraint(view, items: [label1, label2, label3])
-            .chainHorizontally([label1, equal(expectedSpace).withId(expectedIdentifier),
-                                label2, equal(expectedSpace).withId(expectedIdentifier2),
+            .chainHorizontally([label1, Space.equal(expectedSpace).withId(expectedIdentifier),
+                                label2, Space.equal(expectedSpace).withId(expectedIdentifier2),
                                 label3])
         viewRestraint.activate()
         
@@ -56,8 +56,8 @@ class RestraintIdentifierTests: XCTestCase {
         
         // label1 -(11)- label2 -(11)- label3
         let viewRestraint = Restraint(view, items: [label1, label2, label3])
-            .chainVertically([label1, equal(expectedSpace).withId(expectedIdentifier),
-                              label2, equal(expectedSpace).withId(expectedIdentifier2),
+            .chainVertically([label1, Space.equal(expectedSpace).withId(expectedIdentifier),
+                              label2, Space.equal(expectedSpace).withId(expectedIdentifier2),
                               label3])
         viewRestraint.activate()
         
@@ -78,8 +78,8 @@ class RestraintIdentifierTests: XCTestCase {
         let expectedId1 = "id1", expectedId2 = "id2"
         
         let viewRestraint = Restraint(view)
-            .setSizes(widths: [view1.equal(1).withId(expectedId1),
-                               view2.equal(1).withId(expectedId2)])
+            .setSizes(widths: [view1.equal(size: 1).withId(expectedId1),
+                               view2.equal(size: 1).withId(expectedId2)])
         
         viewRestraint.activate()
         
@@ -99,8 +99,8 @@ class RestraintIdentifierTests: XCTestCase {
         let expectedId1 = "id1", expectedId2 = "id2"
         
         let viewRestraint = Restraint(view)
-            .setSizes(heights: [view1.equal(1).withId(expectedId1),
-                                view2.equal(1).withId(expectedId2)])
+            .setSizes(heights: [view1.equal(size: 1).withId(expectedId1),
+                                view2.equal(size: 1).withId(expectedId2)])
         
         viewRestraint.activate()
         

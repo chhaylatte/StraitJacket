@@ -20,21 +20,21 @@ class StraitJacketFunctionTests: XCTestCase {
     }
 
     func testEqual() {
-        let equalModifier = equal(100)
+        let equalModifier = Space.equal(100)
 
         XCTAssert(equalModifier.value == 100)
         XCTAssert(equalModifier.relation == .equal)
     }
 
     func testLeast() {
-        let equalModifier = least(100)
+        let equalModifier = Space.least(100)
 
         XCTAssert(equalModifier.value == 100)
         XCTAssert(equalModifier.relation == .greaterThanOrEqual)
     }
 
     func testMost() {
-        let equalModifier = most(100)
+        let equalModifier = Space.most(100)
 
         XCTAssert(equalModifier.value == 100)
         XCTAssert(equalModifier.relation == .lessThanOrEqual)

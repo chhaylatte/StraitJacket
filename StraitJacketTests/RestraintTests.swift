@@ -100,7 +100,7 @@ class RestraintTests: XCTestCase {
         
         // label1 -(8)- label2
         let viewRestraint = Restraint(view, items: [label1, label2])
-            .chainVertically([label1, equal(expectedSpace), label2])
+            .chainVertically([label1, Space.equal(expectedSpace), label2])
         viewRestraint.activate()
         
         // Test label1 - label2
@@ -220,7 +220,7 @@ class RestraintTests: XCTestCase {
         
         // label1 -(11)- label2
         let viewRestraint = Restraint(view, items: [label1, label2])
-            .chainHorizontally([label1, equal(expectedSpace), label2])
+            .chainHorizontally([label1, Space.equal(expectedSpace), label2])
         viewRestraint.activate()
         
         // Test label1 - label2
@@ -307,8 +307,8 @@ class RestraintTests: XCTestCase {
         let expectedWidth1 = CGFloat(100), expectedWidth2 = CGFloat(50)
         
         let viewRestraint = Restraint(view)
-            .setSizes(widths: [view1.equal(expectedWidth1),
-                               view2.equal(expectedWidth2)])
+            .setSizes(widths: [view1.equal(size: expectedWidth1),
+                               view2.equal(size: expectedWidth2)])
         
         viewRestraint.activate()
         
@@ -326,8 +326,8 @@ class RestraintTests: XCTestCase {
         let expectedWidth1 = CGFloat(100), expectedWidth2 = CGFloat(50)
 
         let viewRestraint = Restraint(view)
-            .setSizes(widths: [view1.min(expectedWidth1),
-                               view2.min(expectedWidth2)])
+            .setSizes(widths: [view1.min(size: expectedWidth1),
+                               view2.min(size: expectedWidth2)])
 
         viewRestraint.activate()
 
@@ -347,8 +347,8 @@ class RestraintTests: XCTestCase {
         let expectedWidth1 = CGFloat(100), expectedWidth2 = CGFloat(50)
 
         let viewRestraint = Restraint(view)
-            .setSizes(widths: [view1.max(expectedWidth1),
-                               view2.max(expectedWidth2)])
+            .setSizes(widths: [view1.max(size: expectedWidth1),
+                               view2.max(size: expectedWidth2)])
 
         viewRestraint.activate()
 
@@ -393,7 +393,7 @@ class RestraintTests: XCTestCase {
         let expectedHeight1 = CGFloat(100), expectedHeight2 = CGFloat(50)
         
         let viewRestraint = Restraint(view)
-            .setSizes(heights: [view1.equal(expectedHeight1), view2.equal(expectedHeight2)])
+            .setSizes(heights: [view1.equal(size: expectedHeight1), view2.equal(size: expectedHeight2)])
         
         viewRestraint.activate()
         
@@ -411,7 +411,7 @@ class RestraintTests: XCTestCase {
         let expectedHeight1 = CGFloat(100), expectedHeight2 = CGFloat(50)
 
         let viewRestraint = Restraint(view)
-            .setSizes(heights: [view1.min(expectedHeight1), view2.min(expectedHeight2)])
+            .setSizes(heights: [view1.min(size: expectedHeight1), view2.min(size: expectedHeight2)])
 
         viewRestraint.activate()
 
@@ -431,7 +431,7 @@ class RestraintTests: XCTestCase {
         let expectedHeight1 = CGFloat(100), expectedHeight2 = CGFloat(50)
 
         let viewRestraint = Restraint(view)
-            .setSizes(heights: [view1.max(expectedHeight1), view2.max(expectedHeight2)])
+            .setSizes(heights: [view1.max(size: expectedHeight1), view2.max(size: expectedHeight2)])
 
         viewRestraint.activate()
 
@@ -619,7 +619,7 @@ class RestraintTests: XCTestCase {
         let subview = UIView()
         
         let widthRestraint = Restraint(view, items: [subview])
-            .setSizes(widths: [subview.equal(20)])
+            .setSizes(widths: [subview.equal(size: 20)])
         
         let alignLeftRestraint = Restraint(view, subRestraints: [widthRestraint], items: [subview])
             .alignItems([subview], to: [.left])
