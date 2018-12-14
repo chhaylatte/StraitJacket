@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Space {
+public struct Space {
     /**
      Returns a `Space` for use by `Restraint`
      - Parameters:

@@ -93,14 +93,14 @@ class MyViewController : UIViewController {
                     buttonGuide,
                     secondaryButtonGuide,
                     createAccountButton, dividerLabel, forgotPasswordButton])
-            .setSizes(widths: [allItemsBoundaryGuide.equal(260)])
+            .setSizes(widths: [allItemsBoundaryGuide.equal(size: 260)])
             .alignItems([allItemsBoundaryGuide], to: [.centerX, .centerY, .softLeft, .softRight, .softTop, .softBottom])
             .chainVertically([titleLabel,
-                              equal(60),
+                              Space.equal(60),
                               usernameTextField,
                               passwordTextField,
                               confirmButton,
-                              equal(30),
+                              Space.equal(30),
                               buttonGuide],
                              in: allItemsBoundaryGuide)
             .alignItems([secondaryButtonGuide], to: [.centerX, .top, .bottom], of: buttonGuide)
