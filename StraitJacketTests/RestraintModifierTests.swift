@@ -22,7 +22,7 @@ class RestraintModifierTests: XCTestCase {
     func testDescription() {
         let constant: CGFloat = 123
         let multiple: CGFloat = 0.23
-        let relation = NSLayoutRelation.equal
+        let relation = NSLayoutConstraint.Relation.equal
         let priority = UILayoutPriority(999)
         let identifier = "testID"
         let aModifier = RestraintModifier(constant, multiple: multiple, relation: relation, priority: priority, identifier: identifier)
@@ -38,7 +38,7 @@ class RestraintModifierTests: XCTestCase {
     func testNoIdDescription() {
         let constant: CGFloat = 123
         let multiple: CGFloat = 0.23
-        let relation = NSLayoutRelation.equal
+        let relation = NSLayoutConstraint.Relation.equal
         let priority = UILayoutPriority(999)
         let identifier: String? = nil
         let aModifier = RestraintModifier(constant, multiple: multiple, relation: relation, priority: priority, identifier: identifier)

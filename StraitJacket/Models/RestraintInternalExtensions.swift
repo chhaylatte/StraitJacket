@@ -156,7 +156,7 @@ extension Restraint {
     }
     
     internal static func constraintFunction<AnchorType>(_ anchor: NSLayoutAnchor<AnchorType>,
-                                                        relation: NSLayoutRelation) -> (NSLayoutAnchor<AnchorType>, CGFloat) -> NSLayoutConstraint {
+                                                        relation: NSLayoutConstraint.Relation) -> (NSLayoutAnchor<AnchorType>, CGFloat) -> NSLayoutConstraint {
         switch relation {
         case .equal:
             return anchor.constraint(equalTo:constant:)

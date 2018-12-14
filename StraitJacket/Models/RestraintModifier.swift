@@ -12,7 +12,7 @@ import Foundation
 public struct RestraintModifier: Restrainable, CustomStringConvertible {
     public var value: CGFloat
     public var multiple: CGFloat
-    public var relation: NSLayoutRelation
+    public var relation: NSLayoutConstraint.Relation
     public var priority: UILayoutPriority
     
     /// An optional user identifier.  `Restraint` associates this identifier with its generated constraint.
@@ -20,7 +20,7 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
     
     public init(_ constant: CGFloat,
                 multiple: CGFloat = 1,
-                relation: NSLayoutRelation = .equal,
+                relation: NSLayoutConstraint.Relation = .equal,
                 priority: UILayoutPriority = .required,
                 identifier: String? = nil) {
         self.value = constant

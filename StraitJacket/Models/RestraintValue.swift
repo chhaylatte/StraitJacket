@@ -16,7 +16,7 @@ public struct RestraintValue {
     
     public init (_ view: RestraintTargetable,
                  value: CGFloat,
-                 relation: NSLayoutRelation = .equal,
+                 relation: NSLayoutConstraint.Relation = .equal,
                  priority: UILayoutPriority = .required) {
         self.view = view
         modifier = RestraintModifier(value, relation: relation, priority: priority)

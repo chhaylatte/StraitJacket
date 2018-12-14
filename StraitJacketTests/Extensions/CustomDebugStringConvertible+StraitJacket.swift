@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension NSLayoutAttribute: CustomDebugStringConvertible {
+extension NSLayoutConstraint.Attribute: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .left:

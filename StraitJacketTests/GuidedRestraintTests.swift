@@ -27,7 +27,7 @@ class GuidedRestraintTests: XCTestCase {
         let softAlignment: [Alignment] = [.softTop, .softBottom, .softLeft, .softRight]
         let allAlignment: [Alignment] = alignment + centerAlignment + softAlignment
         
-        let alignmentToLayoutAtribute: [Alignment: NSLayoutAttribute] = [
+        let alignmentToLayoutAtribute: [Alignment: NSLayoutConstraint.Attribute] = [
             .top: .top,
             .bottom: .bottom,
             .left: .left,
@@ -40,7 +40,7 @@ class GuidedRestraintTests: XCTestCase {
             .softRight: .right
         ]
         
-        let alignmentToRelation: [Alignment: NSLayoutRelation] = [
+        let alignmentToRelation: [Alignment: NSLayoutConstraint.Relation] = [
             .top: .equal,
             .bottom: .equal,
             .left: .equal,
@@ -63,7 +63,7 @@ class GuidedRestraintTests: XCTestCase {
             restraint.activate()
             
             let constraints = containerView.constraints
-            let expectedRelation: NSLayoutRelation = alignmentToRelation[$0]!
+            let expectedRelation: NSLayoutConstraint.Relation = alignmentToRelation[$0]!
             
             XCTAssert(constraints[0].firstItem === view1)
             XCTAssert(constraints[0].firstAttribute == alignmentToLayoutAtribute[$0])
@@ -155,13 +155,13 @@ class GuidedRestraintTests: XCTestCase {
         let subview1AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview1 }
         let subview1Attributes = subview1AlignmentConstraints.map { String(describing: $0.firstAttribute) }
         let actualSubview1AttributeSet = Set(subview1Attributes)
-        let expectedSubview1AttributeSet = Set([NSLayoutAttribute.top, .bottom, .left].map { String(describing: $0) })
+        let expectedSubview1AttributeSet = Set([NSLayoutConstraint.Attribute.top, .bottom, .left].map { String(describing: $0) })
         XCTAssert(expectedSubview1AttributeSet == actualSubview1AttributeSet)
         
         let subview2AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview2 }
         let subview2Attributes = subview2AlignmentConstraints.map { String(describing: $0.firstAttribute) }
         let actualSubview2AttributeSet = Set(subview2Attributes)
-        let expectedSubview2AttributeSet = Set([NSLayoutAttribute.top, .bottom, .right].map { String(describing: $0) })
+        let expectedSubview2AttributeSet = Set([NSLayoutConstraint.Attribute.top, .bottom, .right].map { String(describing: $0) })
         XCTAssert(expectedSubview2AttributeSet == actualSubview2AttributeSet)
     }
     
@@ -179,13 +179,13 @@ class GuidedRestraintTests: XCTestCase {
         let subview1AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview1 }
         let subview1Attributes = subview1AlignmentConstraints.map { String(describing: $0.firstAttribute) }
         let actualSubview1AttributeSet = Set(subview1Attributes)
-        let expectedSubview1AttributeSet = Set([NSLayoutAttribute.top, .left, .right].map { String(describing: $0) })
+        let expectedSubview1AttributeSet = Set([NSLayoutConstraint.Attribute.top, .left, .right].map { String(describing: $0) })
         XCTAssert(expectedSubview1AttributeSet == actualSubview1AttributeSet)
         
         let subview2AlignmentConstraints = alignmentConstraints.filter { $0.firstItem === subview2 }
         let subview2Attributes = subview2AlignmentConstraints.map { String(describing: $0.firstAttribute) }
         let actualSubview2AttributeSet = Set(subview2Attributes)
-        let expectedSubview2AttributeSet = Set([NSLayoutAttribute.left, .bottom, .right].map { String(describing: $0) })
+        let expectedSubview2AttributeSet = Set([NSLayoutConstraint.Attribute.left, .bottom, .right].map { String(describing: $0) })
         XCTAssert(expectedSubview2AttributeSet == actualSubview2AttributeSet)
     }
 }
