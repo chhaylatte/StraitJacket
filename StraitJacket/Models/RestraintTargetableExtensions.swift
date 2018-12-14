@@ -15,7 +15,7 @@ extension RestraintTargetable {
      - value: The size in points
      - priority: A UILayoutPriority
      */
-    public func equal(_ value: CGFloat,
+    public func equal(size value: CGFloat,
                       priority: UILayoutPriority = .required) -> RestraintValue {
         return RestraintValue(self,
                               value: value,
@@ -29,7 +29,7 @@ extension RestraintTargetable {
      - value: The size in points
      - priority: A UILayoutPriority
      */
-    public func min(_ value: CGFloat,
+    public func min(size value: CGFloat,
                     priority: UILayoutPriority = .required) -> RestraintValue {
         return RestraintValue(self,
                               value: value,
@@ -43,7 +43,7 @@ extension RestraintTargetable {
      - value: The size in points
      - priority: A UILayoutPriority
      */
-    public func max(_ value: CGFloat,
+    public func max(size value: CGFloat,
                     priority: UILayoutPriority = .required) -> RestraintValue {
         return RestraintValue(self,
                               value: value,
