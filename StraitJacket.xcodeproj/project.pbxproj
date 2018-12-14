@@ -12,6 +12,8 @@
 		3134C92A203642C70077F5BE /* RestraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C929203642C70077F5BE /* RestraintRelation.swift */; };
 		3134C92C203642DF0077F5BE /* RestraintValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C92B203642DF0077F5BE /* RestraintValue.swift */; };
 		3134C92E203642F20077F5BE /* RestraintModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C92D203642F20077F5BE /* RestraintModifier.swift */; };
+		313F7BF721C351D400CDDC28 /* StraitJacketFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313F7BF621C351D400CDDC28 /* StraitJacketFunctionTests.swift */; };
+		313F7BF921C352FD00CDDC28 /* RestraintModifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313F7BF821C352FD00CDDC28 /* RestraintModifierTests.swift */; };
 		3140C35220B79E1D00CA772B /* RestraintSupportProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */; };
 		3140C35420B7AFDE00CA772B /* GuidedRestraintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3140C35320B7AFDE00CA772B /* GuidedRestraintTests.swift */; };
 		316549D5205A044B00ABAB81 /* CGFloat+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316549D4205A044B00ABAB81 /* CGFloat+StraitJacket.swift */; };
@@ -46,6 +48,8 @@
 		3134C929203642C70077F5BE /* RestraintRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintRelation.swift; sourceTree = "<group>"; };
 		3134C92B203642DF0077F5BE /* RestraintValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintValue.swift; sourceTree = "<group>"; };
 		3134C92D203642F20077F5BE /* RestraintModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintModifier.swift; sourceTree = "<group>"; };
+		313F7BF621C351D400CDDC28 /* StraitJacketFunctionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StraitJacketFunctionTests.swift; sourceTree = "<group>"; };
+		313F7BF821C352FD00CDDC28 /* RestraintModifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintModifierTests.swift; sourceTree = "<group>"; };
 		3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintSupportProtocols.swift; sourceTree = "<group>"; };
 		3140C35320B7AFDE00CA772B /* GuidedRestraintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedRestraintTests.swift; sourceTree = "<group>"; };
 		316549D4205A044B00ABAB81 /* CGFloat+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+StraitJacket.swift"; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 			children = (
 				CE53D42B201FBC3A00B99FDE /* RestraintTests.swift */,
 				311807FC20F56A53003F4B14 /* RestraintIdentifierTests.swift */,
+				313F7BF821C352FD00CDDC28 /* RestraintModifierTests.swift */,
+				313F7BF621C351D400CDDC28 /* StraitJacketFunctionTests.swift */,
 				3140C35320B7AFDE00CA772B /* GuidedRestraintTests.swift */,
 				3132F1D5211BB1770084DC7D /* RestraintPriorityTest.swift */,
 				316549D8205A073400ABAB81 /* CGFloat+ExtensionTests.swift */,
@@ -298,6 +304,8 @@
 				311807FD20F56A53003F4B14 /* RestraintIdentifierTests.swift in Sources */,
 				316549DB205A098100ABAB81 /* UIView+StraitJacketTests.swift in Sources */,
 				3140C35420B7AFDE00CA772B /* GuidedRestraintTests.swift in Sources */,
+				313F7BF921C352FD00CDDC28 /* RestraintModifierTests.swift in Sources */,
+				313F7BF721C351D400CDDC28 /* StraitJacketFunctionTests.swift in Sources */,
 				316549D9205A073400ABAB81 /* CGFloat+ExtensionTests.swift in Sources */,
 				3132F1D6211BB1770084DC7D /* RestraintPriorityTest.swift in Sources */,
 				CE53D42C201FBC3A00B99FDE /* RestraintTests.swift in Sources */,
