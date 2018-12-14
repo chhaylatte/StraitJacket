@@ -100,7 +100,7 @@ class RestraintTests: XCTestCase {
         
         // label1 -(8)- label2
         let viewRestraint = Restraint(view, items: [label1, label2])
-            .chainVertically([label1, Space(expectedSpace), label2])
+            .chainVertically([label1, equal(expectedSpace), label2])
         viewRestraint.activate()
         
         // Test label1 - label2
@@ -220,7 +220,7 @@ class RestraintTests: XCTestCase {
         
         // label1 -(11)- label2
         let viewRestraint = Restraint(view, items: [label1, label2])
-            .chainHorizontally([label1, Space(expectedSpace), label2])
+            .chainHorizontally([label1, equal(expectedSpace), label2])
         viewRestraint.activate()
         
         // Test label1 - label2

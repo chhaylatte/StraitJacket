@@ -32,8 +32,8 @@ class RestraintIdentifierTests: XCTestCase {
         
         // label1 -(11)- label2
         let viewRestraint = Restraint(view, items: [label1, label2, label3])
-            .chainHorizontally([label1, Space(expectedSpace).withId(expectedIdentifier),
-                                label2, Space(expectedSpace).withId(expectedIdentifier2),
+            .chainHorizontally([label1, equal(expectedSpace).withId(expectedIdentifier),
+                                label2, equal(expectedSpace).withId(expectedIdentifier2),
                                 label3])
         viewRestraint.activate()
         
@@ -56,8 +56,8 @@ class RestraintIdentifierTests: XCTestCase {
         
         // label1 -(11)- label2 -(11)- label3
         let viewRestraint = Restraint(view, items: [label1, label2, label3])
-            .chainVertically([label1, Space(expectedSpace).withId(expectedIdentifier),
-                              label2, Space(expectedSpace).withId(expectedIdentifier2),
+            .chainVertically([label1, equal(expectedSpace).withId(expectedIdentifier),
+                              label2, equal(expectedSpace).withId(expectedIdentifier2),
                               label3])
         viewRestraint.activate()
         
