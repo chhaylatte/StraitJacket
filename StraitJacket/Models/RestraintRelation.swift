@@ -19,7 +19,7 @@ public struct RestraintRelation {
                  constant: CGFloat = 0,
                  multiple: CGFloat,
                  of targetView: RestraintTargetable,
-                 relation: NSLayoutRelation = .equal,
+                 relation: NSLayoutConstraint.Relation = .equal,
                  priority: UILayoutPriority = .required,
                  identifier: String? = nil) {
         view0 = sourceView

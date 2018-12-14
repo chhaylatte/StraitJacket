@@ -61,7 +61,7 @@ extension RestraintTargetable {
      */
     public func multiple(_ multiple: CGFloat,
                          of view: RestraintTargetable,
-                         relation: NSLayoutRelation = .equal,
+                         relation: NSLayoutConstraint.Relation = .equal,
                          priority: UILayoutPriority = .required) -> RestraintRelation {
         return RestraintRelation(self,
                                  constant: 0,
