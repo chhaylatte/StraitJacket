@@ -9,7 +9,7 @@
 import Foundation
 
 /// Type defining layout distance in points
-public typealias Space = RestraintModifier
+public typealias EqualSpace = RestraintModifier
 
 /// Type defining greater than or equal to inequality layout distance in points
 public typealias MaximumSpace = RestraintModifier
