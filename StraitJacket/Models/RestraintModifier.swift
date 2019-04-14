@@ -47,6 +47,8 @@ public struct RestraintModifier: Restrainable, CustomStringConvertible {
             return ">="
         case .lessThanOrEqual:
             return "<="
+        @unknown default:
+            return "??"
         }
     }
     

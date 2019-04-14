@@ -74,6 +74,8 @@ extension NSLayoutConstraint.Attribute: CustomDebugStringConvertible {
             
         case .notAnAttribute:
             return "notAnAttribute"
+        @unknown default:
+            return "unknownAttribute"
         }
     }
 }
