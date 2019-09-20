@@ -498,12 +498,12 @@ class RestraintTests: XCTestCase {
     // MARK: - Aligning
     
     func testAlignSidesToSuperview() {
-        let checkSides: [Alignment] = [.top, .bottom, .left, .right]
+        let checkSides: [Alignment] = [.top, .bottom, .leading, .trailing]
         let sideToLayoutAtribute: [Alignment: NSLayoutConstraint.Attribute] = [
             .top: .top,
             .bottom: .bottom,
-            .left: .left,
-            .right:.right
+            .leading: .leading,
+            .trailing: .trailing
         ]
         
         for side in checkSides {
@@ -605,11 +605,11 @@ class RestraintTests: XCTestCase {
         testingConstraint = bottomInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
         XCTAssert(testingConstraint.constant == -inset)
         
-        let leftInsetAlignment = Alignment.left.inset(inset)
+        let leftInsetAlignment = Alignment.leading.inset(inset)
         testingConstraint = leftInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
         XCTAssert(testingConstraint.constant == inset)
         
-        let rightInsetAlignment = Alignment.right.inset(inset)
+        let rightInsetAlignment = Alignment.trailing.inset(inset)
         testingConstraint = rightInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
         XCTAssert(testingConstraint.constant == -inset)
     }
@@ -622,10 +622,10 @@ class RestraintTests: XCTestCase {
             .setSizes(widths: [subview.equal(size: 20)])
         
         let alignLeftRestraint = Restraint(view, subRestraints: [widthRestraint], items: [subview])
-            .alignItems([subview], to: [.left])
+            .alignItems([subview], to: [.leading])
         
         let alignRightRestraint = Restraint(view, subRestraints: [widthRestraint], items: [subview])
-            .alignItems([subview], to: [.right])
+            .alignItems([subview], to: [.trailing])
         
         alignLeftRestraint.activate()
         

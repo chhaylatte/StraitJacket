@@ -23,7 +23,7 @@ class RestraintPriorityTest: XCTestCase {
     
     func testPriority() {
         let expPriority: UILayoutPriority = .defaultHigh
-        let alignmentWithPriority = Alignment.right.priority(expPriority).withId("dont care").priority(.defaultLow).withId("sss")
+        let alignmentWithPriority = Alignment.trailing.priority(expPriority).withId("dont care").priority(.defaultLow).withId("sss")
         
         let view = UIView()
         let subview = UIView()

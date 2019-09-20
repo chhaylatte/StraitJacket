@@ -264,7 +264,7 @@ public extension Restraint {
     func chainHorizontally(_ views: [Restrainable],
                                   in guide: RestraintTargetable,
                                   spacing: CGFloat = 8,
-                                  aligning: Set<Alignment> = [.top, .bottom, .left, .right]) -> Restraint {
+                                  aligning: Set<Alignment> = [.top, .bottom, .leading, .trailing]) -> Restraint {
         let targetable = views.compactMap { $0 as? RestraintTargetable }
         let beginningAlignment = aligning.intersection(AlignmentSet.horizontalChainBeginning)
         let endingAlignment = aligning.intersection(AlignmentSet.horizontalChainEnding)
@@ -298,7 +298,7 @@ public extension Restraint {
     func chainVertically(_ views: [Restrainable],
                                 in guide: RestraintTargetable,
                                 spacing: CGFloat = 8,
-                                aligning: Set<Alignment> = [.top, .bottom, .left, .right]) -> Restraint {
+                                aligning: Set<Alignment> = [.top, .bottom, .leading, .trailing]) -> Restraint {
         let targetable = views.compactMap { $0 as? RestraintTargetable }
         let beginningAlignment = aligning.intersection(AlignmentSet.verticalChainBeginning)
         let endingAlignment = aligning.intersection(AlignmentSet.verticalChainEnding)

@@ -13,21 +13,21 @@ public enum ViewAlignment {
 }
 
 public struct AlignmentSet {
-    public static let allSides: Set<Alignment> = [.top, .bottom, .left, .right]
+    public static let allSides: Set<Alignment> = [.top, .bottom, .leading, .trailing]
     public static let vertical: Set<Alignment> = [.top, .bottom]
-    public static let horizontal: Set<Alignment> = [.left, .right]
+    public static let horizontal: Set<Alignment> = [.leading, .trailing]
     
-    public static let allSoftSides: Set<Alignment> = [.softTop, .softBottom, .softLeft, .softRight]
+    public static let allSoftSides: Set<Alignment> = [.softTop, .softBottom, .softLeading, .softTrailing]
     public static let softVertical: Set<Alignment> = [.softTop, .softBottom]
-    public static let softHorizontal: Set<Alignment> = [.softLeft, .softRight]
+    public static let softHorizontal: Set<Alignment> = [.softLeading, .softTrailing]
     
     public static let centerXY: Set<Alignment> = [.centerX, .centerY]
     
     static let horizontalChainAlignment: Set<Alignment> = [.top, .bottom, .centerY, .softTop, .softBottom]
-    static let horizontalChainBeginning: Set<Alignment> = [.left, .softLeft]
-    static let horizontalChainEnding: Set<Alignment> = [.right, .softRight]
+    static let horizontalChainBeginning: Set<Alignment> = [.leading, .softLeading]
+    static let horizontalChainEnding: Set<Alignment> = [.trailing, .softTrailing]
     
-    static let verticalChainAlignment: Set<Alignment> = [.left, .right, .centerX, .softLeft, .softRight]
+    static let verticalChainAlignment: Set<Alignment> = [.leading, .trailing, .centerX, .softLeading, .softTrailing]
     static let verticalChainBeginning: Set<Alignment> = [.top, .softTop]
     static let verticalChainEnding: Set<Alignment> = [.bottom, .softBottom]
 }
@@ -37,12 +37,16 @@ public enum Alignment: Hashable {
     case top
     case bottom
     case left
+    case leading
     case right
+    case trailing
     
     case softTop
     case softBottom
     case softLeft
+    case softLeading
     case softRight
+    case softTrailing
     
     case centerY
     case centerX
@@ -106,11 +110,23 @@ public enum Alignment: Hashable {
                 let aConstraint = constraintFunc(v1.leftAnchor, modifier.value)
                 
                 return aConstraint
+
+            case .leading:
+                let constraintFunc = Restraint.constraintFunction(v0.leadingAnchor, relation: .equal)
+                let aConstraint = constraintFunc(v1.leadingAnchor, modifier.value)
+
+                return aConstraint
                 
             case .right:
                 let constraintFunc = Restraint.constraintFunction(v0.rightAnchor, relation: .equal)
                 let aConstraint = constraintFunc(v1.rightAnchor, modifier.value)
                 
+                return aConstraint
+
+            case .trailing:
+                let constraintFunc = Restraint.constraintFunction(v0.trailingAnchor, relation: .equal)
+                let aConstraint = constraintFunc(v1.trailingAnchor, modifier.value)
+
                 return aConstraint
                 
             case .centerX:
@@ -144,11 +160,23 @@ public enum Alignment: Hashable {
                 let aConstraint = constraintFunc(v1.leftAnchor, modifier.value)
                 
                 return aConstraint
+
+            case .softLeading:
+                let constraintFunc = Restraint.constraintFunction(v0.leadingAnchor, relation: .greaterThanOrEqual)
+                let aConstraint = constraintFunc(v1.leadingAnchor, modifier.value)
+
+                return aConstraint
                 
             case .softRight:
                 let constraintFunc = Restraint.constraintFunction(v0.rightAnchor, relation: .lessThanOrEqual)
                 let aConstraint = constraintFunc(v1.rightAnchor, modifier.value)
                 
+                return aConstraint
+
+            case .softTrailing:
+                let constraintFunc = Restraint.constraintFunction(v0.trailingAnchor, relation: .lessThanOrEqual)
+                let aConstraint = constraintFunc(v1.trailingAnchor, modifier.value)
+
                 return aConstraint
                 
             case .alignmentWithId(let alignment, let identifier):
@@ -201,9 +229,9 @@ public enum Alignment: Hashable {
     
     private static func modifierValue(for alignment: Alignment, inset: CGFloat) -> CGFloat {
         switch alignment {
-        case .top, .left, softTop, softLeft:
+        case .top, .left, .leading, .softTop, .softLeft, .softLeading:
             return inset
-        case .right, .bottom, .softRight, .softBottom:
+        case .right, .trailing, .bottom, .softRight, .softTrailing, .softBottom:
             return -inset
         default:
             return 0
