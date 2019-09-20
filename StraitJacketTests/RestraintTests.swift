@@ -609,7 +609,7 @@ class RestraintTests: XCTestCase {
         testingConstraint = leftInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
         XCTAssert(testingConstraint.constant == inset)
         
-        let rightInsetAlignment = Alignment.right.inset(inset)
+        let rightInsetAlignment = Alignment.trailing.inset(inset)
         testingConstraint = rightInsetAlignment.modifiedAlignmentConstraint(forSource: subview, target: view, modifier: RestraintModifier(0))
         XCTAssert(testingConstraint.constant == -inset)
     }
