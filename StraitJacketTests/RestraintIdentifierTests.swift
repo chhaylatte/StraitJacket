@@ -163,22 +163,22 @@ class RestraintIdentifierTests: XCTestCase {
         
         let topAlignment = Alignment.top.withId(expectedTopId)
         let bottomAlignment = Alignment.bottom.withId(expectedBottomId)
-        let leftAlignment = Alignment.left.withId(expectedLeftId)
-        let rightAlignment = Alignment.right.withId(expectedRightId)
+        let leadingAlignment = Alignment.leading.withId(expectedLeftId)
+        let trailingAlignment = Alignment.trailing.withId(expectedRightId)
         
-        let checkSides: [Alignment] = [topAlignment, bottomAlignment, leftAlignment, rightAlignment]
+        let checkSides: [Alignment] = [topAlignment, bottomAlignment, leadingAlignment, trailingAlignment]
         let sideToLayoutAtribute: [Alignment: NSLayoutConstraint.Attribute] = [
             topAlignment: .top,
             bottomAlignment: .bottom,
-            leftAlignment: .left,
-            rightAlignment: .right
+            leadingAlignment: .leading,
+            trailingAlignment: .trailing
         ]
         
         let sideToIdentifier: [Alignment: String] = [
             topAlignment: expectedTopId,
             bottomAlignment: expectedBottomId,
-            leftAlignment: expectedLeftId,
-            rightAlignment: expectedRightId
+            leadingAlignment: expectedLeftId,
+            trailingAlignment: expectedRightId
         ]
         
         for side in checkSides {
