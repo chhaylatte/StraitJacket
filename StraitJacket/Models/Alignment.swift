@@ -24,12 +24,7 @@ public struct AlignmentSet {
     public static let centerXY: Set<Alignment> = [.centerX, .centerY]
     
     static let horizontalChainAlignment: Set<Alignment> = [.top, .bottom, .centerY, .softTop, .softBottom]
-    static let horizontalChainBeginning: Set<Alignment> = [.leading, .softLeading]
-    static let horizontalChainEnding: Set<Alignment> = [.trailing, .softTrailing]
-    
     static let verticalChainAlignment: Set<Alignment> = [.leading, .trailing, .centerX, .softLeading, .softTrailing]
-    static let verticalChainBeginning: Set<Alignment> = [.top, .softTop]
-    static let verticalChainEnding: Set<Alignment> = [.bottom, .softBottom]
 }
 
 public enum Alignment: Hashable {
@@ -70,6 +65,108 @@ public enum Alignment: Hashable {
     
     public func inset(_ inset: CGFloat) -> Alignment {
         return .alignmentWithInset(self, inset)
+    }
+
+    internal var isTopAlignment: Bool {
+        switch self {
+        case .top, .softTop:
+            return true
+        case .alignmentWithInset(let alignment, _):
+            return alignment.isTopAlignment
+        case .alignmentWithId(let alignment, _):
+            return alignment.isTopAlignment
+        case .alignmentWithOffset(let alignment, _):
+            return alignment.isTopAlignment
+        case .alignmentWithPriority(let alignment, _):
+            return alignment.isTopAlignment
+        default:
+            return false
+        }
+    }
+
+    internal var isBottomAlignment: Bool {
+        switch self {
+        case .bottom, .softBottom:
+            return true
+        case .alignmentWithInset(let alignment, _):
+            return alignment.isBottomAlignment
+        case .alignmentWithId(let alignment, _):
+            return alignment.isBottomAlignment
+        case .alignmentWithOffset(let alignment, _):
+            return alignment.isBottomAlignment
+        case .alignmentWithPriority(let alignment, _):
+            return alignment.isBottomAlignment
+        default:
+            return false
+        }
+    }
+
+    internal var isLeadingAlignment: Bool {
+        switch self {
+        case .leading, .softLeading:
+            return true
+        case .alignmentWithInset(let alignment, _):
+            return alignment.isLeadingAlignment
+        case .alignmentWithId(let alignment, _):
+            return alignment.isLeadingAlignment
+        case .alignmentWithOffset(let alignment, _):
+            return alignment.isLeadingAlignment
+        case .alignmentWithPriority(let alignment, _):
+            return alignment.isLeadingAlignment
+        default:
+            return false
+        }
+    }
+
+    internal var isTrailingAlignment: Bool {
+        switch self {
+        case .trailing, .softTrailing:
+            return true
+        case .alignmentWithInset(let alignment, _):
+            return alignment.isTrailingAlignment
+        case .alignmentWithId(let alignment, _):
+            return alignment.isTrailingAlignment
+        case .alignmentWithOffset(let alignment, _):
+            return alignment.isTrailingAlignment
+        case .alignmentWithPriority(let alignment, _):
+            return alignment.isTrailingAlignment
+        default:
+            return false
+        }
+    }
+
+    internal var isHorizontalAlignment: Bool {
+        switch self {
+        case .leading, .softLeading, .trailing, .softTrailing, .left, .softLeft, .right, .softRight:
+            return true
+        case .alignmentWithInset(let alignment, _):
+            return alignment.isHorizontalAlignment
+        case .alignmentWithId(let alignment, _):
+            return alignment.isHorizontalAlignment
+        case .alignmentWithOffset(let alignment, _):
+            return alignment.isHorizontalAlignment
+        case .alignmentWithPriority(let alignment, _):
+            return alignment.isHorizontalAlignment
+        default:
+            return false
+        }
+    }
+
+    internal var isVerticalAlignment: Bool {
+        switch self {
+        case .top, .softTop, .bottom, .softBottom:
+            return true
+        case .alignmentWithInset(let alignment, _):
+            return alignment.isVerticalAlignment
+        case .alignmentWithId(let alignment, _):
+            return alignment.isVerticalAlignment
+        case .alignmentWithOffset(let alignment, _):
+            return alignment.isVerticalAlignment
+        case .alignmentWithPriority(let alignment, _):
+            return alignment.isVerticalAlignment
+        default:
+            return false
+        }
     }
     
     internal func modifiedAlignmentConstraint(forSource v0: RestraintTargetable,
