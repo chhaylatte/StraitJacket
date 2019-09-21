@@ -266,9 +266,9 @@ public extension Restraint {
                                   spacing: CGFloat = 8,
                                   aligning: Set<Alignment> = [.top, .bottom, .leading, .trailing]) -> Restraint {
         let targetable = views.compactMap { $0 as? RestraintTargetable }
-        let beginningAlignment = aligning.intersection(AlignmentSet.horizontalChainBeginning)
-        let endingAlignment = aligning.intersection(AlignmentSet.horizontalChainEnding)
-        let chainAlignment = aligning.intersection(AlignmentSet.horizontalChainAlignment)
+        let beginningAlignment = aligning.filter { $0.isLeadingAlignment }
+        let endingAlignment = aligning.filter { $0.isTrailingAlignment }
+        let chainAlignment = aligning.filter { $0.isVerticalAlignment }
         
         _ = chainHorizontally(views, spacing: spacing)
         _ = alignItems(targetable, to: chainAlignment, of: guide)
@@ -300,9 +300,9 @@ public extension Restraint {
                                 spacing: CGFloat = 8,
                                 aligning: Set<Alignment> = [.top, .bottom, .leading, .trailing]) -> Restraint {
         let targetable = views.compactMap { $0 as? RestraintTargetable }
-        let beginningAlignment = aligning.intersection(AlignmentSet.verticalChainBeginning)
-        let endingAlignment = aligning.intersection(AlignmentSet.verticalChainEnding)
-        let chainAlignment = aligning.intersection(AlignmentSet.verticalChainAlignment)
+        let beginningAlignment =  aligning.filter { $0.isTopAlignment }
+        let endingAlignment = aligning.filter { $0.isBottomAlignment }
+        let chainAlignment = aligning.filter { $0.isHorizontalAlignment }
         
         _ = chainVertically(views, spacing: spacing)
         _ = alignItems(targetable, to: chainAlignment, of: guide)

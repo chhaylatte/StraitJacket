@@ -164,7 +164,39 @@ class GuidedRestraintTests: XCTestCase {
         let expectedSubview2AttributeSet = Set([NSLayoutConstraint.Attribute.top, .bottom, .trailing].map { String(describing: $0) })
         XCTAssert(expectedSubview2AttributeSet == actualSubview2AttributeSet)
     }
-    
+
+    func testHorizontalChainInGuideCanInset() {
+        let label1 = UILabel(), label2 = UILabel()
+        let view = UIView()
+
+        let viewRestraint = Restraint(view, items: [label1, label2])
+            .chainHorizontally([label1], in: view, aligning: [Alignment.leading.inset(11), Alignment.trailing.inset(12), Alignment.top.inset(13), Alignment.bottom.inset(14)])
+        viewRestraint.activate()
+
+        let expectedAttributeToConstant: [
+            NSLayoutConstraint.Attribute: CGFloat] = [
+            NSLayoutConstraint.Attribute.leading: 11,
+            NSLayoutConstraint.Attribute.trailing: -12,
+            NSLayoutConstraint.Attribute.top: 13,
+            NSLayoutConstraint.Attribute.bottom: -14
+        ]
+
+        let constraints = view.constraints
+        for i in 0..<constraints.count {
+            let aConstraint = constraints[i]
+            XCTAssert(aConstraint.firstAttribute == aConstraint.secondAttribute)
+            XCTAssert(aConstraint.constant == expectedAttributeToConstant[aConstraint.secondAttribute])
+        }
+
+        let allAlignmentAttributes = Set(constraints.map { $0.secondAttribute })
+        let expectedAlignmentAttributes = Set([NSLayoutConstraint.Attribute.leading,
+                                               NSLayoutConstraint.Attribute.trailing,
+                                               NSLayoutConstraint.Attribute.top,
+                                               NSLayoutConstraint.Attribute.bottom])
+
+        XCTAssert(allAlignmentAttributes == expectedAlignmentAttributes)
+    }
+
     func testChainVerticallyInGuide() {
         let view = UIView()
         let subview1 = UIView(), subview2 = UIView()
@@ -187,5 +219,35 @@ class GuidedRestraintTests: XCTestCase {
         let actualSubview2AttributeSet = Set(subview2Attributes)
         let expectedSubview2AttributeSet = Set([NSLayoutConstraint.Attribute.leading, .bottom, .trailing].map { String(describing: $0) })
         XCTAssert(expectedSubview2AttributeSet == actualSubview2AttributeSet)
+    }
+
+    func testVerticalChainInGuideCanInset() {
+        let label1 = UILabel(), label2 = UILabel()
+        let view = UIView()
+
+        let viewRestraint = Restraint(view, items: [label1, label2])
+            .chainVertically([label1], in: view, aligning: [Alignment.leading.inset(11), Alignment.trailing.inset(12), Alignment.top.inset(13), Alignment.bottom.inset(14)])
+        viewRestraint.activate()
+
+        let expectedAttributeToConstant: [NSLayoutConstraint.Attribute: CGFloat] = [
+            NSLayoutConstraint.Attribute.leading: 11,
+            NSLayoutConstraint.Attribute.trailing: -12,
+            NSLayoutConstraint.Attribute.top: 13,
+            NSLayoutConstraint.Attribute.bottom: -14
+        ]
+
+        let constraints = view.constraints
+        for i in 0..<constraints.count {
+            let aConstraint = constraints[i]
+            XCTAssert(aConstraint.firstAttribute == aConstraint.secondAttribute)
+            XCTAssert(aConstraint.constant == expectedAttributeToConstant[aConstraint.secondAttribute])
+        }
+
+        let allAlignmentAttributes = Set(constraints.map { $0.secondAttribute })
+        let expectedAlignmentAttributes = Set([NSLayoutConstraint.Attribute.leading,
+                                               NSLayoutConstraint.Attribute.trailing,
+                                               NSLayoutConstraint.Attribute.top,
+                                               NSLayoutConstraint.Attribute.bottom])
+        XCTAssert(allAlignmentAttributes == expectedAlignmentAttributes)
     }
 }
