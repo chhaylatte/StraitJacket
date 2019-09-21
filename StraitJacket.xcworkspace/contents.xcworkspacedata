@@ -7,18 +7,6 @@
    <Group
       location = "container:Playgrounds"
       name = "Playgrounds">
-      <FileRef
-         location = "group:Documentation.playground">
-      </FileRef>
-      <FileRef
-         location = "group:/Users/virtuoustreaty/StraitJacket/Playgrounds/ExampleAnchors.playground">
-      </FileRef>
-      <FileRef
-         location = "group:ExampleStackView.playground">
-      </FileRef>
-      <FileRef
-         location = "group:/Users/virtuoustreaty/StraitJacket/Playgrounds/ExampleStraitJacket.playground">
-      </FileRef>
    </Group>
    <FileRef
       location = "group:StraitJacket.xcodeproj">

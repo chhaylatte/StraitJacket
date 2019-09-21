@@ -72,21 +72,21 @@ extension Restraint {
             switch direction {
             case .vertical:
                 switch modifier.relation {
-                case .equal:
-                    return v0.topAnchor.constraint(equalTo: v1.bottomAnchor, constant: modifier.value)
                 case .lessThanOrEqual:
                     return v0.topAnchor.constraint(lessThanOrEqualTo: v1.bottomAnchor, constant: modifier.value)
                 case .greaterThanOrEqual:
                     return v0.topAnchor.constraint(greaterThanOrEqualTo: v1.bottomAnchor, constant: modifier.value)
+                default:
+                    return v0.topAnchor.constraint(equalTo: v1.bottomAnchor, constant: modifier.value)
                 }
             case .horizontal:
                 switch modifier.relation {
-                case .equal:
-                    return v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor, constant: modifier.value)
                 case .lessThanOrEqual:
                     return v0.leadingAnchor.constraint(lessThanOrEqualTo: v1.trailingAnchor, constant: modifier.value)
                 case .greaterThanOrEqual:
                     return v0.leadingAnchor.constraint(greaterThanOrEqualTo: v1.trailingAnchor, constant: modifier.value)
+                default:
+                    return v0.leadingAnchor.constraint(equalTo: v1.trailingAnchor, constant: modifier.value)
                 }
             }
         }()
@@ -101,21 +101,21 @@ extension Restraint {
             switch size {
             case .width:
                 switch modifier.relation {
-                case .equal:
-                    return v0.widthAnchor.constraint(equalTo: v1.widthAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 case .lessThanOrEqual:
                     return v0.widthAnchor.constraint(lessThanOrEqualTo: v1.widthAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 case .greaterThanOrEqual:
                     return v0.widthAnchor.constraint(greaterThanOrEqualTo: v1.widthAnchor, multiplier: modifier.multiple, constant: modifier.value)
+                default:
+                    return v0.widthAnchor.constraint(equalTo: v1.widthAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 }
             case .height:
                 switch modifier.relation {
-                case .equal:
-                    return v0.heightAnchor.constraint(equalTo: v1.heightAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 case .lessThanOrEqual:
                     return v0.heightAnchor.constraint(lessThanOrEqualTo: v1.heightAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 case .greaterThanOrEqual:
                     return v0.heightAnchor.constraint(greaterThanOrEqualTo: v1.heightAnchor, multiplier: modifier.multiple, constant: modifier.value)
+                default:
+                    return v0.heightAnchor.constraint(equalTo: v1.heightAnchor, multiplier: modifier.multiple, constant: modifier.value)
                 }
             }
         }()
@@ -130,21 +130,21 @@ extension Restraint {
             switch size {
             case .width:
                 switch modifier.relation {
-                case .equal:
-                    return v0.widthAnchor.constraint(equalToConstant: modifier.value)
                 case .lessThanOrEqual:
                     return v0.widthAnchor.constraint(lessThanOrEqualToConstant: modifier.value)
                 case .greaterThanOrEqual:
                     return v0.widthAnchor.constraint(greaterThanOrEqualToConstant: modifier.value)
+                default:
+                    return v0.widthAnchor.constraint(equalToConstant: modifier.value)
                 }
             case .height:
                 switch modifier.relation {
-                case .equal:
-                    return v0.heightAnchor.constraint(equalToConstant: modifier.value)
                 case .lessThanOrEqual:
                     return v0.heightAnchor.constraint(lessThanOrEqualToConstant: modifier.value)
                 case .greaterThanOrEqual:
                     return v0.heightAnchor.constraint(greaterThanOrEqualToConstant: modifier.value)
+                default:
+                    return v0.heightAnchor.constraint(equalToConstant: modifier.value)
                 }
             }
         }()
@@ -158,12 +158,12 @@ extension Restraint {
     internal static func constraintFunction<AnchorType>(_ anchor: NSLayoutAnchor<AnchorType>,
                                                         relation: NSLayoutConstraint.Relation) -> (NSLayoutAnchor<AnchorType>, CGFloat) -> NSLayoutConstraint {
         switch relation {
-        case .equal:
-            return anchor.constraint(equalTo:constant:)
         case .lessThanOrEqual:
             return anchor.constraint(lessThanOrEqualTo:constant:)
         case .greaterThanOrEqual:
             return anchor.constraint(greaterThanOrEqualTo:constant:)
+        default:
+            return anchor.constraint(equalTo:constant:)
         }
     }
     
