@@ -137,7 +137,7 @@ public enum Alignment: Hashable {
 
     internal var isHorizontalAlignment: Bool {
         switch self {
-        case .leading, .softLeading, .trailing, .softTrailing, .left, .softLeft, .right, .softRight:
+        case .leading, .softLeading, .trailing, .softTrailing, .left, .softLeft, .right, .softRight, .centerX:
             return true
         case .alignmentWithInset(let alignment, _):
             return alignment.isHorizontalAlignment
@@ -154,7 +154,7 @@ public enum Alignment: Hashable {
 
     internal var isVerticalAlignment: Bool {
         switch self {
-        case .top, .softTop, .bottom, .softBottom:
+        case .top, .softTop, .bottom, .softBottom, .centerY:
             return true
         case .alignmentWithInset(let alignment, _):
             return alignment.isVerticalAlignment
