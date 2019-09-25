@@ -197,6 +197,22 @@ class GuidedRestraintTests: XCTestCase {
         XCTAssert(allAlignmentAttributes == expectedAlignmentAttributes)
     }
 
+    func testHorizontalChainInGuideCentersY() {
+        let label1 = UILabel(), label2 = UILabel()
+        let view = UIView()
+
+        let viewRestraint = Restraint(view, items: [label1, label2])
+            .chainHorizontally([label1, label2], in: view, aligning: [.centerY])
+        viewRestraint.activate()
+        let constraints = view.constraints.filter { $0.firstAttribute == $0.secondAttribute && $0.firstAttribute == .centerY }
+
+        let views = constraints.compactMap { $0.firstItem as? UIView }
+        let viewSet = Set(views)
+
+        XCTAssert(viewSet.contains(label1))
+        XCTAssert(viewSet.contains(label2))
+    }
+
     func testChainVerticallyInGuide() {
         let view = UIView()
         let subview1 = UIView(), subview2 = UIView()
@@ -219,6 +235,22 @@ class GuidedRestraintTests: XCTestCase {
         let actualSubview2AttributeSet = Set(subview2Attributes)
         let expectedSubview2AttributeSet = Set([NSLayoutConstraint.Attribute.leading, .bottom, .trailing].map { String(describing: $0) })
         XCTAssert(expectedSubview2AttributeSet == actualSubview2AttributeSet)
+    }
+
+    func testVerticalChainInGuideCentersX() {
+        let label1 = UILabel(), label2 = UILabel()
+        let view = UIView()
+
+        let viewRestraint = Restraint(view, items: [label1, label2])
+            .chainVertically([label1, label2], in: view, aligning: [.centerX])
+        viewRestraint.activate()
+        let constraints = view.constraints.filter { $0.firstAttribute == $0.secondAttribute && $0.firstAttribute == .centerX }
+
+        let views = constraints.compactMap { $0.firstItem as? UIView }
+        let viewSet = Set(views)
+
+        XCTAssert(viewSet.contains(label1))
+        XCTAssert(viewSet.contains(label2))
     }
 
     func testVerticalChainInGuideCanInset() {
