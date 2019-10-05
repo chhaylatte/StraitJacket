@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public enum ViewAlignment {
     case view(RestraintTargetable, Set<Alignment>)
@@ -47,12 +48,17 @@ public enum Alignment: Hashable {
     case centerX
     
     indirect case alignmentWithId(Alignment, String)
+    indirect case alignmentWithIdMapping(Alignment, [UIView: String])
     indirect case alignmentWithPriority(Alignment, UILayoutPriority)
     indirect case alignmentWithOffset(Alignment, CGFloat)
     indirect case alignmentWithInset(Alignment, CGFloat)
     
     public func withId(_ identifier: String) -> Alignment {
         return .alignmentWithId(self, identifier)
+    }
+
+    public func withIdMapping(_ mapping: [UIView: String]) -> Alignment {
+        return .alignmentWithIdMapping(self, mapping)
     }
     
     public func priority(_ priority: UILayoutPriority) -> Alignment {
@@ -79,6 +85,8 @@ public enum Alignment: Hashable {
             return alignment.isTopAlignment
         case .alignmentWithPriority(let alignment, _):
             return alignment.isTopAlignment
+        case .alignmentWithIdMapping(let alignment, _):
+            return alignment.isTopAlignment
         default:
             return false
         }
@@ -95,6 +103,8 @@ public enum Alignment: Hashable {
         case .alignmentWithOffset(let alignment, _):
             return alignment.isBottomAlignment
         case .alignmentWithPriority(let alignment, _):
+            return alignment.isBottomAlignment
+        case .alignmentWithIdMapping(let alignment, _):
             return alignment.isBottomAlignment
         default:
             return false
@@ -113,6 +123,8 @@ public enum Alignment: Hashable {
             return alignment.isLeadingAlignment
         case .alignmentWithPriority(let alignment, _):
             return alignment.isLeadingAlignment
+        case .alignmentWithIdMapping(let alignment, _):
+            return alignment.isLeadingAlignment
         default:
             return false
         }
@@ -129,6 +141,8 @@ public enum Alignment: Hashable {
         case .alignmentWithOffset(let alignment, _):
             return alignment.isTrailingAlignment
         case .alignmentWithPriority(let alignment, _):
+            return alignment.isTrailingAlignment
+        case .alignmentWithIdMapping(let alignment, _):
             return alignment.isTrailingAlignment
         default:
             return false
@@ -147,6 +161,8 @@ public enum Alignment: Hashable {
             return alignment.isHorizontalAlignment
         case .alignmentWithPriority(let alignment, _):
             return alignment.isHorizontalAlignment
+        case .alignmentWithIdMapping(let alignment, _):
+        return alignment.isHorizontalAlignment
         default:
             return false
         }
@@ -163,6 +179,8 @@ public enum Alignment: Hashable {
         case .alignmentWithOffset(let alignment, _):
             return alignment.isVerticalAlignment
         case .alignmentWithPriority(let alignment, _):
+            return alignment.isVerticalAlignment
+        case .alignmentWithIdMapping(let alignment, _):
             return alignment.isVerticalAlignment
         default:
             return false
@@ -282,6 +300,17 @@ public enum Alignment: Hashable {
                 let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
                 didRecurse(updateModifier: &newModifier, with: aConstraint)
                 
+                return aConstraint
+
+            case .alignmentWithIdMapping(let alignment, let idMapping):
+                if let view0 = v0 as? UIView {
+                    let identifier = idMapping[view0]
+                    newModifier.identifier = identifier
+                }
+
+                let aConstraint = modifiedAlignmentConstraint(alignment: alignment, forSource: v0, target: v1, modifier: newModifier)
+                didRecurse(updateModifier: &newModifier, with: aConstraint)
+
                 return aConstraint
                 
             case .alignmentWithPriority(let alignment, let priority):

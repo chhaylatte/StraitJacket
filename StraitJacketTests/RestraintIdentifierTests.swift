@@ -203,4 +203,74 @@ class RestraintIdentifierTests: XCTestCase {
             XCTAssert(constraint1 === restraint.constraintWithId(expectedId))
         }
     }
+
+    func testAlignmentWithIdMapping() {
+        let expectedTopId = "topId"
+        let expectedBottomId = "bottomId"
+        let expectedLeadingId = "leftId"
+        let expectedTrailingId = "rightId"
+
+        let view1 = UIView()
+        let view2 = UIView()
+
+        let topAlignment = Alignment.top.withIdMapping([view1: expectedTopId])
+        let bottomAlignment = Alignment.bottom.withIdMapping([view1: expectedBottomId])
+        let leadingAlignment = Alignment.leading.withIdMapping([view1: expectedLeadingId])
+        let trailingAlignment = Alignment.trailing.withIdMapping([view1: expectedTrailingId])
+
+        let checkSides: [Alignment] = [topAlignment, bottomAlignment, leadingAlignment, trailingAlignment]
+
+        func layoutAttributeFrom(alignment: Alignment) -> NSLayoutConstraint.Attribute {
+            if alignment.isTopAlignment {
+                return NSLayoutConstraint.Attribute.top
+            } else if alignment.isLeadingAlignment {
+                return NSLayoutConstraint.Attribute.leading
+            } else if alignment.isTrailingAlignment {
+                return NSLayoutConstraint.Attribute.trailing
+            } else if alignment.isBottomAlignment {
+                return NSLayoutConstraint.Attribute.bottom
+            } else {
+                return NSLayoutConstraint.Attribute.notAnAttribute
+            }
+        }
+
+        func expectedIdFrom(alignment: Alignment) -> String {
+            if alignment.isTopAlignment {
+                return expectedTopId
+            } else if alignment.isLeadingAlignment {
+                return expectedLeadingId
+            } else if alignment.isTrailingAlignment {
+                return expectedTrailingId
+            } else if alignment.isBottomAlignment{
+                return expectedBottomId
+            } else {
+                return "invalid identifier"
+            }
+        }
+
+        for side in checkSides {
+            let view = UIView()
+            let restraint = Restraint(view, items: [view1, view2])
+                .alignItems([view1, view2], to: [side])
+            restraint.activate()
+
+            print(side)
+            print(view.constraints.count)
+            print(view.constraints.map { $0.identifier })
+// TODO: figure out why views are reversed order
+
+            let constraint1 = view.constraints[0]
+
+            let expectedAttribute = layoutAttributeFrom(alignment: side)
+            let expectedId = expectedIdFrom(alignment: side)
+
+            XCTAssert(constraint1.constant == 0)
+            XCTAssert(constraint1.firstItem === view1)
+            XCTAssert(constraint1.secondItem === view)
+            XCTAssert(constraint1.firstAttribute == constraint1.secondAttribute)
+            XCTAssert(constraint1.firstAttribute == expectedAttribute, "Expected \(side) to connect \(expectedAttribute) anchor\n\(constraint1.firstAttribute) != \(expectedAttribute)")
+            XCTAssert(constraint1.identifier == expectedId, "ActualId: \(String(describing: constraint1.identifier)) !=  expectedId: \(expectedId)")
+            XCTAssert(constraint1 === restraint.constraintWithId(expectedId))
+        }
+    }
 }
