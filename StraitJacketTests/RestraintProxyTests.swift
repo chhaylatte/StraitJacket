@@ -32,22 +32,22 @@ class RestraintProxyTests: XCTestCase {
         XCTAssert(proxy.widthAnchor == view.widthAnchor)
     }
     
-    func testProxyTopToCenterAnchor() {
+    func testProxyTopIsCenterAnchor() {
         proxy.top(is: .centerY)
         XCTAssert(proxy.topAnchor == view.centerYAnchor)
     }
     
-    func testProxyBottomToCenterAnchor() {
+    func testProxyBottomIsCenterAnchor() {
         proxy.bottom(is: .centerY)
         XCTAssert(proxy.bottomAnchor == view.centerYAnchor)
     }
     
-    func testProxyLeadingToCenterAnchor() {
+    func testProxyLeadingIsCenterAnchor() {
         proxy.leading(is: .centerX)
         XCTAssert(proxy.leadingAnchor == view.centerXAnchor)
     }
     
-    func testProxyTrailingToCenterAnchor() {
+    func testProxyTrailingIsCenterAnchor() {
         proxy.trailing(is: .centerX)
         XCTAssert(proxy.trailingAnchor == view.centerXAnchor)
     }

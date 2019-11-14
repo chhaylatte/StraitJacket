@@ -13,6 +13,8 @@ public class RestraintProxy: RestraintTargetable {
         case top
         case centerY
         case bottom
+        case firstBaseline
+        case lastBaseline
     }
     
     public enum XAnchor {
@@ -66,6 +68,10 @@ public class RestraintProxy: RestraintTargetable {
             return proxiedView.centerYAnchor
         case .bottom:
             return proxiedView.bottomAnchor
+        case .firstBaseline:
+            return proxiedView.firstBaselineAnchor
+        case .lastBaseline:
+            return proxiedView.lastBaselineAnchor
         }
     }
     
