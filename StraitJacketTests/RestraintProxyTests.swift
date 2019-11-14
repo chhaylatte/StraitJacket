@@ -51,4 +51,9 @@ class RestraintProxyTests: XCTestCase {
         proxy.trailing(is: .centerX)
         XCTAssert(proxy.trailingAnchor == view.centerXAnchor)
     }
+    
+    func testProxyConnectsView() {
+        let restraintProxy = view.proxy
+        XCTAssert(restraintProxy.proxiedView == view)
+    }
 }

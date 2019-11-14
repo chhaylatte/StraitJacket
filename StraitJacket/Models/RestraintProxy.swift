@@ -21,7 +21,7 @@ public class RestraintProxy: RestraintTargetable {
         case trailing
     }
     
-    private let proxiedView: UIView
+    internal let proxiedView: UIView
     
     // MARK: - RestraintTargetable
     
