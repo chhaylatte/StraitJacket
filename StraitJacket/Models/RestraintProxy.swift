@@ -37,7 +37,7 @@ public class RestraintProxy: RestraintTargetable {
     public var widthAnchor: NSLayoutDimension
     
     public func addToRootView(_ view: UIView) {
-        view.addSubview(proxiedView)
+        proxiedView.addToRootView(view)
     }
     
     // MARK: - Initialization
