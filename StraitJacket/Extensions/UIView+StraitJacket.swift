@@ -23,4 +23,9 @@ public extension UIView {
             $0.addToRootView(self)
         }
     }
+    
+    /// Returns a `RestraintProxy` for replacing anchors in place.  The `RestraintProxy` can be used in place of a view in `Restraint` methods.
+    var proxy: RestraintProxy {
+        return RestraintProxy(view: self)
+    }
 }
