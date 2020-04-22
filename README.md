@@ -23,7 +23,7 @@ Prerequisites:
 - Much faster to write and less error prone than anchor based code and similar libraries
 - Much higher skimmability and code density
 - Built on top of auto layout
-- Manage constraints
+- Manage constraints by groups
 
 ## How it works
 ### It's just swift code
@@ -42,7 +42,7 @@ Constraints are not active upon creation. Don't forget to activate the `Restrain
 aRestraint.activate()
 ```
 
-Constraints can be created with their respective `withId:` methods and priorities can also be added to individual constraints using the respective `withPriority:` methods.  Constraints can be referred to by id.
+Constraints can be referred to when created with their respective `withId:` methods.  Constraint priorities can be added to individual constraints using the respective `withPriority:` methods.
 
 ```swift
 let spaceConstraint = aRestraint.constraintWithId("space")
@@ -60,10 +60,10 @@ restraint1.activate()
 // activating restraint1 also activates restraint1A and restraint1B
 ```
 ### It can use any NSLayoutConstraint
-Any constraint that is referenced can be added to a Restraint.
+Any constraint can be added to a Restraint.
 ```swift
 let aConstraint: NSLayoutConstraint = // some constraint
-aRestraint.addConstraints([aConstraint])
+aRestraint.addConstraints([aConstraint])    // Constraints can also be created inline within the array with standard Apple API
 ```
 
 ## Documentation
