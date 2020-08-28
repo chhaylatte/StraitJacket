@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public enum ViewAlignment {
     case view(RestraintTargetable, Set<Alignment>)
