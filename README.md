@@ -3,6 +3,10 @@ StraitJacket is an object oriented autolayout solution designed for efficient de
 
 ## Installation
 
+### Swift Package Manager
+- In Xcode, go to File > Swift Packages > Add Package Dependency, enter `https://github.com/chhaylatte/StraitJacket`
+
+### Carthage
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Prerequisites:
