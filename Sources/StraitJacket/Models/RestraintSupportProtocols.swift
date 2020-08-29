@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// A type used by `Restraint`
 public protocol Restrainable {}

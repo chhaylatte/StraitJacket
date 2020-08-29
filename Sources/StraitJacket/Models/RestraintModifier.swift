@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Model for constraint properties.  Modeled after the properties of `UILayoutConstraint`.
 public struct RestraintModifier: Restrainable, CustomStringConvertible {

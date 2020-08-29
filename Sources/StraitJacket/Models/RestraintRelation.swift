@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Model for a relational modifier for building a constraint between two `RestraintTargetable`.
 public struct RestraintRelation {

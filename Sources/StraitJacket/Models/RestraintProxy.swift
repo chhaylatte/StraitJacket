@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class RestraintProxy: RestraintTargetable {
     public enum YAnchor {

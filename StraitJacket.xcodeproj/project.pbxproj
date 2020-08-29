@@ -3,201 +3,217 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		311807FD20F56A53003F4B14 /* RestraintIdentifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311807FC20F56A53003F4B14 /* RestraintIdentifierTests.swift */; };
-		3132F1D6211BB1770084DC7D /* RestraintPriorityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3132F1D5211BB1770084DC7D /* RestraintPriorityTest.swift */; };
-		3134C92A203642C70077F5BE /* RestraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C929203642C70077F5BE /* RestraintRelation.swift */; };
-		3134C92C203642DF0077F5BE /* RestraintValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C92B203642DF0077F5BE /* RestraintValue.swift */; };
-		3134C92E203642F20077F5BE /* RestraintModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3134C92D203642F20077F5BE /* RestraintModifier.swift */; };
-		313F7BF721C351D400CDDC28 /* StraitJacketFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313F7BF621C351D400CDDC28 /* StraitJacketFunctionTests.swift */; };
-		313F7BF921C352FD00CDDC28 /* RestraintModifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313F7BF821C352FD00CDDC28 /* RestraintModifierTests.swift */; };
-		3140C35220B79E1D00CA772B /* RestraintSupportProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */; };
-		3140C35420B7AFDE00CA772B /* GuidedRestraintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3140C35320B7AFDE00CA772B /* GuidedRestraintTests.swift */; };
-		316549D5205A044B00ABAB81 /* CGFloat+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316549D4205A044B00ABAB81 /* CGFloat+StraitJacket.swift */; };
-		316549D9205A073400ABAB81 /* CGFloat+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316549D8205A073400ABAB81 /* CGFloat+ExtensionTests.swift */; };
-		316549DB205A098100ABAB81 /* UIView+StraitJacketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316549DA205A098100ABAB81 /* UIView+StraitJacketTests.swift */; };
-		316A840A202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */; };
-		3171EAE4211E42C000301A06 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171EAE3211E42C000301A06 /* Alignment.swift */; };
-		3174A47A21C3474200EAA881 /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174A47921C3474200EAA881 /* Space.swift */; };
-		31B7BE122100261E009B0252 /* RestraintInternalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B7BE112100261E009B0252 /* RestraintInternalExtensions.swift */; };
-		31DD610B2162FC6C00D36A1D /* RestraintTargetableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DD610A2162FC6C00D36A1D /* RestraintTargetableExtensions.swift */; };
-		CE2CDA15202943010034B763 /* RestraintTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */; };
-		CE53D414201FBB9400B99FDE /* StraitJacket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE53D40A201FBB9400B99FDE /* StraitJacket.framework */; };
-		CE53D41B201FBB9400B99FDE /* StraitJacket.h in Headers */ = {isa = PBXBuildFile; fileRef = CE53D40D201FBB9400B99FDE /* StraitJacket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CE53D427201FBBF100B99FDE /* Restraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53D426201FBBF100B99FDE /* Restraint.swift */; };
-		CE53D429201FBBF800B99FDE /* UIView+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53D428201FBBF800B99FDE /* UIView+StraitJacket.swift */; };
-		CE53D42C201FBC3A00B99FDE /* RestraintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53D42B201FBC3A00B99FDE /* RestraintTests.swift */; };
-		CE61A1F6237CF870004B3B19 /* RestraintProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61A1F5237CF870004B3B19 /* RestraintProxy.swift */; };
-		CE61A1F8237CFD04004B3B19 /* RestraintProxyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61A1F7237CFD04004B3B19 /* RestraintProxyTests.swift */; };
+		OBJ_53 /* CGFloat+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* CGFloat+StraitJacket.swift */; };
+		OBJ_54 /* UIView+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* UIView+StraitJacket.swift */; };
+		OBJ_55 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* Alignment.swift */; };
+		OBJ_56 /* Restraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Restraint.swift */; };
+		OBJ_57 /* RestraintInternalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* RestraintInternalExtensions.swift */; };
+		OBJ_58 /* RestraintModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* RestraintModifier.swift */; };
+		OBJ_59 /* RestraintProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* RestraintProxy.swift */; };
+		OBJ_60 /* RestraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* RestraintRelation.swift */; };
+		OBJ_61 /* RestraintSupportProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* RestraintSupportProtocols.swift */; };
+		OBJ_62 /* RestraintTargetableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* RestraintTargetableExtensions.swift */; };
+		OBJ_63 /* RestraintValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* RestraintValue.swift */; };
+		OBJ_64 /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Space.swift */; };
+		OBJ_65 /* RestraintTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* RestraintTypeAliases.swift */; };
+		OBJ_83 /* CGFloat+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* CGFloat+ExtensionTests.swift */; };
+		OBJ_84 /* CustomDebugStringConvertible+StraitJacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* CustomDebugStringConvertible+StraitJacket.swift */; };
+		OBJ_85 /* GuidedRestraintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* GuidedRestraintTests.swift */; };
+		OBJ_86 /* RestraintIdentifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* RestraintIdentifierTests.swift */; };
+		OBJ_87 /* RestraintModifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* RestraintModifierTests.swift */; };
+		OBJ_88 /* RestraintPriorityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* RestraintPriorityTest.swift */; };
+		OBJ_89 /* RestraintProxyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* RestraintProxyTests.swift */; };
+		OBJ_90 /* RestraintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* RestraintTests.swift */; };
+		OBJ_91 /* StraitJacketFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* StraitJacketFunctionTests.swift */; };
+		OBJ_92 /* UIView+StraitJacketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* UIView+StraitJacketTests.swift */; };
+		OBJ_94 /* StraitJacket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "StraitJacket::StraitJacket::Product" /* StraitJacket.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CE53D415201FBB9400B99FDE /* PBXContainerItemProxy */ = {
+		D2FFF96324F9C892008F55F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CE53D401201FBB9400B99FDE /* Project object */;
+			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE53D409201FBB9400B99FDE;
+			remoteGlobalIDString = "StraitJacket::StraitJacket";
 			remoteInfo = StraitJacket;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		311807FC20F56A53003F4B14 /* RestraintIdentifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintIdentifierTests.swift; sourceTree = "<group>"; };
-		3132F1D5211BB1770084DC7D /* RestraintPriorityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintPriorityTest.swift; sourceTree = "<group>"; };
-		3134C929203642C70077F5BE /* RestraintRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintRelation.swift; sourceTree = "<group>"; };
-		3134C92B203642DF0077F5BE /* RestraintValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintValue.swift; sourceTree = "<group>"; };
-		3134C92D203642F20077F5BE /* RestraintModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintModifier.swift; sourceTree = "<group>"; };
-		313F7BF621C351D400CDDC28 /* StraitJacketFunctionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StraitJacketFunctionTests.swift; sourceTree = "<group>"; };
-		313F7BF821C352FD00CDDC28 /* RestraintModifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintModifierTests.swift; sourceTree = "<group>"; };
-		3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintSupportProtocols.swift; sourceTree = "<group>"; };
-		3140C35320B7AFDE00CA772B /* GuidedRestraintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedRestraintTests.swift; sourceTree = "<group>"; };
-		316549D4205A044B00ABAB81 /* CGFloat+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+StraitJacket.swift"; sourceTree = "<group>"; };
-		316549D8205A073400ABAB81 /* CGFloat+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+ExtensionTests.swift"; sourceTree = "<group>"; };
-		316549DA205A098100ABAB81 /* UIView+StraitJacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+StraitJacketTests.swift"; sourceTree = "<group>"; };
-		316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDebugStringConvertible+StraitJacket.swift"; sourceTree = "<group>"; };
-		3171EAE3211E42C000301A06 /* Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alignment.swift; sourceTree = "<group>"; };
-		3174A47921C3474200EAA881 /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
-		31B7BE112100261E009B0252 /* RestraintInternalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintInternalExtensions.swift; sourceTree = "<group>"; };
-		31DD610A2162FC6C00D36A1D /* RestraintTargetableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTargetableExtensions.swift; sourceTree = "<group>"; };
-		CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTypeAliases.swift; sourceTree = "<group>"; };
-		CE53D40A201FBB9400B99FDE /* StraitJacket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StraitJacket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE53D40D201FBB9400B99FDE /* StraitJacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StraitJacket.h; sourceTree = "<group>"; };
-		CE53D40E201FBB9400B99FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE53D413201FBB9400B99FDE /* StraitJacketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StraitJacketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE53D41A201FBB9400B99FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE53D426201FBBF100B99FDE /* Restraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restraint.swift; sourceTree = "<group>"; };
-		CE53D428201FBBF800B99FDE /* UIView+StraitJacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+StraitJacket.swift"; sourceTree = "<group>"; };
-		CE53D42B201FBC3A00B99FDE /* RestraintTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestraintTests.swift; sourceTree = "<group>"; };
-		CE61A1F5237CF870004B3B19 /* RestraintProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintProxy.swift; sourceTree = "<group>"; };
-		CE61A1F7237CFD04004B3B19 /* RestraintProxyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintProxyTests.swift; sourceTree = "<group>"; };
+		OBJ_10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		OBJ_12 /* CGFloat+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+StraitJacket.swift"; sourceTree = "<group>"; };
+		OBJ_13 /* UIView+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+StraitJacket.swift"; sourceTree = "<group>"; };
+		OBJ_15 /* Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alignment.swift; sourceTree = "<group>"; };
+		OBJ_16 /* Restraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restraint.swift; sourceTree = "<group>"; };
+		OBJ_17 /* RestraintInternalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintInternalExtensions.swift; sourceTree = "<group>"; };
+		OBJ_18 /* RestraintModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintModifier.swift; sourceTree = "<group>"; };
+		OBJ_19 /* RestraintProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintProxy.swift; sourceTree = "<group>"; };
+		OBJ_20 /* RestraintRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintRelation.swift; sourceTree = "<group>"; };
+		OBJ_21 /* RestraintSupportProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintSupportProtocols.swift; sourceTree = "<group>"; };
+		OBJ_22 /* RestraintTargetableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTargetableExtensions.swift; sourceTree = "<group>"; };
+		OBJ_23 /* RestraintValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintValue.swift; sourceTree = "<group>"; };
+		OBJ_24 /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
+		OBJ_25 /* RestraintTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTypeAliases.swift; sourceTree = "<group>"; };
+		OBJ_28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		OBJ_29 /* CGFloat+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+ExtensionTests.swift"; sourceTree = "<group>"; };
+		OBJ_31 /* CustomDebugStringConvertible+StraitJacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDebugStringConvertible+StraitJacket.swift"; sourceTree = "<group>"; };
+		OBJ_32 /* GuidedRestraintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedRestraintTests.swift; sourceTree = "<group>"; };
+		OBJ_33 /* RestraintIdentifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintIdentifierTests.swift; sourceTree = "<group>"; };
+		OBJ_34 /* RestraintModifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintModifierTests.swift; sourceTree = "<group>"; };
+		OBJ_35 /* RestraintPriorityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintPriorityTest.swift; sourceTree = "<group>"; };
+		OBJ_36 /* RestraintProxyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintProxyTests.swift; sourceTree = "<group>"; };
+		OBJ_37 /* RestraintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestraintTests.swift; sourceTree = "<group>"; };
+		OBJ_38 /* StraitJacketFunctionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StraitJacketFunctionTests.swift; sourceTree = "<group>"; };
+		OBJ_39 /* UIView+StraitJacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+StraitJacketTests.swift"; sourceTree = "<group>"; };
+		OBJ_43 /* Documentation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Documentation; sourceTree = SOURCE_ROOT; };
+		OBJ_44 /* Playgrounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Playgrounds; sourceTree = SOURCE_ROOT; };
+		OBJ_45 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		OBJ_46 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		OBJ_47 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example.png; sourceTree = "<group>"; };
+		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		OBJ_9 /* StraitJacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StraitJacket.h; sourceTree = "<group>"; };
+		"StraitJacket::StraitJacket::Product" /* StraitJacket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StraitJacket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"StraitJacket::StraitJacketTests::Product" /* StraitJacketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = StraitJacketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CE53D406201FBB9400B99FDE /* Frameworks */ = {
+		OBJ_66 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 0;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE53D410201FBB9400B99FDE /* Frameworks */ = {
+		OBJ_93 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 0;
 			files = (
-				CE53D414201FBB9400B99FDE /* StraitJacket.framework in Frameworks */,
+				OBJ_94 /* StraitJacket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3134C928203642AB0077F5BE /* Models */ = {
+		OBJ_11 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3171EAE3211E42C000301A06 /* Alignment.swift */,
-				3140C35120B79E1D00CA772B /* RestraintSupportProtocols.swift */,
-				31DD610A2162FC6C00D36A1D /* RestraintTargetableExtensions.swift */,
-				CE53D426201FBBF100B99FDE /* Restraint.swift */,
-				31B7BE112100261E009B0252 /* RestraintInternalExtensions.swift */,
-				3134C92D203642F20077F5BE /* RestraintModifier.swift */,
-				CE61A1F5237CF870004B3B19 /* RestraintProxy.swift */,
-				3134C929203642C70077F5BE /* RestraintRelation.swift */,
-				3134C92B203642DF0077F5BE /* RestraintValue.swift */,
-				3174A47921C3474200EAA881 /* Space.swift */,
+				OBJ_12 /* CGFloat+StraitJacket.swift */,
+				OBJ_13 /* UIView+StraitJacket.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		OBJ_14 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_15 /* Alignment.swift */,
+				OBJ_16 /* Restraint.swift */,
+				OBJ_17 /* RestraintInternalExtensions.swift */,
+				OBJ_18 /* RestraintModifier.swift */,
+				OBJ_19 /* RestraintProxy.swift */,
+				OBJ_20 /* RestraintRelation.swift */,
+				OBJ_21 /* RestraintSupportProtocols.swift */,
+				OBJ_22 /* RestraintTargetableExtensions.swift */,
+				OBJ_23 /* RestraintValue.swift */,
+				OBJ_24 /* Space.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		316A840B202BBB4300030398 /* Extensions */ = {
+		OBJ_26 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				316A8409202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift */,
+				OBJ_27 /* StraitJacketTests */,
+			);
+			name = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_27 /* StraitJacketTests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_28 /* Info.plist */,
+				OBJ_29 /* CGFloat+ExtensionTests.swift */,
+				OBJ_30 /* Extensions */,
+				OBJ_32 /* GuidedRestraintTests.swift */,
+				OBJ_33 /* RestraintIdentifierTests.swift */,
+				OBJ_34 /* RestraintModifierTests.swift */,
+				OBJ_35 /* RestraintPriorityTest.swift */,
+				OBJ_36 /* RestraintProxyTests.swift */,
+				OBJ_37 /* RestraintTests.swift */,
+				OBJ_38 /* StraitJacketFunctionTests.swift */,
+				OBJ_39 /* UIView+StraitJacketTests.swift */,
+			);
+			name = StraitJacketTests;
+			path = Tests/StraitJacketTests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_30 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_31 /* CustomDebugStringConvertible+StraitJacket.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		CE53D400201FBB9400B99FDE = {
+		OBJ_40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE53D40C201FBB9400B99FDE /* StraitJacket */,
-				CE53D417201FBB9400B99FDE /* StraitJacketTests */,
-				CE53D40B201FBB9400B99FDE /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		CE53D40B201FBB9400B99FDE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CE53D40A201FBB9400B99FDE /* StraitJacket.framework */,
-				CE53D413201FBB9400B99FDE /* StraitJacketTests.xctest */,
+				"StraitJacket::StraitJacketTests::Product" /* StraitJacketTests.xctest */,
+				"StraitJacket::StraitJacket::Product" /* StraitJacket.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CE53D40C201FBB9400B99FDE /* StraitJacket */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
-				CE53D40D201FBB9400B99FDE /* StraitJacket.h */,
-				CE2CDA14202943010034B763 /* RestraintTypeAliases.swift */,
-				CE53D42A201FBC1000B99FDE /* Extensions */,
-				3134C928203642AB0077F5BE /* Models */,
-				CE53D40E201FBB9400B99FDE /* Info.plist */,
+				OBJ_6 /* Package.swift */,
+				OBJ_7 /* Sources */,
+				OBJ_26 /* Tests */,
+				OBJ_40 /* Products */,
+				OBJ_43 /* Documentation */,
+				OBJ_44 /* Playgrounds */,
+				OBJ_45 /* LICENSE */,
+				OBJ_46 /* README.md */,
+				OBJ_47 /* example.png */,
 			);
-			path = StraitJacket;
 			sourceTree = "<group>";
 		};
-		CE53D417201FBB9400B99FDE /* StraitJacketTests */ = {
+		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				CE53D42B201FBC3A00B99FDE /* RestraintTests.swift */,
-				311807FC20F56A53003F4B14 /* RestraintIdentifierTests.swift */,
-				313F7BF821C352FD00CDDC28 /* RestraintModifierTests.swift */,
-				313F7BF621C351D400CDDC28 /* StraitJacketFunctionTests.swift */,
-				3140C35320B7AFDE00CA772B /* GuidedRestraintTests.swift */,
-				3132F1D5211BB1770084DC7D /* RestraintPriorityTest.swift */,
-				CE61A1F7237CFD04004B3B19 /* RestraintProxyTests.swift */,
-				316549D8205A073400ABAB81 /* CGFloat+ExtensionTests.swift */,
-				316549DA205A098100ABAB81 /* UIView+StraitJacketTests.swift */,
-				316A840B202BBB4300030398 /* Extensions */,
-				CE53D41A201FBB9400B99FDE /* Info.plist */,
+				OBJ_8 /* StraitJacket */,
 			);
-			path = StraitJacketTests;
-			sourceTree = "<group>";
+			name = Sources;
+			sourceTree = SOURCE_ROOT;
 		};
-		CE53D42A201FBC1000B99FDE /* Extensions */ = {
+		OBJ_8 /* StraitJacket */ = {
 			isa = PBXGroup;
 			children = (
-				CE53D428201FBBF800B99FDE /* UIView+StraitJacket.swift */,
-				316549D4205A044B00ABAB81 /* CGFloat+StraitJacket.swift */,
+				OBJ_9 /* StraitJacket.h */,
+				OBJ_10 /* Info.plist */,
+				OBJ_11 /* Extensions */,
+				OBJ_14 /* Models */,
+				OBJ_25 /* RestraintTypeAliases.swift */,
 			);
-			path = Extensions;
-			sourceTree = "<group>";
+			name = StraitJacket;
+			path = Sources/StraitJacket;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		CE53D407201FBB9400B99FDE /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CE53D41B201FBB9400B99FDE /* StraitJacket.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		CE53D409201FBB9400B99FDE /* StraitJacket */ = {
+		"StraitJacket::StraitJacket" /* StraitJacket */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE53D41E201FBB9400B99FDE /* Build configuration list for PBXNativeTarget "StraitJacket" */;
+			buildConfigurationList = OBJ_49 /* Build configuration list for PBXNativeTarget "StraitJacket" */;
 			buildPhases = (
-				CE53D405201FBB9400B99FDE /* Sources */,
-				CE53D406201FBB9400B99FDE /* Frameworks */,
-				CE53D407201FBB9400B99FDE /* Headers */,
-				CE53D408201FBB9400B99FDE /* Resources */,
+				OBJ_52 /* Sources */,
+				OBJ_66 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -205,353 +221,289 @@
 			);
 			name = StraitJacket;
 			productName = StraitJacket;
-			productReference = CE53D40A201FBB9400B99FDE /* StraitJacket.framework */;
+			productReference = "StraitJacket::StraitJacket::Product" /* StraitJacket.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		CE53D412201FBB9400B99FDE /* StraitJacketTests */ = {
+		"StraitJacket::StraitJacketTests" /* StraitJacketTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE53D421201FBB9400B99FDE /* Build configuration list for PBXNativeTarget "StraitJacketTests" */;
+			buildConfigurationList = OBJ_79 /* Build configuration list for PBXNativeTarget "StraitJacketTests" */;
 			buildPhases = (
-				CE53D40F201FBB9400B99FDE /* Sources */,
-				CE53D410201FBB9400B99FDE /* Frameworks */,
-				CE53D411201FBB9400B99FDE /* Resources */,
+				OBJ_82 /* Sources */,
+				OBJ_93 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CE53D416201FBB9400B99FDE /* PBXTargetDependency */,
+				OBJ_95 /* PBXTargetDependency */,
 			);
 			name = StraitJacketTests;
 			productName = StraitJacketTests;
-			productReference = CE53D413201FBB9400B99FDE /* StraitJacketTests.xctest */;
+			productReference = "StraitJacket::StraitJacketTests::Product" /* StraitJacketTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		CE53D401201FBB9400B99FDE /* Project object */ = {
+		OBJ_1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0930;
-				ORGANIZATIONNAME = "Danny Chhay";
-				TargetAttributes = {
-					CE53D409201FBB9400B99FDE = {
-						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-					};
-					CE53D412201FBB9400B99FDE = {
-						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-					};
-				};
+				LastSwiftMigration = 9999;
+				LastUpgradeCheck = 9999;
 			};
-			buildConfigurationList = CE53D404201FBB9400B99FDE /* Build configuration list for PBXProject "StraitJacket" */;
-			compatibilityVersion = "Xcode 8.0";
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "StraitJacket" */;
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
-			mainGroup = CE53D400201FBB9400B99FDE;
-			productRefGroup = CE53D40B201FBB9400B99FDE /* Products */;
+			mainGroup = OBJ_5;
+			productRefGroup = OBJ_40 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CE53D409201FBB9400B99FDE /* StraitJacket */,
-				CE53D412201FBB9400B99FDE /* StraitJacketTests */,
+				"StraitJacket::StraitJacket" /* StraitJacket */,
+				"StraitJacket::StraitJacketTests" /* StraitJacketTests */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		CE53D408201FBB9400B99FDE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CE53D411201FBB9400B99FDE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		CE53D405201FBB9400B99FDE /* Sources */ = {
+		OBJ_52 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 0;
 			files = (
-				3174A47A21C3474200EAA881 /* Space.swift in Sources */,
-				3134C92A203642C70077F5BE /* RestraintRelation.swift in Sources */,
-				3171EAE4211E42C000301A06 /* Alignment.swift in Sources */,
-				CE53D427201FBBF100B99FDE /* Restraint.swift in Sources */,
-				CE2CDA15202943010034B763 /* RestraintTypeAliases.swift in Sources */,
-				31B7BE122100261E009B0252 /* RestraintInternalExtensions.swift in Sources */,
-				3134C92E203642F20077F5BE /* RestraintModifier.swift in Sources */,
-				316549D5205A044B00ABAB81 /* CGFloat+StraitJacket.swift in Sources */,
-				3134C92C203642DF0077F5BE /* RestraintValue.swift in Sources */,
-				CE61A1F6237CF870004B3B19 /* RestraintProxy.swift in Sources */,
-				3140C35220B79E1D00CA772B /* RestraintSupportProtocols.swift in Sources */,
-				CE53D429201FBBF800B99FDE /* UIView+StraitJacket.swift in Sources */,
-				31DD610B2162FC6C00D36A1D /* RestraintTargetableExtensions.swift in Sources */,
+				OBJ_53 /* CGFloat+StraitJacket.swift in Sources */,
+				OBJ_54 /* UIView+StraitJacket.swift in Sources */,
+				OBJ_55 /* Alignment.swift in Sources */,
+				OBJ_56 /* Restraint.swift in Sources */,
+				OBJ_57 /* RestraintInternalExtensions.swift in Sources */,
+				OBJ_58 /* RestraintModifier.swift in Sources */,
+				OBJ_59 /* RestraintProxy.swift in Sources */,
+				OBJ_60 /* RestraintRelation.swift in Sources */,
+				OBJ_61 /* RestraintSupportProtocols.swift in Sources */,
+				OBJ_62 /* RestraintTargetableExtensions.swift in Sources */,
+				OBJ_63 /* RestraintValue.swift in Sources */,
+				OBJ_64 /* Space.swift in Sources */,
+				OBJ_65 /* RestraintTypeAliases.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE53D40F201FBB9400B99FDE /* Sources */ = {
+		OBJ_82 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 0;
 			files = (
-				316A840A202BBAC800030398 /* CustomDebugStringConvertible+StraitJacket.swift in Sources */,
-				CE61A1F8237CFD04004B3B19 /* RestraintProxyTests.swift in Sources */,
-				311807FD20F56A53003F4B14 /* RestraintIdentifierTests.swift in Sources */,
-				316549DB205A098100ABAB81 /* UIView+StraitJacketTests.swift in Sources */,
-				3140C35420B7AFDE00CA772B /* GuidedRestraintTests.swift in Sources */,
-				313F7BF921C352FD00CDDC28 /* RestraintModifierTests.swift in Sources */,
-				313F7BF721C351D400CDDC28 /* StraitJacketFunctionTests.swift in Sources */,
-				316549D9205A073400ABAB81 /* CGFloat+ExtensionTests.swift in Sources */,
-				3132F1D6211BB1770084DC7D /* RestraintPriorityTest.swift in Sources */,
-				CE53D42C201FBC3A00B99FDE /* RestraintTests.swift in Sources */,
+				OBJ_83 /* CGFloat+ExtensionTests.swift in Sources */,
+				OBJ_84 /* CustomDebugStringConvertible+StraitJacket.swift in Sources */,
+				OBJ_85 /* GuidedRestraintTests.swift in Sources */,
+				OBJ_86 /* RestraintIdentifierTests.swift in Sources */,
+				OBJ_87 /* RestraintModifierTests.swift in Sources */,
+				OBJ_88 /* RestraintPriorityTest.swift in Sources */,
+				OBJ_89 /* RestraintProxyTests.swift in Sources */,
+				OBJ_90 /* RestraintTests.swift in Sources */,
+				OBJ_91 /* StraitJacketFunctionTests.swift in Sources */,
+				OBJ_92 /* UIView+StraitJacketTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CE53D416201FBB9400B99FDE /* PBXTargetDependency */ = {
+		OBJ_95 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CE53D409201FBB9400B99FDE /* StraitJacket */;
-			targetProxy = CE53D415201FBB9400B99FDE /* PBXContainerItemProxy */;
+			target = "StraitJacket::StraitJacket" /* StraitJacket */;
+			targetProxy = D2FFF96324F9C892008F55F1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		CE53D41C201FBB9400B99FDE /* Debug */ = {
+		OBJ_3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+					"DEBUG=1",
 				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE DEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
-		CE53D41D201FBB9400B99FDE /* Release */ = {
+		OBJ_4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};
-		CE53D41F201FBB9400B99FDE /* Debug */ = {
+		OBJ_50 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = StraitJacket/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dannychhay.StraitJacket;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = StraitJacket.xcodeproj/StraitJacket_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = StraitJacket;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGET_NAME = StraitJacket;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
-		CE53D420201FBB9400B99FDE /* Release */ = {
+		OBJ_51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = StraitJacket/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dannychhay.StraitJacket;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = StraitJacket.xcodeproj/StraitJacket_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = StraitJacket;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGET_NAME = StraitJacket;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
-		CE53D422201FBB9400B99FDE /* Debug */ = {
+		OBJ_80 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = StraitJacketTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dannychhay.StraitJacketTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = StraitJacket.xcodeproj/StraitJacketTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGET_NAME = StraitJacketTests;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
-		CE53D423201FBB9400B99FDE /* Release */ = {
+		OBJ_81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = StraitJacketTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dannychhay.StraitJacketTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = StraitJacket.xcodeproj/StraitJacketTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGET_NAME = StraitJacketTests;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CE53D404201FBB9400B99FDE /* Build configuration list for PBXProject "StraitJacket" */ = {
+		OBJ_2 /* Build configuration list for PBXProject "StraitJacket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE53D41C201FBB9400B99FDE /* Debug */,
-				CE53D41D201FBB9400B99FDE /* Release */,
+				OBJ_3 /* Debug */,
+				OBJ_4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CE53D41E201FBB9400B99FDE /* Build configuration list for PBXNativeTarget "StraitJacket" */ = {
+		OBJ_49 /* Build configuration list for PBXNativeTarget "StraitJacket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE53D41F201FBB9400B99FDE /* Debug */,
-				CE53D420201FBB9400B99FDE /* Release */,
+				OBJ_50 /* Debug */,
+				OBJ_51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CE53D421201FBB9400B99FDE /* Build configuration list for PBXNativeTarget "StraitJacketTests" */ = {
+		OBJ_79 /* Build configuration list for PBXNativeTarget "StraitJacketTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE53D422201FBB9400B99FDE /* Debug */,
-				CE53D423201FBB9400B99FDE /* Release */,
+				OBJ_80 /* Debug */,
+				OBJ_81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = CE53D401201FBB9400B99FDE /* Project object */;
+	rootObject = OBJ_1 /* Project object */;
 }

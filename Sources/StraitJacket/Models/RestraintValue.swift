@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Model for a modifier for building a constraint for a single `RestraintTargetable`.
 public struct RestraintValue {
